@@ -3,12 +3,12 @@ import AddShares from './AddShares';
 import Table from './Table';
 import UserChart from './UserChart';
 
-const Home = ()=>{
+const Home = ({user})=>{
     return(
         <>
             <h1>Home</h1>
             <AddShares/>
-            <Table/>
+            <Table user={user}/>
             <UserChart/>
         </>
     )
