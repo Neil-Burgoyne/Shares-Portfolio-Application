@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-const createRouter = require('./routers/create_router.js')
-const stockRouter = require('./routers/stocks_router.js')
+const usersRouter = require('./routers/users_router.js')
+const stocksRouter = require('./routers/stocks_router.js')
 const cors = require('cors')
 
 const dotenv = require('dotenv').config();
@@ -17,10 +17,10 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
     const db = client.db('stockApp') // Add database name
     const userCollection = db.collection('userData')
     const stocksCollection = db.collection('stocksCache') // Add name
-    const userRouter = createRouter(userCollection) // Add name
-    const stocksRouter = stockRouter(stocksCollection);
+    const userRouter = usersRouter(userCollection) // Add name
+    const stockRouter = stocksRouter(stocksCollection);
     app.use('/api/userdata', userRouter) // Add name
-    app.use('/api/stockdata', stocksRouter) // Add name
+    app.use('/api/stockdata', stockRouter) // Add name
   })
   .catch(console.err)
 
