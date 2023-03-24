@@ -6,10 +6,10 @@ const express = require("express")
 const ObjectID = require("mongodb").ObjectID
 
 const stockRouter = function () {
-    const router = express.Router()
-
+    const router = express.Router();
+    const apiKey = process.env.API_KEY;
     router.get('/', (req, res) => {
-        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&outputsize=full&apikey=demo`;
+        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=AAPL&outputsize=full&apikey=${apiKey}`;
 
         fetch(url)  // NEW
             .then(jsonData => jsonData.json())
