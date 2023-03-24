@@ -93,3 +93,5 @@ const parseUserData = (rawData) => {
     parsedData.shareValues = parsedShares;
     return parsedData;
 }
+
+export default parseUserData;
