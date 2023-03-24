@@ -1,19 +1,16 @@
-const fetch = require('cross-fetch');
-const express = require("express")
 
+const express = require("express")
+const fetchStockGraphData = require('../repositories/stocks_repository')
 
 
 const ObjectID = require("mongodb").ObjectID
 
-const stockRouter = function () {
+const stockRouter = function (stocksCollection) {
     const router = express.Router();
-    const apiKey = process.env.API_KEY;
-    router.get('/', (req, res) => {
-        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=AAPL&outputsize=full&apikey=${apiKey}`;
 
-        fetch(url)  // NEW
-            .then(jsonData => jsonData.json())
-            .then(data => res.json(data));
+    router.get('/', async (req, res) => {
+        const data = await fetchStockGraphData(stocksCollection, "AAPL");
+        res.json(data);
     })
 
     // // Index Route
