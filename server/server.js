@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const createRouter = require('./helpers/create_router.js')
+const stockRouter = require('./helpers/stocks_router.js')
 const cors = require('cors')
 
 app.use(cors())
@@ -13,8 +14,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
     const db = client.db('stockApp') // Add database name
     const userCollection = db.collection('userData') // Add name
     const userRouter = createRouter(userCollection) // Add name
-
+    const stocksRouter = stockRouter();
     app.use('/api/userdata', userRouter) // Add name
+    app.use('/api/stockdata', stocksRouter) // Add name
   })
   .catch(console.err)
 
