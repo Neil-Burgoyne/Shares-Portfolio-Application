@@ -7,10 +7,10 @@ import AddShares from './AddShares';
 const View = ({ stockSymbol }) => {
     return (
         <>
-        <h1>View</h1>
-        <Search/>
-        <StockChart stockSymbol={"IBM"}/>
-        <AddShares/>
+            <h1>View</h1>
+            <Search />
+            <StockChart stockSymbol={"AAPL"} />
+            <AddShares />
         </>
     )
 };

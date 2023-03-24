@@ -1,5 +1,5 @@
 const express = require("express")
-const parseUserData = require("./data_utility")
+const parseUserData = require("../helpers/data_utility")
 
 const ObjectID = require("mongodb").ObjectID
 
