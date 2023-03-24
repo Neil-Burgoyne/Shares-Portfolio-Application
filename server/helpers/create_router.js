@@ -1,4 +1,6 @@
 const express = require("express")
+const parseUserData = require("./data_utility")
+
 const ObjectID = require("mongodb").ObjectID
 
 const createRouter = function (collection) {
@@ -18,11 +20,12 @@ const createRouter = function (collection) {
             })
     })
 
-    // Show Route
+    // Show Route /api/userdata/:id
     router.get('/:id', (req, res) => {
         const id = req.params.id
         collection
             .findOne({ _id: ObjectID(id) })
+            .then((docs) => parseUserData(docs))
             .then((docs) => res.json(docs))
             .catch((err) => {
                 console.error(err)
