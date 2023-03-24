@@ -1,4 +1,6 @@
 const express = require("express")
+const parseUserData = require("./data_utility")
+
 const ObjectID = require("mongodb").ObjectID
 
 const createRouter = function (collection) {
@@ -23,10 +25,7 @@ const createRouter = function (collection) {
         const id = req.params.id
         collection
             .findOne({ _id: ObjectID(id) })
-            .then((docs) => {
-                console.log("docs", docs);
-                return docs;
-            })
+            .then((docs) => parseUserData(docs))
             .then((docs) => res.json(docs))
             .catch((err) => {
                 console.error(err)

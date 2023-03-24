@@ -94,4 +94,4 @@ const parseUserData = (rawData) => {
     return parsedData;
 }
 
-export default parseUserData;
+module.exports = parseUserData;
