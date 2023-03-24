@@ -18,6 +18,7 @@
     "mongodb": "^3.5.7"
   },
   "devDependencies": {
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
   }
 }
