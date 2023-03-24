@@ -3,9 +3,8 @@ const parseUserData = require("../helpers/data_utility")
 
 const ObjectID = require("mongodb").ObjectID
 
-const createRouter = function (collection) {
+const usersRouter = function (collection) {
     const router = express.Router()
-
 
     // Index Route
     router.get('/', (req, res) => {
@@ -84,4 +83,4 @@ const createRouter = function (collection) {
 
 }
 
-module.exports = createRouter
+module.exports = usersRouter
