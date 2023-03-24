@@ -4,8 +4,9 @@ const fetchStockData = async (collection, stockSymbol) => {
     const apiKey = process.env.API_KEY;
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stockSymbol}&outputsize=compact&apikey=${apiKey}`;
     const result = await fetch(url)
-    const data = await result.json();
-    return await data;
+    const stockData = await result.json();
+    const parsedStockData = parseData(stockData);
+    return parsedStockData;
 }
 
 const parseData = (data) => {
@@ -27,10 +28,11 @@ const getStockData = async (stocksCache, stockSymbol) => {
     if (!cachedData || todaysDate() > cachedData.cached) {
         console.log("noCache")
         const stockData = await fetchStockData(stocksCache, stockSymbol);
-        const parsedStockData = parseData(stockData);
-        await stocksCache.insertOne(parsedStockData);
-        return await parsedStockData;
-    } else {
+
+        await stocksCache.insertOne(stockData);
+        return await stockData;
+    }
+    else {
         console.log("cache")
         return cachedData;
     }
