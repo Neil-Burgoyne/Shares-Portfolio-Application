@@ -1,6 +1,6 @@
 
 const express = require("express")
-const fetchStockGraphData = require('../repositories/stocks_repository')
+const getStockData = require('../repositories/stocks_repository')
 
 
 const ObjectID = require("mongodb").ObjectID
@@ -9,7 +9,7 @@ const stockRouter = function (stocksCollection) {
     const router = express.Router();
 
     router.get('/', async (req, res) => {
-        const data = await fetchStockGraphData(stocksCollection, "AAPL");
+        const data = await getStockData(stocksCollection, "AAPL");
         res.json(data);
     })
 
