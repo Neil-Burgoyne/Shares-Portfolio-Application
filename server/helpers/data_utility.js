@@ -40,6 +40,15 @@ const dummyData = {
     ]
 }
 
+const getUniqueStockSymbols = (data) => {
+    return data.shareTransactions.reduce((uniqueSymbols, element) => {
+        if (!uniqueSymbols.includes(element.stockSymbol)) {
+            uniqueSymbols.push(element.stockSymbol)
+        }
+        return uniqueSymbols;
+    }, []
+    )
+}
 const getNumSharesSymbol = (data, stockSymbol) => {
     return num = data.shareTransactions.reduce((total, trans) => {
         if (trans.stockSymbol === stockSymbol) {
@@ -69,5 +78,18 @@ const getAveragePriceSymbol = (data, stockSymbol) => {
     else return numAndCost.cost / numAndCost.num
 }
 
-console.log(getNumSharesSymbol(dummyData, "IBM"))
-console.log(getAveragePriceSymbol(dummyData, "AAPL"))
+const parseUserData = (rawData) => {
+    const parsedData = {};
+    parsedData.name = rawData.name;
+    const stockSymbols = getUniqueStockSymbols(rawData);
+    console.log(stockSymbols)
+    const parsedShares = stockSymbols.map((symbol) => {
+        const newShareValue = { name: symbol }
+        newShareValue.numShares = getNumSharesSymbol(rawData, symbol)
+        newShareValue.averagePricePaid = getAveragePriceSymbol(rawData, symbol)
+        newShareValue.currentMarketValue = 100
+        return newShareValue;
+    })
+    parsedData.shareValues = parsedShares;
+    return parsedData;
+}

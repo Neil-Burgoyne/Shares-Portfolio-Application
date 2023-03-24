@@ -10,16 +10,14 @@ app.use(express.json())
 MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
   .then((client) => {
 
-    // const db = client.db('') // Add database name
+    const db = client.db('stockApp') // Add database name
+    const userCollection = db.collection('userData') // Add name
+    const userRouter = createRouter(userCollection) // Add name
 
-    // const ""Collection = db.collection('') // Add name
-
-    // const ""Router = createRouter(""Collection) // Add name
-
-    // app.use('/api/', ""Router) // Add name
+    app.use('/api/userdata', userRouter) // Add name
   })
   .catch(console.err)
 
 app.listen(9000, function () {
-  console.log(`Listening on port ${ this.address().port }`)
+  console.log(`Listening on port ${this.address().port}`)
 })
