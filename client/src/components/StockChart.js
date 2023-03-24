@@ -65,33 +65,25 @@ const StockChart = ({ stockSymbol }) => {
 
 
     useEffect(() => {
-        const updateSeries = (parsedData) => {
+        const updateSeries = (data) => {
+            console.log(data)
             const newChartOptions = { ...chartOptions }
-            newChartOptions.series[0].data = parsedData;
+            newChartOptions.series[0].data = data.graphData;
             newChartOptions.series[0].title = stockSymbol;
             newChartOptions.yAxis[0].title.text = stockSymbol;
             setChartOptions(newChartOptions);
         }
 
-        const parseData = (data) => {
-            const rawSeriesData = data["Time Series (Daily)"]
-            const parsed = Object.keys(rawSeriesData).map((key) => {
-                const date = new Date(key).getTime();
-                const item = rawSeriesData[key];
-                return [date, Number(item["1. open"]), Number(item["2. high"]), Number(item["3. low"]), Number(item["4. close"])];
-            }).reverse()
-            return parsed;
-        }
-
         const getData = async () => {
-            const res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stockSymbol}&outputsize=full&apikey=demo`);
+            const res = await fetch(`http://localhost:9000/api/stockData/${stockSymbol}`);
             const data = await res.json();
-            const parsedData = parseData(data);
-            updateSeries(parsedData);
+            console.log("getData", data);
+            updateSeries(data);
         }
         console.log("stockSymbol")
         getData();
     }, [stockSymbol]);
+
     return (
         <div>
             <HighchartsReact

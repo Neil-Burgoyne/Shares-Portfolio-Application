@@ -19,7 +19,7 @@ const parseData = (data) => {
         return [date, Number(item["1. open"]), Number(item["2. high"]), Number(item["3. low"]), Number(item["4. close"])];
     }).reverse();
     stockObject.closingValue = parsedSeriesData[0][4];
-    stockObject.graphData = [parsedSeriesData];
+    stockObject.graphData = parsedSeriesData;
     return stockObject;
 }
 
