@@ -9,7 +9,7 @@ const View = ({ stockSymbol }) => {
         <>
         <h1>View</h1>
         <Search/>
-        {/* <StockChart stockSymbol={stockSymbol}/> */}
+        <StockChart stockSymbol={"IBM"}/>
         <AddShares/>
         </>
     )
