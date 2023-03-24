@@ -25,11 +25,15 @@ const parseData = (data) => {
 
 const getStockData = async (stocksCache, stockSymbol) => {
     const cachedData = await stocksCache.findOne({ symbol: stockSymbol })
-    if (!cachedData || todaysDate() > cachedData.cached) {
+    if (!cachedData) {
         console.log("noCache")
         const stockData = await fetchStockData(stocksCache, stockSymbol);
-
         await stocksCache.insertOne(stockData);
+        return await stockData;
+    } else if (todaysDate() > cachedData.cached) {
+        console.log("updateCache")
+        const stockData = await fetchStockData(stocksCache, stockSymbol);
+        await stocksCache.replaceOne({ symbol: stockSymbol }, stockData);
         return await stockData;
     }
     else {
