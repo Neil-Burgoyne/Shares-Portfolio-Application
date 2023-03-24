@@ -4,6 +4,9 @@ const MongoClient = require('mongodb').MongoClient
 const createRouter = require('./helpers/create_router.js')
 const cors = require('cors')
 
+const dotenv = require('dotenv');
+dotenv.load();
+
 app.use(cors())
 app.use(express.json())
 
@@ -21,3 +24,12 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
 app.listen(9000, function () {
   console.log(`Listening on port ${this.address().port}`)
 })
+
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`Server listening on port ${ port }`);
+});
+
+const databaseURL = process.env.DATABASE_URL;
+MongoClient.connect(databaseURL)
+  .then(/* ... */);
