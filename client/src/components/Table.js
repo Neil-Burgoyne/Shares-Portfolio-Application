@@ -1,11 +1,11 @@
 import React from 'react'
 import TableRow from './TableRow';
 
-const Table = ({user}) => {
+const Table = ({user, sellShares}) => {
     
     const row = user.shareValues.map((singleStock, i)=>{
         return (
-            <TableRow key={i} singleStock={singleStock}/>
+            <TableRow sellShares={sellShares} key={i} singleStock={singleStock}/>
         )
     });
     
@@ -21,7 +21,7 @@ const Table = ({user}) => {
                     <th>Current Value</th>
                     <th>View</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Sell</th>
                 </tr>
                 {row}
             </tbody>
