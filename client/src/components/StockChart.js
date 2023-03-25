@@ -75,7 +75,7 @@ const StockChart = ({ stockSymbol }) => {
         }
 
         const getData = async () => {
-            const res = await fetch(`http://localhost:9000/api/stockData/${stockSymbol}`);
+            const res = await fetch(`http://localhost:9000/api/stockData/stock/${stockSymbol}`);
             const data = await res.json();
             console.log("getData", data);
             updateSeries(data);
