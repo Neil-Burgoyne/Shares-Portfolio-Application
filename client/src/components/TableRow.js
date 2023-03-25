@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const TableRow = ({singleStock}) => {
+const TableRow = ({singleStock, sellShares}) => {
+    const [clicked, setClicked] = useState(false);
+    const [shareInput, setShareInput] = useState();
+    const [error, setError] = useState(false);
     
     const viewClick = ()=>{
         console.log("View")
@@ -10,10 +13,26 @@ const TableRow = ({singleStock}) => {
         console.log("Edit")
     }
 
-    const delClick = ()=>{
-        console.log("Del")
+    const sellClick = ()=>{
+        setClicked(!clicked)
     }
-    
+
+    const onChange = (e)=>{
+        setShareInput(e.target.value)
+    }
+
+    const sell =()=>{
+        if(shareInput <= singleStock.numshares){
+            const temp = {...singleStock}
+            temp.numshares -= shareInput
+            sellShares(temp, singleStock)
+            sellClick()
+        }else{
+            return null
+        }
+    }
+
+
     return( 
     <>
     <tr>
@@ -23,7 +42,13 @@ const TableRow = ({singleStock}) => {
         <td>£{singleStock.currentMarketValue}</td>
         <td onClick={viewClick}>View</td>
         <td onClick={editClick}>Edit</td>
-        <td onClick={delClick}>Delete</td>
+    {clicked? 
+    <>
+        <td><input id="input" type='number' onChange={onChange} placeholder='Number to sell'></input></td>
+        <td><button onClick={sell}>Sell Shares</button></td>
+        <td><button onClick={sellClick}>Cancel</button></td>
+    </>
+    : <td onClick={sellClick}>Sell</td>}
     </tr>
     </>
 )};

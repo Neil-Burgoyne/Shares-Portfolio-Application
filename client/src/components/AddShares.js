@@ -5,6 +5,7 @@ const AddShares = ({addShares}) => {
 
     const onSubmit = (e)=>{
         e.preventDefault();
+        formData.numshares = Number(formData.numshares)
         addShares(formData)
         e.target.reset()
         setFormData({})
@@ -25,9 +26,7 @@ const AddShares = ({addShares}) => {
                 <input type='number' id='numshares' placeholder='Num' onChange={onChange}></input>
                 <label htmlFor='date'>Date:</label>
                 <input type='date' id='date'></input>
-
                 <button type='submit'>Add</button>
-
             </form>
         </>
     )
