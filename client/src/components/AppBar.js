@@ -13,9 +13,16 @@ export default function ButtonAppBar({ check, change }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit">
-            <Link to="/">Home</Link>
-          </Button>
+          <Box>
+            <Button color="inherit">
+              <Link to="/">Home</Link>
+            </Button>
+          </Box>
+          <Box>
+            <Button color="inherit">
+              <Link to="/view">View</Link>
+            </Button>
+          </Box>
           <Box>
             <Switch
               {...label}
