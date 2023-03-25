@@ -10,25 +10,35 @@ const SharesPortfolio = ()=>{
         shareValues: [
             {
                 stockSymbol: "AAPL",
-                numshares: 120,
-                averagePricePaid: 35,
-                currentMarketValue: 125
+                numshares: '120',
+                averagePricePaid: '35',
+                currentMarketValue: '125'
             },
             {
                 stockSymbol: "IBM",
-                numshares: 120,
-                averagePricePaid: 35,
-                currentMarketValue: 125
+                numshares: '120',
+                averagePricePaid: '35',
+                currentMarketValue: '125'
             }
         ]
     });
+
+    const addShares = (data)=>{
+        const temp = {...user}
+        const match = temp.shareValues.find(({stockSymbol}) => stockSymbol == data.stockSymbol)
+        console.log(match)
+        data.currentMarketValue = '100'
+        data.averagePricePaid = String(Math.round(data.currentMarketValue / data.numshares))
+        temp.shareValues.push(data)
+        setUser(temp);
+    }
 
 
     return(
         <Router>
             <Header user={user}/>
             <Routes>
-                <Route path="/" element={<Home user={user}/>}/>
+                <Route path="/" element={<Home user={user} addShares={addShares}/>}/>
                 <Route path="/view" element={<View user={user}/>}/>
             </Routes>
             <footer>
