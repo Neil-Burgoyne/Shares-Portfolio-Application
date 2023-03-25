@@ -1,3 +1,4 @@
+const { todaysDate } = require('../utilities/date_utilities')
 
 const parseOHLCData = (data, { stockSymbol }) => {
     const stockObject = { symbol: stockSymbol, cached: todaysDate() };
