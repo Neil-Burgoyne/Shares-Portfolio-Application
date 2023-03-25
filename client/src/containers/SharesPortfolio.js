@@ -20,7 +20,8 @@ const SharesPortfolio = ()=>{
                 averagePricePaid: 35,
                 currentMarketValue: 125
             }
-        ]
+        ],
+        previousShareValues: []
     });
 
     // Saving to state as expected 25/03/23
@@ -48,17 +49,22 @@ const SharesPortfolio = ()=>{
     }
 
     const sellShares = (data, singleStock)=>{
+        addToPreviousPortfolio(data)
         const temp = {...user}
         if (data.numshares == 0){
             deleteShare(singleStock);
         }
         else{
         const index = temp.shareValues.indexOf(singleStock)
-        console.log(index)
         temp.shareValues[index] = data
-        console.log(temp)
         setUser(temp)
     }
+    }
+
+    const addToPreviousPortfolio = (data)=>{
+        // const temp = {...user}
+        // temp.previousShareValues.push(data);
+        // Work on tomorrow - CIB
     }
 
 
@@ -66,7 +72,7 @@ const SharesPortfolio = ()=>{
         <Router>
             <Header user={user}/>
             <Routes>
-                <Route path="/" element={<Home user={user} addShares={addShares} sellShares={sellShares}/>}/>
+                <Route path="/" element={<Home user={user} addShares={addShares} deleteShare={deleteShare} sellShares={sellShares}/>}/>
                 <Route path="/view" element={<View user={user}/>}/>
             </Routes>
             <footer>

@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
-const TableRow = ({singleStock, sellShares}) => {
+const TableRow = ({singleStock, sellShares, deleteShare}) => {
     const [clicked, setClicked] = useState(false);
+    const [editClicked, setEditClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
-    const [error, setError] = useState(false);
-    
-    const viewClick = ()=>{
-        console.log("View")
-    }
 
     const editClick = ()=>{
-        console.log("Edit")
+        setClicked(false)
+        setEditClicked(!editClicked);
     }
 
     const sellClick = ()=>{
+        setEditClicked(false)
         setClicked(!clicked)
     }
 
@@ -27,9 +26,14 @@ const TableRow = ({singleStock, sellShares}) => {
             temp.numshares -= shareInput
             sellShares(temp, singleStock)
             sellClick()
-        }else{
+        } else{
             return null
         }
+    }
+
+    const deleteEntry = ()=>{
+        deleteShare(singleStock)
+
     }
 
 
@@ -40,7 +44,7 @@ const TableRow = ({singleStock, sellShares}) => {
         <td>{singleStock.numshares}</td>
         <td>£{singleStock.averagePricePaid}</td>
         <td>£{singleStock.currentMarketValue}</td>
-        <td onClick={viewClick}>View</td>
+        <td><Link to="/view" singleStock={singleStock}>View</Link></td>
         <td onClick={editClick}>Edit</td>
     {clicked? 
     <>
@@ -50,6 +54,19 @@ const TableRow = ({singleStock, sellShares}) => {
     </>
     : <td onClick={sellClick}>Sell</td>}
     </tr>
+    {editClicked ? 
+    <>
+    <tr>
+        <td><input type='text' readOnly value={singleStock.stockSymbol}></input></td>
+        <td><input type='number' defaultValue={singleStock.numshares}></input></td>
+        <td><input type='number' defaultValue={singleStock.averagePricePaid}></input></td>
+        <td><input type='number' defaultValue={singleStock.currentMarketValue}></input></td>
+        <td><button onClick={deleteEntry}>Delete</button></td>
+        <td><button>Confirm Changes</button></td>
+        <td><button onClick={editClick}>Cancel</button></td>
+    </tr>
+    </>
+    : null}
     </>
 )};
 

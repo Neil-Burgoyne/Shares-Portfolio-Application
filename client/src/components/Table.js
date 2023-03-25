@@ -1,11 +1,13 @@
 import React from 'react'
 import TableRow from './TableRow';
 
-const Table = ({user, sellShares}) => {
+const Table = ({user, sellShares, deleteShare}) => {
+
+    const totalCalc = user.shareValues.reduce((runningTotal, shareValues)=>(runningTotal += (shareValues.currentMarketValue * shareValues.numshares)),0);
     
     const row = user.shareValues.map((singleStock, i)=>{
         return (
-            <TableRow sellShares={sellShares} key={i} singleStock={singleStock}/>
+            <TableRow deleteShare={deleteShare} sellShares={sellShares} key={i} singleStock={singleStock}/>
         )
     });
     
@@ -24,6 +26,12 @@ const Table = ({user, sellShares}) => {
                     <th>Sell</th>
                 </tr>
                 {row}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <th>Total:</th>
+                    <td>£{totalCalc}</td>
+                </tr>
             </tbody>
         </table>
     </>
