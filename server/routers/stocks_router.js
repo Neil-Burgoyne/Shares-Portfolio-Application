@@ -8,7 +8,7 @@ const ObjectID = require("mongodb").ObjectID
 const stocksRouter = function (stocksCollection) {
     const router = express.Router();
 
-    router.get('/stock/:symbol', async (req, res) => {
+    router.get('/stocks/:symbol', async (req, res) => {
         const symbol = req.params.symbol;
         const data = await getStockData(stocksCollection, symbol);
         res.json(data);
