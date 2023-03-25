@@ -1,4 +1,5 @@
 const fetch = require('cross-fetch');
+const finnHubURL = "https://finnhub.io/api/v1/"
 
 const fetchStockData = async (collection, stockSymbol) => {
     const apiKey = process.env.API_KEY;
@@ -20,6 +21,20 @@ const parseData = (data) => {
     }).reverse();
     stockObject.closingValue = parsedSeriesData[0][4];
     stockObject.graphData = parsedSeriesData;
+    return stockObject;
+}
+
+const fetchStockDataFHub = async (stockSymbol) => {
+    const apiKey = process.env.API_KEY_FINNHUB;
+    const url = `${finnHubURL}symbol=${stockSymbol}/stock/candle?symbol=${stockSymbol}&resolution=Doutputsize=compact&apikey=${apiKey}`;
+    const result = await fetch(url)
+    const stockData = await result.json();
+    const parsedStockData = parseData(stockData);
+    return parsedStockData;
+}
+
+const parseDataFinnHub = (data) => {
+
     return stockObject;
 }
 
@@ -54,5 +69,11 @@ const todaysDate = () => {
     return parsedToday;
 }
 
-
+const dateRange = () => {
+    const today = new Date().toISOString().split('T')[0];;
+    const todaySplit = today.split("-")
+    const lastYear = new Date(`${todaySplit[0] - 1}-${todaySplit[1]}-${todaySplit[2]}`);
+    return { today: Date.parse(today), lastYear: Date.parse(lastYear) };
+}
+console.log(dateRange())
 module.exports = getStockData;
