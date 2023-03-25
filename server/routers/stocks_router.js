@@ -1,6 +1,6 @@
 
 const express = require("express")
-const getStockData = require('../repositories/stocks_repository')
+const { getStockData, getStockSymbols } = require('../repositories/stocks_repository')
 
 
 const ObjectID = require("mongodb").ObjectID
@@ -8,9 +8,14 @@ const ObjectID = require("mongodb").ObjectID
 const stocksRouter = function (stocksCollection) {
     const router = express.Router();
 
-    router.get('/:symbol', async (req, res) => {
+    router.get('/stock/:symbol', async (req, res) => {
         const symbol = req.params.symbol;
         const data = await getStockData(stocksCollection, symbol);
+        res.json(data);
+    })
+
+    router.get('/stocksymbols/', async (req, res) => {
+        const data = await getStockSymbols(stocksCollection);
         res.json(data);
     })
     return router
