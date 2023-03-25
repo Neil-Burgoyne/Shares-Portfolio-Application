@@ -1,7 +1,9 @@
 const fetch = require('cross-fetch');
-const finnHubURL = "https://finnhub.io/api/v1/"
 
-const parseOHLCData = (stockSymbol, data) => {
+const finnHubURL = "https://finnhub.io/api/v1";
+let lastUsedAPISlot = 0;
+
+const parseOHLCData = (data, stockSymbol) => {
     const stockObject = { symbol: stockSymbol, cached: todaysDate() };
     stockObject.graphData = data.t.map((t, index) => {
         return [t * 1000, data.o[index], data.h[index], data.l[index], data.c[index]]
@@ -9,6 +11,15 @@ const parseOHLCData = (stockSymbol, data) => {
     stockObject.closingValue = stockObject.graphData[0][4];
     return stockObject;
 }
+
+const parseStockSymbols = async (data) => {
+    const symbolsObject = { data: "stockSymbols", cached: todaysDate() }
+    symbolsObject.symbols = data.map((symbol) => {
+        return { symbol: symbol.symbol, name: symbol.description }
+    });
+    return symbolsObject;
+}
+
 
 const fetchStockOHLCData = async (stockSymbol) => {
     const apiKey = process.env.API_KEY;
@@ -20,6 +31,7 @@ const fetchStockOHLCData = async (stockSymbol) => {
     return parsedStockData;
 }
 
+
 const fetchStockSymbols = async () => {
     const apiKey = process.env.API_KEY;
     const url = `${finnHubURL}stock/symbol?exchange=US&currency=USD&token=${apiKey}`
@@ -28,12 +40,29 @@ const fetchStockSymbols = async () => {
     return parseStockSymbols(stockSymbols);
 }
 
-const parseStockSymbols = async (data) => {
-    const symbolsObject = { data: "stockSymbols", cached: todaysDate() }
-    symbolsObject.symbols = data.map((symbol) => {
-        return { symbol: symbol.symbol, name: symbol.description }
-    });
-    return symbolsObject;
+const fetchData = async (endpoint, parser, parserArgs) => {
+    const url = `https://finnhub.io/api/v1/${endpoint}&token=${process.env.API_KEY}`;
+    const result = await fetch(url);
+    const data = await result.json();
+    return parser(data, parserArgs);
+}
+
+const getData = async (stocksCache, query, url, parser, parserArgs) => {
+    const cachedData = await stocksCache.findOne(query)
+    if (!cachedData) {
+        console.log("noCache")
+        const stockData = await fetchData(url, parser, parserArgs);
+        await stocksCache.insertOne(stockData);
+        return await stockData;
+    } else if (todaysDate() > cachedData.cached) {
+        console.log("updateCache")
+        const stockData = await fetchData(url, parser, parserArgs);
+        await stocksCache.replaceOne({ query }, stockData);
+        return await stockData;
+    } else {
+        console.log("cache")
+        return cachedData;
+    }
 }
 
 const getStockData = async (stocksCache, stockSymbol) => {
@@ -55,22 +84,28 @@ const getStockData = async (stocksCache, stockSymbol) => {
 }
 
 const getStockSymbols = async (stocksCache) => {
-    const cachedData = await stocksCache.findOne({ data: "stockSymbols" })
-    if (!cachedData) {
-        console.log("noCache")
-        const stockSymbols = await fetchStockSymbols();
-        await stocksCache.insertOne(stockSymbols);
-        return stockData;
-    } else if (todaysDate() > cachedData.cached) {
-        console.log("updateCache")
-        const stockSymbols = await fetchStockSymbols();
-        await stocksCache.replaceOne({ data: "stockSymbols" }, stockSymbols);
-        return stockSymbols;
-    } else {
-        console.log("cache")
-        return cachedData;
-    }
+    const endpoint = "stock/symbol?exchange=US&currency=USD";
+    const query = { data: "stockSymbols" }
+    return await getData(stocksCache, query, endpoint, parseStockSymbols);
 }
+
+// const getStockSymbols = async (stocksCache) => {
+//     const cachedData = await stocksCache.findOne({ data: "stockSymbols" })
+//     if (!cachedData) {
+//         console.log("noCache")
+//         const stockSymbols = await fetchStockSymbols();
+//         await stocksCache.insertOne(stockSymbols);
+//         return stockData;
+//     } else if (todaysDate() > cachedData.cached) {
+//         console.log("updateCache")
+//         const stockSymbols = await fetchStockSymbols();
+//         await stocksCache.replaceOne({ data: "stockSymbols" }, stockSymbols);
+//         return stockSymbols;
+//     } else {
+//         console.log("cache")
+//         return cachedData;
+//     }
+// }
 
 const todaysDate = () => {
     const today = new Date(Date.now());
