@@ -58,18 +58,18 @@ const getStockSymbols = async (stocksCache) => {
     const cachedData = await stocksCache.findOne({ data: "stockSymbols" })
     if (!cachedData) {
         console.log("noCache")
-        const stockData = await fetchStockSymbols();
-        await stocksCache.insertOne(stockData);
-        return await stockData;
+        const stockSymbols = await fetchStockSymbols();
+        await stocksCache.insertOne(stockSymbols);
+        return stockData;
     } else if (todaysDate() > cachedData.cached) {
         console.log("updateCache")
-        const stockData = await fetchStockOHLCData(stocksCache, stockSymbol);
-        await stocksCache.replaceOne({ symbol: stockSymbol }, stockData);
-        return await stockData;
+        const stockSymbols = await fetchStockSymbols();
+        await stocksCache.replaceOne({ data: "stockSymbols" }, stockSymbols);
+        return stockSymbols;
     } else {
         console.log("cache")
         return cachedData;
-    } return await fetchStockSymbols()
+    }
 }
 
 const todaysDate = () => {
