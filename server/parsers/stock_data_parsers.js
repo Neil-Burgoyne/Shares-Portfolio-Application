@@ -1,7 +1,7 @@
 const { todaysDate } = require('../utilities/date_utilities')
 
-const parseOHLCData = (data, { stockSymbol }) => {
-    const stockObject = { symbol: stockSymbol, cached: todaysDate() };
+const parseOHLCData = (data, { stockSymbol, symbolName }) => {
+    const stockObject = { symbol: stockSymbol, name: symbolName, cached: todaysDate() };
     stockObject.graphData = data.t.map((t, index) => {
         return [t * 1000, data.o[index], data.h[index], data.l[index], data.c[index]]
     }).reverse();
