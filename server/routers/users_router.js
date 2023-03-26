@@ -1,5 +1,5 @@
 const express = require("express")
-const parseUserData = require("../helpers/data_utility")
+const { parseUserData, parseUsersData } = require("../parsers/user_data_parser")
 
 const ObjectID = require("mongodb").ObjectID
 
@@ -11,6 +11,7 @@ const usersRouter = function (collection) {
         collection
             .find()
             .toArray()
+            .then((docs) => parseUsersData(docs))
             .then((docs) => res.json(docs))
             .catch((err) => {
                 console.error(err)
