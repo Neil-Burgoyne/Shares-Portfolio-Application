@@ -32,7 +32,7 @@ const SharesPortfolio = () => {
         currentMarketValue: 125,
       },
     ],
-    previousShareValues: [],
+    soldShares: [],
   });
 
   // Saving to state as expected 25/03/23
@@ -67,7 +67,7 @@ const SharesPortfolio = () => {
   };
 
   const sellShares = (data, singleStock) => {
-    addToPreviousPortfolio(data);
+    addToPreviousPortfolio(data, singleStock);
     const temp = { ...user };
     if (data.numshares == 0) {
       deleteShare(singleStock);
@@ -78,10 +78,30 @@ const SharesPortfolio = () => {
     }
   };
 
-  const addToPreviousPortfolio = (data) => {
-    // const temp = {...user}
-    // temp.previousShareValues.push(data);
-    // Work on tomorrow - CIB
+  const addToPreviousPortfolio = (data, singleStock) => {
+    const newDate = new Date()
+    const year = newDate.toLocaleString("default", {year: "numeric"})
+    const month = newDate.toLocaleString("default", {month: "2-digit"})
+    const day = newDate.toLocaleString("default", {day: "2-digit"})
+    const formatted = year + "-" + month + "-" + day;
+    const newEntry = {
+        quantity: singleStock.numshares - data.numshares,
+        soldFor: data.currentMarketValue,
+        date: formatted
+      }
+      const temp = {...user}
+      const match = temp.soldShares.find(
+        ({ stockSymbol }) => stockSymbol == data.stockSymbol
+      );
+      if (match){
+        match.sales.push(newEntry)
+      } else{
+        temp.soldShares.push({
+          stockSymbol: data.stockSymbol,
+          sales:[{...newEntry}]
+        })
+      }
+      setUser(temp)
   };
 
   const editShare = (data, singleStock)=>{

@@ -7,7 +7,7 @@ const Home = ({ user, addShares, sellShares, deleteShare, editShare }) => {
   return (
     <>
       <AddShares addShares={addShares} />
-      <Table editShare={editShare} user={user} sellShares={sellShares} deleteShare={deleteShare} />
+      <Table table={"portfolio"} editShare={editShare} values={user.shareValues} sellShares={sellShares} deleteShare={deleteShare} />
       <UserChart />
     </>
   );
