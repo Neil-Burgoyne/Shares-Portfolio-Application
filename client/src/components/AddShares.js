@@ -20,9 +20,9 @@ const AddShares = ({addShares}) => {
         <>
             <h3>Add Shares</h3>
             <form onSubmit={onSubmit}>
-                <label htmlFor='share'>Share:</label>
-                <input type='text' id='stockSymbol' placeholder='Share' onChange={onChange}></input>
-                <label htmlFor='number'>Number:</label>
+                <label htmlFor='stockSymbol'>Company:</label>
+                <input type='text' id='stockSymbol' placeholder='Company' onChange={onChange}></input>
+                <label htmlFor='numshares'>Number:</label>
                 <input type='number' id='numshares' placeholder='Num' onChange={onChange}></input>
                 <label htmlFor='date'>Date:</label>
                 <input type='date' id='date'></input>
