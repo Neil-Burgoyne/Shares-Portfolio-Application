@@ -1,4 +1,4 @@
-const { parseOHLCData, parseStockSymbols } = require('../parsers/stock_data_parsers')
+const { parseOHLCData } = require('../parsers/stock_data_parsers')
 const fetchData = require("../external_api/fetch_finnhub")
 const { todaysDate, yearToDateInSeconds } = require("../utilities/date_utilities");
 
@@ -7,12 +7,15 @@ const getData = async (stocksCache, query, url, parser, parserArgs) => {
     if (!cachedData) {
         console.log("noCache")
         const stockData = await fetchData(url, parser, parserArgs);
+        stockData.cached = todaysDate();
         await stocksCache.insertOne(stockData);
         return await stockData;
     } else if (todaysDate() > cachedData.cached) {
         console.log("updateCache")
+        const parserArgs = { symbol: cachedData.symbol, name: cachedData.name }
         const stockData = await fetchData(url, parser, parserArgs);
-        await stocksCache.replaceOne({ query }, stockData);
+        stockData.cached = todaysDate();
+        await stocksCache.updateOne(query, { $set: stockData });
         return await stockData;
     } else {
         console.log("cache")
@@ -24,22 +27,20 @@ const getStockData = async (stocksCache, stockSymbol) => {
     const query = { symbol: stockSymbol };
     const { today, lastYear } = yearToDateInSeconds();
     const endpoint = `stock/candle?symbol=${stockSymbol}&resolution=D&from=${lastYear}&to=${today}`;
-    const symbolName = await getStockSymbolName(stocksCache, stockSymbol);
-    const parserArgs = { stockSymbol, symbolName };
-    return await getData(stocksCache, query, endpoint, parseOHLCData, parserArgs);
+    return await getData(stocksCache, query, endpoint, parseOHLCData, stockSymbol);
 }
 
-const getStockSymbols = async (stocksCache) => {
-    const query = { data: "stockSymbols" };
-    const endpoint = "stock/symbol?exchange=US&currency=USD";
-    return await getData(stocksCache, query, endpoint, parseStockSymbols);
+const getStocksData = async (stocksCache) => {
+    const stocksObjects = await stocksCache.find();
+    const stocksArray = await stocksObjects.toArray();
+    const stocksData = [];
+    for (let i = 0; i < stocksArray.length; i++) {
+        const stockData = await getStockData(stocksCache, stocksArray[i].symbol)
+        stocksData.push(stockData);
+    }
+    return stocksData;
 }
 
-const getStockSymbolName = async (stocksCache, stockSymbol) => {
-    const allStockSymbols = await getStockSymbols(stocksCache);
-    const stockSymbolData = await allStockSymbols.symbols.find((symbol) => symbol.symbol === stockSymbol);
-    console.log(stockSymbolData)
-    return stockSymbolData.name;
-}
 
-module.exports = { getStockData, getStockSymbols };
+
+module.exports = { getStockData, getStocksData };
