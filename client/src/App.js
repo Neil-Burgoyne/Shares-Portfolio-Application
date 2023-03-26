@@ -4,7 +4,7 @@ import SharesPortfolio from './containers/SharesPortfolio';
 function App() {
   return (
     <div className="App">
-      <SharesPortfolio/>
+      <SharesPortfolio />
     </div>
   );
 }

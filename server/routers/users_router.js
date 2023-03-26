@@ -1,15 +1,17 @@
 const express = require("express")
+const { parseUserData, parseUsersData } = require("../parsers/user_data_parser")
+
 const ObjectID = require("mongodb").ObjectID
 
-const createRouter = function (collection) {
+const usersRouter = function (collection) {
     const router = express.Router()
-
 
     // Index Route
     router.get('/', (req, res) => {
         collection
             .find()
             .toArray()
+            .then((docs) => parseUsersData(docs))
             .then((docs) => res.json(docs))
             .catch((err) => {
                 console.error(err)
@@ -18,11 +20,12 @@ const createRouter = function (collection) {
             })
     })
 
-    // Show Route
+    // Show Route /api/userdata/:id
     router.get('/:id', (req, res) => {
         const id = req.params.id
         collection
             .findOne({ _id: ObjectID(id) })
+            .then((docs) => parseUserData(docs))
             .then((docs) => res.json(docs))
             .catch((err) => {
                 console.error(err)
@@ -81,4 +84,4 @@ const createRouter = function (collection) {
 
 }
 
-module.exports = createRouter
+module.exports = usersRouter

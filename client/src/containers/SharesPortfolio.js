@@ -22,7 +22,7 @@ const SharesPortfolio = () => {
       {
         stockSymbol: 'AAPL',
         numshares: 120,
-        averagePricePaid: 126,
+        averagePricePaid: 35,
         currentMarketValue: 125,
       },
       {
@@ -77,6 +77,7 @@ const SharesPortfolio = () => {
       setUser(temp);
     }
   };
+
 
   const addToPreviousPortfolio = (data) => {
     // const temp = {...user}
