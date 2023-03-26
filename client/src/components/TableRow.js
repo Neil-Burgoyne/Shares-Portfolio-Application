@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
-const TableRow = ({singleStock, sellShares, deleteShare}) => {
+const TableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
     const [clicked, setClicked] = useState(false);
     const [editClicked, setEditClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
+    const [editForm, setEditForm] = useState(singleStock);
 
     const editClick = ()=>{
         setClicked(false)
@@ -33,7 +34,19 @@ const TableRow = ({singleStock, sellShares, deleteShare}) => {
 
     const deleteEntry = ()=>{
         deleteShare(singleStock)
+    }
 
+    const answer = ((singleStock.currentMarketValue / singleStock.averagePricePaid)*100)
+
+    const editChange = (e)=>{
+        editForm[e.target.id] = Number(e.target.value)
+        setEditForm(editForm)
+    }
+
+    const submitEditEntry = ()=>{
+        editShare(editForm, singleStock)
+        setEditForm(singleStock)
+        setEditClicked(!editClicked);
     }
 
 
@@ -44,6 +57,7 @@ const TableRow = ({singleStock, sellShares, deleteShare}) => {
         <td>{singleStock.numshares}</td>
         <td>£{singleStock.averagePricePaid}</td>
         <td>£{singleStock.currentMarketValue}</td>
+        {answer >= 100 ? <td>&#8593;{(answer-100).toFixed(2)}%</td> : <td>&#8595;{(100-answer).toFixed(2)}%</td>}
         <td><Link to="/view" singleStock={singleStock}>View</Link></td>
         <td onClick={editClick}>Edit</td>
     {clicked? 
@@ -58,11 +72,11 @@ const TableRow = ({singleStock, sellShares, deleteShare}) => {
     <>
     <tr>
         <td><input type='text' readOnly value={singleStock.stockSymbol}></input></td>
-        <td><input type='number' defaultValue={singleStock.numshares}></input></td>
-        <td><input type='number' defaultValue={singleStock.averagePricePaid}></input></td>
-        <td><input type='number' defaultValue={singleStock.currentMarketValue}></input></td>
+        <td><input onChange={editChange} id='numshares' type='number' defaultValue={singleStock.numshares}></input></td>
+        <td><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={singleStock.averagePricePaid}></input></td>
+        <td><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={singleStock.currentMarketValue}></input></td>
         <td><button onClick={deleteEntry}>Delete</button></td>
-        <td><button>Confirm Changes</button></td>
+        <td><button onClick={submitEditEntry}>Confirm Changes</button></td>
         <td><button onClick={editClick}>Cancel</button></td>
     </tr>
     </>
