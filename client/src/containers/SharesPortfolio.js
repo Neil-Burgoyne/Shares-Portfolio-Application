@@ -78,11 +78,19 @@ const SharesPortfolio = () => {
     }
   };
 
+
   const addToPreviousPortfolio = (data) => {
     // const temp = {...user}
     // temp.previousShareValues.push(data);
     // Work on tomorrow - CIB
   };
+
+  const editShare = (data, singleStock)=>{
+    const temp = {...user}
+    const index = temp.shareValues.indexOf(singleStock);
+    temp[index] = data
+    setUser(temp);
+  }
 
   return (
     <Router>
@@ -102,6 +110,7 @@ const SharesPortfolio = () => {
                   addShares={addShares}
                   deleteShare={deleteShare}
                   sellShares={sellShares}
+                  editShare={editShare}
                 />
               }
             />

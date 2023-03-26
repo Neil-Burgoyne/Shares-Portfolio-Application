@@ -3,11 +3,11 @@ import AddShares from './AddShares';
 import Table from './Table';
 import UserChart from './UserChart';
 
-const Home = ({ user, addShares, sellShares, deleteShare }) => {
+const Home = ({ user, addShares, sellShares, deleteShare, editShare }) => {
   return (
     <>
       <AddShares addShares={addShares} />
-      <Table user={user} sellShares={sellShares} deleteShare={deleteShare} />
+      <Table editShare={editShare} user={user} sellShares={sellShares} deleteShare={deleteShare} />
       <UserChart />
     </>
   );
