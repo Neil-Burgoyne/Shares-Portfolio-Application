@@ -14,8 +14,8 @@ Endpoints
 
 
 
-/api/stockdata/stocks/:symbol  - stock data for one symbol //need to add company name to object
-/api/stockdata/stocksymbols   - list of all available stocks and company full name
+/api/stocks/:symbol  - stock data for one symbol
+/api/stocks   - all stock data
 
 
 TO ADD

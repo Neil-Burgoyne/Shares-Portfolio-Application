@@ -1,4 +1,4 @@
-use stockApp;
+use stockApp
 db.dropDatabase();
 
 db.userData.insertMany([
@@ -45,3 +45,4 @@ db.userData.insertMany([
     }
 ])
 
+db.stocksCache.insertMany([{ "symbol": "AAPL", "name": "Apple Inc.", "cached": 20221025 }, { "symbol": "MSFT", "name": "Microsoft Corporation", "cached": 20221025 }, { "symbol": "IBM", "name": "International Business Machines Corporation", "cached": 20221025 }, { "symbol": "AMD", "name": "Advanced Micro Devices Inc.", "cached": 20221025 }, { "symbol": "NOW", "name": "ServiceNow Inc.", "cached": 20221025 }, { "symbol": "SQ", "name": "Square Inc.", "cached": 20221025 }, { "symbol": "FIS", "name": "Fidelity National Information Services Inc.", "cached": 20221025 }, { "symbol": "INTU", "name": "Intuit Inc.", "cached": 20221025 }, { "symbol": "UBER", "name": "Uber Technologies Inc.", "cached": 20221025 }, { "symbol": "SNOW", "name": "Snowflake Inc.", "cached": 20221025 }]);
