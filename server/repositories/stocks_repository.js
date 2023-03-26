@@ -24,14 +24,22 @@ const getStockData = async (stocksCache, stockSymbol) => {
     const query = { symbol: stockSymbol };
     const { today, lastYear } = yearToDateInSeconds();
     const endpoint = `stock/candle?symbol=${stockSymbol}&resolution=D&from=${lastYear}&to=${today}`;
-    const parserArgs = { stockSymbol };
+    const symbolName = await getStockSymbolName(stocksCache, stockSymbol);
+    const parserArgs = { stockSymbol, symbolName };
     return await getData(stocksCache, query, endpoint, parseOHLCData, parserArgs);
 }
 
 const getStockSymbols = async (stocksCache) => {
-    const query = { data: "stockSymbols" }
+    const query = { data: "stockSymbols" };
     const endpoint = "stock/symbol?exchange=US&currency=USD";
     return await getData(stocksCache, query, endpoint, parseStockSymbols);
+}
+
+const getStockSymbolName = async (stocksCache, stockSymbol) => {
+    const allStockSymbols = await getStockSymbols(stocksCache);
+    const stockSymbolData = await allStockSymbols.symbols.find((symbol) => symbol.symbol === stockSymbol);
+    console.log(stockSymbolData)
+    return stockSymbolData.name;
 }
 
 module.exports = { getStockData, getStockSymbols };
