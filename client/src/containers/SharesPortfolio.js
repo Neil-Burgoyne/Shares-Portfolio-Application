@@ -22,7 +22,7 @@ const SharesPortfolio = () => {
       {
         stockSymbol: 'AAPL',
         numshares: 120,
-        averagePricePaid: 35,
+        averagePricePaid: 126,
         currentMarketValue: 125,
       },
       {
@@ -84,6 +84,13 @@ const SharesPortfolio = () => {
     // Work on tomorrow - CIB
   };
 
+  const editShare = (data, singleStock)=>{
+    const temp = {...user}
+    const index = temp.shareValues.indexOf(singleStock);
+    temp[index] = data
+    setUser(temp);
+  }
+
   return (
     <Router>
       <ThemeProvider theme={darkTheme}>
@@ -102,6 +109,7 @@ const SharesPortfolio = () => {
                   addShares={addShares}
                   deleteShare={deleteShare}
                   sellShares={sellShares}
+                  editShare={editShare}
                 />
               }
             />
