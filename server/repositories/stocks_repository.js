@@ -33,13 +33,19 @@ const getStockData = async (stocksCache, stockSymbol) => {
 const getStocksData = async (stocksCache) => {
     const stocksObjects = await stocksCache.find();
     const stocksArray = await stocksObjects.toArray();
+    const stocksData = await getStocksDatafromList(stocksCache, stocksArray);
+    return stocksData;
+}
+
+const getStocksDatafromList = async (stocksCache, stocksList) => {
     const stocksData = [];
-    for (let i = 0; i < stocksArray.length; i++) {
-        const stockData = await getStockData(stocksCache, stocksArray[i].symbol)
+    for (let i = 0; i < stocksList.length; i++) {
+        const stockData = await getStockData(stocksCache, stocksList[i].symbol)
         stocksData.push(stockData);
     }
     return stocksData;
 }
+
 
 
 

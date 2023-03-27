@@ -1,14 +1,6 @@
+const { getUniqueValues } = require("../utilities/array_utilities");
 
 
-const getUniqueStockSymbols = (data) => {
-    return data.shareTransactions.reduce((uniqueSymbols, element) => {
-        if (!uniqueSymbols.includes(element.stockSymbol)) {
-            uniqueSymbols.push(element.stockSymbol)
-        }
-        return uniqueSymbols;
-    }, []
-    )
-}
 const getNumSharesSymbol = (data, stockSymbol) => {
     return num = data.shareTransactions.reduce((total, trans) => {
         if (trans.stockSymbol === stockSymbol) {
@@ -42,7 +34,9 @@ const parseUserData = (rawData) => {
     const parsedData = {};
     parsedData.name = rawData.name;
     parsedData._id = rawData._id;
-    const stockSymbols = getUniqueStockSymbols(rawData);
+    console.log("parseUser", rawData.shareTransactions)
+
+    const stockSymbols = getUniqueValues(rawData.shareTransactions, "stockSymbol");
     console.log(stockSymbols)
     const parsedShares = stockSymbols.map((symbol) => {
         const newShareValue = { name: symbol }
