@@ -3,13 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { Switch, Typography } from '@mui/material';
+import { Switch, Typography, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 const sxHeaderText = {
-  flexGrow: 0.2,
+  flexGrow: 1,
   fontSize: '1rem',
 };
 
@@ -51,11 +51,12 @@ export default function ButtonAppBar({ check, change, user }) {
             />
           </Box> */}
           <Typography sx={sxHeaderText} variant="h6">
-            User: {user.name}
-          </Typography>
-          <Typography sx={sxHeaderText} variant="h6">
             Portfolio Total: £{totalCalc}
           </Typography>
+          <Typography sx={sxHeaderText} variant="h6">
+            {user.name}
+          </Typography>
+          <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
         </Toolbar>
       </AppBar>
     </Box>
