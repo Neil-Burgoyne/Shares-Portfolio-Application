@@ -1,14 +1,10 @@
 const express = require("express")
 const { parseUserData, parseUsersData } = require("../parsers/user_data_parser")
-const { getUserData, getUsersData, purchaseStock } = require("../repositories/users_repository")
+const { getUserData, getUsersData, stockTransaction } = require("../repositories/users_repository")
 
 
 const usersRouter = function () {
     const router = express.Router()
-
-
-
-
     router.get('/', async (req, res) => {
         try {
             const data = await getUsersData();
@@ -31,11 +27,11 @@ const usersRouter = function () {
         }
     })
 
-    router.post('/:id/addstock', async (req, res) => {
+    router.post('/:id/transaction', async (req, res) => {
         try {
             const id = req.params.id;
             const payload = req.body;
-            const data = await purchaseStock(id, payload);
+            const data = await stockTransaction(id, payload);
             res.json(data);
         } catch (err) {
             console.error(err)

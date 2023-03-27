@@ -31,10 +31,9 @@ const getUsersData = async () => {
     return usersData;
 }
 
-const purchaseStock = async (id, stockPurchase) => {
+const stockTransaction = async (id, stockPurchase) => {
     stockPurchase._id = new ObjectID();
     stockPurchase.date = todaysDate();
-    stockPurchase.type = "purchase"
     await userCollection.updateOne({ _id: ObjectID(id) }, { $push: { shareTransactions: stockPurchase } });
     const updatedUser = await getUserData(id);
     return updatedUser;
@@ -44,4 +43,4 @@ const setUserCollection = (userColl) => {
     userCollection = userColl;
 }
 
-module.exports = { getUserData, getUsersData, setUserCollection, purchaseStock };
+module.exports = { getUserData, getUsersData, setUserCollection, stockTransaction };
