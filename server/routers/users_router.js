@@ -1,6 +1,6 @@
 const express = require("express")
 const { parseUserData, parseUsersData } = require("../parsers/user_data_parser")
-const { getUserData, getUsersData } = require("../repositories/users_repository")
+const { getUserData, getUsersData, purchaseStock } = require("../repositories/users_repository")
 
 
 const usersRouter = function () {
@@ -30,6 +30,26 @@ const usersRouter = function () {
             res.json({ status: 500, error: err })
         }
     })
+
+    router.post('/:id/addstock', async (req, res) => {
+        try {
+            const id = req.params.id;
+            const payload = req.body;
+            const data = await purchaseStock(id, payload);
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+    })
+
+
+
+
+
+
+
 
 
     // // Index Route
