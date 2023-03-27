@@ -1,6 +1,6 @@
 
-const getShareData = (data, stockSymbol) => {
-    const shareData = data.shareTransactions.reduce((shareTotals, trans) => {
+const getShareData = (shareTransactions, stockSymbol) => {
+    const shareData = shareTransactions.reduce((shareTotals, trans) => {
         if (trans.stockSymbol === stockSymbol) {
             if (trans.type === "purchase") {
                 shareTotals.num += trans.quantity;
@@ -16,9 +16,9 @@ const getShareData = (data, stockSymbol) => {
     return shareData;
 }
 
-const parseUserAssets = (rawData, stockData) => {
+const parseUserAssets = (shareTransactions, stockData) => {
     const parsedAssets = stockData.map((asset) => {
-        const shareData = getShareData(rawData, asset.symbol);
+        const shareData = getShareData(shareTransactions, asset.symbol);
         const numShares = shareData.num;
         const averagePricePaid = shareData.averagePricePaid;
         const currentTotalValue = numShares * asset.closingValue;
@@ -42,6 +42,18 @@ const parseUserAssets = (rawData, stockData) => {
     return parsedAssets;
 }
 
+const parseUserData = (user, stockData) => {
+    user.portfolio = parseUserAssets(user.shareTransactions, stockData);
+    user.portfolioTotals = user.portfolio.reduce((totals, asset) => {
+        totals.totalPortFolioValue += Number(asset.currentTotalValue);
+        totals.totalPaid += Number(asset.totalPaid);
+        totals.totalFromSales += Number(asset.totalFromSales);
+        totals.totalValueIncrease += Number(asset.totalValueIncrease);
+        return totals;
+    }, { totalPortFolioValue: 0, totalPaid: 0, totalFromSales: 0, totalValueIncrease: 0 })
+    Object.keys(user.portfolioTotals).map((key) => (
+        user.portfolioTotals[key] = user.portfolioTotals[key].toFixed(2)
+    ))
+}
 
-
-module.exports = { parseUserAssets };
+module.exports = { parseUserData };

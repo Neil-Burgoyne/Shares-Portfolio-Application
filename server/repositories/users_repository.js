@@ -1,6 +1,6 @@
 const { getStocksDataFromArray } = require('../repositories/stocks_repository');
 const { getUniqueValues } = require('../utilities/array_utilities')
-const { parseUserAssets } = require('../parsers/user_data_parser');
+const { parseUserData } = require('../parsers/user_data_parser');
 const ObjectID = require("mongodb").ObjectID
 
 let userData = {}
@@ -8,7 +8,7 @@ let userData = {}
 const getData = async (user) => {
     const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbol");
     const stockData = await getStocksDataFromArray(uniqueStockSymbols)
-    user.portfolio = parseUserAssets(user, stockData)
+    parsedUser = parseUserData(user, stockData)
     return await user;
 }
 
