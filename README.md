@@ -13,5 +13,5 @@ A user should be able to:
 
 ## API, Libraries, Resources
 
-- https://www.alphavantage.co/ (Requires sign up)
+- https://finnhub.io (Requires sign up)
 - https://www.highcharts.com/ HighCharts is an open-source library for rendering responsive charts.
