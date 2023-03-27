@@ -1,17 +1,19 @@
-const { getStocksDataFroList } = require('../repositories/stocks_repository');
+const { getStocksDataFromList } = require('../repositories/stocks_repository');
 const { getUniqueValues } = require('../utilities/array_utilities')
-const { parseUserData } = require('../parsers/user_data_parsers');
+const { parseUserData } = require('../parsers/user_data_parser');
+
+let userData = {}
 
 const getData = async (userCollection, query, parser, parserArgs) => {
     const user = await userCollection.findOne(query);
-    const currentStockValues =
-        
+    const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbols");
+    const stockData = await getStocksDataFromList(uniqueStockSymbols)
+
     return await stockData;
 }
 
 const getUserData = async (userCollection, stocksCollection, id) => {
     const query = { _id: id };
-    const uniqueStockSymbols = user
     return await getData(userCollection, query, parseUserData);
 }
 
@@ -26,6 +28,8 @@ const getStocksData = async (stocksCache) => {
     return stocksData;
 }
 
+const setUserData = (userCollection) => {
+    userData = userCollection;
+}
 
-
-module.exports = { getUserData, getStocksData };
+module.exports = { getUserData, getStocksData, setUserData };
