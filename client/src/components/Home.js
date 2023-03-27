@@ -14,7 +14,7 @@ const Home = ({ user, addShares, sellShares, deleteShare, editShare }) => {
         <Grid2 xs={9}>
         <UserChart />
         <div className='table-test'>
-        <PortfolioTable table={"portfolio"} editShare={editShare} values={user.shareValues} sellShares={sellShares} deleteShare={deleteShare} />
+        <PortfolioTable editShare={editShare} values={user.shareValues} sellShares={sellShares} deleteShare={deleteShare} />
         </div>
         </Grid2>
       </Grid2>
