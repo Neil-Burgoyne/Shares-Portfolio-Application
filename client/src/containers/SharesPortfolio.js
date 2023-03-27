@@ -6,6 +6,7 @@ import Header from '../components/Header.js';
 import Home from '../components/Home.js';
 import View from '../components/View.js';
 import ButtonAppBar from '../components/AppBar.js';
+import ApiTest from '../components/ApiTest.js';
 
 const SharesPortfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -46,7 +47,7 @@ const SharesPortfolio = () => {
       data.averagePricePaid = Math.round(
         (match.averagePricePaid * match.numshares +
           data.currentMarketValue * data.numshares) /
-          (data.numshares + match.numshares)
+        (data.numshares + match.numshares)
       );
       data.numshares += match.numshares;
       const index = temp.shareValues.indexOf(match);
@@ -80,32 +81,32 @@ const SharesPortfolio = () => {
 
   const addToPreviousPortfolio = (data, singleStock) => {
     const newDate = new Date()
-    const year = newDate.toLocaleString("default", {year: "numeric"})
-    const month = newDate.toLocaleString("default", {month: "2-digit"})
-    const day = newDate.toLocaleString("default", {day: "2-digit"})
+    const year = newDate.toLocaleString("default", { year: "numeric" })
+    const month = newDate.toLocaleString("default", { month: "2-digit" })
+    const day = newDate.toLocaleString("default", { day: "2-digit" })
     const formatted = year + "-" + month + "-" + day;
     const newEntry = {
-        quantity: singleStock.numshares - data.numshares,
-        soldFor: data.currentMarketValue,
-        date: formatted
-      }
-      const temp = {...user}
-      const match = temp.soldShares.find(
-        ({ stockSymbol }) => stockSymbol == data.stockSymbol
-      );
-      if (match){
-        match.sales.push(newEntry)
-      } else{
-        temp.soldShares.push({
-          stockSymbol: data.stockSymbol,
-          sales:[{...newEntry}]
-        })
-      }
-      setUser(temp)
+      quantity: singleStock.numshares - data.numshares,
+      soldFor: data.currentMarketValue,
+      date: formatted
+    }
+    const temp = { ...user }
+    const match = temp.soldShares.find(
+      ({ stockSymbol }) => stockSymbol == data.stockSymbol
+    );
+    if (match) {
+      match.sales.push(newEntry)
+    } else {
+      temp.soldShares.push({
+        stockSymbol: data.stockSymbol,
+        sales: [{ ...newEntry }]
+      })
+    }
+    setUser(temp)
   };
 
-  const editShare = (data, singleStock)=>{
-    const temp = {...user}
+  const editShare = (data, singleStock) => {
+    const temp = { ...user }
     const index = temp.shareValues.indexOf(singleStock);
     temp[index] = data
     setUser(temp);
@@ -134,6 +135,7 @@ const SharesPortfolio = () => {
               }
             />
             <Route path="/view" element={<View user={user} />} />
+            <Route path="/apitest" element={<ApiTest />} />
           </Routes>
         </Paper>
       </ThemeProvider>

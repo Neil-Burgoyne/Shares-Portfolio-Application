@@ -20,8 +20,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
     const stocksCollection = db.collection('stocksCache') // Add name
     const userRouter = usersRouter(userCollection) // Add name
     const stockRouter = stocksRouter(stocksCollection);
-
-    app.use('/api/userdata', userRouter) // Add name
+    app.use('/api/users', userRouter) // Add name
     app.use('/api/stocks', stockRouter) // Add name
   })
   .catch(console.err)

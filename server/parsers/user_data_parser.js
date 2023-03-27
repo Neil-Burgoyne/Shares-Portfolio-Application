@@ -41,6 +41,7 @@ const getAveragePriceSymbol = (data, stockSymbol) => {
 const parseUserData = (rawData) => {
     const parsedData = {};
     parsedData.name = rawData.name;
+    parsedData._id = rawData._id;
     const stockSymbols = getUniqueStockSymbols(rawData);
     console.log(stockSymbols)
     const parsedShares = stockSymbols.map((symbol) => {
