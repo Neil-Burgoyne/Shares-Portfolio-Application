@@ -11,10 +11,6 @@ A user should be able to:
 - retrieve a list of share prices from an external API and allow the user to add shares to her portfolio.
 - View a chart of the current values in her portfolio.
 
-## Example Extensions
-
-- Speculation based on trends and further financial modelling using projections.
-
 ## API, Libraries, Resources
 
 - https://www.alphavantage.co/ (Requires sign up)
