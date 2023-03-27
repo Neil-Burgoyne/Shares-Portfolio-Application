@@ -32,13 +32,13 @@ const ApiTest = () => {
         fetchUsers();
     }, [])
 
-    useEffect(() => {
-        const fetchUser = async (id) => {
-            const user = await getUser(id)
-            setUser(user);
-        }
-        fetchUser("642167b19ac0f323d0882a48");
-    }, [])
+    // useEffect(() => {
+    //     const fetchUser = async (id) => {
+    //         const user = await getUser(id)
+    //         setUser(user);
+    //     }
+    //     fetchUser("642167b19ac0f323d0882a48");
+    // }, [])
 
 
     return (<h1>ApiTest</h1>);
