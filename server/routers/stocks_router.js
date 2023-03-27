@@ -9,14 +9,26 @@ const stocksRouter = function () {
     const router = express.Router();
 
     router.get('/', async (req, res) => {
-
-        const data = await getStocksData();
-        res.json(data);
+        try {
+            const data = await getStocksData();
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
     })
     router.get('/:symbol', async (req, res) => {
-        const symbol = req.params.symbol;
-        const data = await getStockData(symbol);
-        res.json(data);
+        try {
+            const symbol = req.params.symbol;
+            const data = await getStockData(symbol);
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+
     })
 
     return router

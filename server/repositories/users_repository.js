@@ -1,20 +1,24 @@
-const { getStocksDataFromList } = require('../repositories/stocks_repository');
+const { getStocksDataFromArray } = require('../repositories/stocks_repository');
 const { getUniqueValues } = require('../utilities/array_utilities')
-const { parseUserData } = require('../parsers/user_data_parser');
+const { parseUserAssets } = require('../parsers/user_data_parser');
+const ObjectID = require("mongodb").ObjectID
 
 let userData = {}
 
-const getData = async (userCollection, query, parser, parserArgs) => {
+const getData = async (query) => {
     const user = await userCollection.findOne(query);
-    const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbols");
-    const stockData = await getStocksDataFromList(uniqueStockSymbols)
-
-    return await stockData;
+    console.log(user)
+    const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbol");
+    const stockData = await getStocksDataFromArray(uniqueStockSymbols)
+    user.portfolio = parseUserAssets(user, stockData)
+    return await user;
 }
 
-const getUserData = async (userCollection, stocksCollection, id) => {
-    const query = { _id: id };
-    return await getData(userCollection, query, parseUserData);
+const getUserData = async (id) => {
+    const query = { _id: ObjectID(id) };
+    const userData = await getData(query);
+    return userData;
+
 }
 
 const getStocksData = async (stocksCache) => {
@@ -28,8 +32,8 @@ const getStocksData = async (stocksCache) => {
     return stocksData;
 }
 
-const setUserData = (userCollection) => {
-    userData = userCollection;
+const setUserCollection = (userColl) => {
+    userCollection = userColl;
 }
 
-module.exports = { getUserData, getStocksData, setUserData };
+module.exports = { getUserData, setUserCollection };

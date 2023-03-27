@@ -34,14 +34,17 @@ const getStockData = async (stockSymbol) => {
 const getStocksData = async () => {
     const stocksObjects = await stocksCache.find();
     const stocksArray = await stocksObjects.toArray();
-    const stocksData = await getStocksDatafromList(stocksArray);
+    for (let i = 0; i < stocksArray.length; i++) {
+        const stockData = await getStockData(stocksArray[i].symbol)
+        stocksData.push(stockData);
+    }
     return stocksData;
 }
 
-const getStocksDatafromList = async (stocksList) => {
+const getStocksDataFromArray = async (stocksList) => {
     const stocksData = [];
     for (let i = 0; i < stocksList.length; i++) {
-        const stockData = await getStockData(stocksList[i].symbol)
+        const stockData = await getStockData(stocksList[i])
         stocksData.push(stockData);
     }
     return stocksData;
@@ -52,4 +55,4 @@ const setStocksCache = (stocksCollection) => {
 }
 
 
-module.exports = { getStockData, getStocksData, setStocksCache };
+module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray };

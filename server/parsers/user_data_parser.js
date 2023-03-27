@@ -2,14 +2,18 @@ const { getUniqueValues } = require("../utilities/array_utilities");
 
 
 const getNumSharesSymbol = (data, stockSymbol) => {
-    return num = data.shareTransactions.reduce((total, trans) => {
+    // console.log("getnumshares", data)
+    return data.shareTransactions.reduce((total, trans) => {
         if (trans.stockSymbol === stockSymbol) {
+            console.log(trans)
             if (trans.type === "purchase") {
+                console.log("purchase")
                 return total += trans.quantity;
             } else {
                 return total -= trans.quantity;
             }
         } else {
+            console.log("not purchase")
             return total;
         }
     }, 0)
@@ -25,32 +29,24 @@ const getAveragePriceSymbol = (data, stockSymbol) => {
         }
         return shareTotals;
     }, { num: 0, cost: 0 })
-    console.log(numAndCost);
     if (numAndCost.num === 0) return 0;
     else return numAndCost.cost / numAndCost.num
 }
 
-const parseUserData = (rawData) => {
-    const parsedData = {};
-    parsedData.name = rawData.name;
-    parsedData._id = rawData._id;
-    console.log("parseUser", rawData.shareTransactions)
+const parseUserAssets = (rawData, stockData) => {
+    const parsedAssets = stockData.map((asset) => {
+        console.log(asset)
+        newAssetData = { symbol: asset.symbol, name: asset.name, currentMarketValue: asset.closingValue };
+        newAssetData.numShares = getNumSharesSymbol(rawData, asset.symbol)
+        newAssetData.averagePricePaid = getAveragePriceSymbol(rawData, asset.symbol)
 
-    const stockSymbols = getUniqueValues(rawData.shareTransactions, "stockSymbol");
-    console.log(stockSymbols)
-    const parsedShares = stockSymbols.map((symbol) => {
-        const newShareValue = { name: symbol }
-        newShareValue.numShares = getNumSharesSymbol(rawData, symbol)
-        newShareValue.averagePricePaid = getAveragePriceSymbol(rawData, symbol)
-        newShareValue.currentMarketValue = 100
-        return newShareValue;
+        return newAssetData;
     })
-    parsedData.shareValues = parsedShares;
-    return parsedData;
+    return parsedAssets;
 }
 
-const parseUsersData = (rawUsersData) => {
-    return rawUsersData.map((rawUserData) => parseUserData(rawUserData));
-}
+// const parseUsersData = (rawUsersData) => {
+//     return rawUsersData.map((rawUserData) => parseUserData(rawUserData));
+// }
 
-module.exports = { parseUserData, parseUsersData };
+module.exports = { parseUserAssets };
