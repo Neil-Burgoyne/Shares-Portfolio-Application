@@ -9,3 +9,15 @@ export const getUser = (id) => {
     return fetch(baseURL + id)
         .then(res => res.json())
 }
+
+// type can be "sale" or "purchase"
+export const transaction = (userId, stockSymbol, quantity, value, type) => {
+    const payload = { stockSymbol, quantity, value, type };
+    return fetch(baseURL + userId + transaction, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(res => res.json())
+}
+
