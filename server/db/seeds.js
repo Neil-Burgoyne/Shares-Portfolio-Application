@@ -4,6 +4,29 @@ db.dropDatabase();
 db.userData.insertMany([
     {
         "name": "Millicent Moneybags",
+        "portfolio": [
+            {
+                "stockSymbol": "AAPL",
+                "numshares": 120,
+                "averagePricePaid": 126,
+                "currentMarketValue": 125,
+                "currentTotalValue": 15120,
+                "totalPaid": 15750,
+                "totalFromSales": 0,
+                "totalValueIncrease": -600
+            },
+            {
+                "stockSymbol": "IBM",
+                "numshares": 120,
+                "averagePricePaid": 35,
+                "currentMarketValue": 125,
+                "currentTotalValue": 15000,
+                "totalPaid": 4200,
+                "totalfromSales": 0,
+                "totalValueIncrease": 10800
+            },
+        ],
+
         "shareTransactions": [
             {
                 "stockSymbol": "AAPL",
