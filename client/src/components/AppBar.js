@@ -3,35 +3,59 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { Switch } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
+const sxHeaderText = {
+  flexGrow: 0.2,
+  fontSize: '1rem',
+};
 
-export default function ButtonAppBar({ check, change }) {
+const sxHeaderIcon = {
+  padding: 1,
+};
+
+export default function ButtonAppBar({ check, change, user }) {
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+  const totalCalc = user.shareValues.reduce(
+    (runningTotal, shareValues) =>
+      (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
+    0
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <Box>
             <Button color="inherit">
+              <HomeRoundedIcon sx={sxHeaderIcon} />
               <Link to="/">Home</Link>
             </Button>
           </Box>
           <Box>
             <Button color="inherit">
+              <TrendingUpIcon sx={sxHeaderIcon} />
               <Link to="/view">View</Link>
             </Button>
           </Box>
-          <Box>
+          {/* <Box>
             <Switch
               {...label}
-              defaultChecked
               color="default"
               onChange={change}
               checked={check}
             />
-          </Box>
+          </Box> */}
+          <Typography sx={sxHeaderText} variant="h6">
+            User: {user.name}
+          </Typography>
+          <Typography sx={sxHeaderText} variant="h6">
+            Portfolio Total: £{totalCalc}
+          </Typography>
         </Toolbar>
       </AppBar>
     </Box>
