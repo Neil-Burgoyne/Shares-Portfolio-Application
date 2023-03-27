@@ -1,13 +1,13 @@
 import React from 'react'
-import TableRow from './TableRow';
+import PortfolioTableRow from './PortfolioTableRow';
 
-const Table = ({values, sellShares, deleteShare, editShare}) => {
+const PortfolioTable = ({values, sellShares, deleteShare, editShare}) => {
 
     const totalCalc = values.reduce((runningTotal, shareValues)=>(runningTotal += (shareValues.currentMarketValue * shareValues.numshares)),0);
     
     const row = values.map((singleStock, i)=>{
         return (
-            <TableRow editShare={editShare} deleteShare={deleteShare} sellShares={sellShares} key={i} singleStock={singleStock}/>
+            <PortfolioTableRow editShare={editShare} deleteShare={deleteShare} sellShares={sellShares} key={i} singleStock={singleStock}/>
         )
     });
     
@@ -38,4 +38,4 @@ const Table = ({values, sellShares, deleteShare, editShare}) => {
     </>
 )};
 
-export default Table;
+export default PortfolioTable;
