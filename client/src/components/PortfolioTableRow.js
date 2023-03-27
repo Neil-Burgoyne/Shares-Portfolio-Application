@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
-const TableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
+const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
     const [clicked, setClicked] = useState(false);
     const [editClicked, setEditClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
@@ -84,4 +84,4 @@ const TableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
     </>
 )};
 
-export default TableRow;
+export default PortfolioTableRow;
