@@ -8,6 +8,9 @@ import TableBody from '@mui/material/TableBody';
 import Box from '@mui/material/Box';
 import { margin } from '@mui/system';
 import { TableHead } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import PageviewIcon from '@mui/icons-material/Pageview';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
 const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
@@ -68,9 +71,9 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
             <TableCell>£{singleStock.averagePricePaid}</TableCell>
             <TableCell>£{singleStock.currentMarketValue}</TableCell>
             {answer >= 100 ? <TableCell>&#8593;{(answer-100).toFixed(2)}%</TableCell> : <TableCell>&#8595;{(100-answer).toFixed(2)}%</TableCell>}
-            <TableCell><Link to="/view" singleStock={singleStock}>View</Link></TableCell>
-            <TableCell onClick={editClick}>Edit</TableCell>
-            <TableCell onClick={sellClick}>Sell</TableCell>
+            <TableCell><Link to="/view" singleStock={singleStock}><PageviewIcon/></Link></TableCell>
+            <TableCell onClick={editClick}><SettingsIcon/></TableCell>
+            <TableCell onClick={sellClick}><AttachMoneyIcon/></TableCell>
         </TableRow>
         {/* {clicked? 
         <>
