@@ -3,12 +3,19 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { Switch } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
+export default function ButtonAppBar({ check, change, user }) {
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-export default function ButtonAppBar({ check, change }) {
+  const totalCalc = user.shareValues.reduce(
+    (runningTotal, shareValues) =>
+      (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
+    0
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,15 +30,16 @@ export default function ButtonAppBar({ check, change }) {
               <Link to="/view">View</Link>
             </Button>
           </Box>
-          <Box>
+          {/* <Box>
             <Switch
               {...label}
-              defaultChecked
               color="default"
               onChange={change}
               checked={check}
             />
-          </Box>
+          </Box> */}
+          <Typography variant="h6">User: {user.name}</Typography>
+          <Typography variant="h6">Portfolio Total: £{totalCalc}</Typography>
         </Toolbar>
       </AppBar>
     </Box>

@@ -2,17 +2,28 @@ import React, { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Paper } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from '../components/Header.js';
+
 import Home from '../components/Home.js';
 import View from '../components/View.js';
 import ButtonAppBar from '../components/AppBar.js';
+import { teal } from '@mui/material/colors';
 
 const SharesPortfolio = () => {
+  // DARK MODE THEME NEEDS WORK
   const [darkMode, setDarkMode] = useState(false);
 
   const darkTheme = createTheme({
     palette: {
       mode: darkMode ? 'dark' : 'light',
+    },
+  });
+
+  const theme = createTheme({
+    palette: {
+      primary: teal,
+      secondary: {
+        main: '#00796b',
+      },
     },
   });
 
@@ -79,47 +90,47 @@ const SharesPortfolio = () => {
   };
 
   const addToPreviousPortfolio = (data, singleStock) => {
-    const newDate = new Date()
-    const year = newDate.toLocaleString("default", {year: "numeric"})
-    const month = newDate.toLocaleString("default", {month: "2-digit"})
-    const day = newDate.toLocaleString("default", {day: "2-digit"})
-    const formatted = year + "-" + month + "-" + day;
+    const newDate = new Date();
+    const year = newDate.toLocaleString('default', { year: 'numeric' });
+    const month = newDate.toLocaleString('default', { month: '2-digit' });
+    const day = newDate.toLocaleString('default', { day: '2-digit' });
+    const formatted = year + '-' + month + '-' + day;
     const newEntry = {
-        quantity: singleStock.numshares - data.numshares,
-        soldFor: data.currentMarketValue,
-        date: formatted
-      }
-      const temp = {...user}
-      const match = temp.soldShares.find(
-        ({ stockSymbol }) => stockSymbol == data.stockSymbol
-      );
-      if (match){
-        match.sales.push(newEntry)
-      } else{
-        temp.soldShares.push({
-          stockSymbol: data.stockSymbol,
-          sales:[{...newEntry}]
-        })
-      }
-      setUser(temp)
+      quantity: singleStock.numshares - data.numshares,
+      soldFor: data.currentMarketValue,
+      date: formatted,
+    };
+    const temp = { ...user };
+    const match = temp.soldShares.find(
+      ({ stockSymbol }) => stockSymbol == data.stockSymbol
+    );
+    if (match) {
+      match.sales.push(newEntry);
+    } else {
+      temp.soldShares.push({
+        stockSymbol: data.stockSymbol,
+        sales: [{ ...newEntry }],
+      });
+    }
+    setUser(temp);
   };
 
-  const editShare = (data, singleStock)=>{
-    const temp = {...user}
+  const editShare = (data, singleStock) => {
+    const temp = { ...user };
     const index = temp.shareValues.indexOf(singleStock);
-    temp[index] = data
+    temp[index] = data;
     setUser(temp);
-  }
+  };
 
   return (
     <Router>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider darkMode={darkMode} theme={theme}>
         <Paper style={{ height: '250vh' }}>
           <ButtonAppBar
             check={darkMode}
             change={() => setDarkMode(!darkMode)}
+            user={user}
           />
-          <Header user={user} />
           <Routes>
             <Route
               path="/"
