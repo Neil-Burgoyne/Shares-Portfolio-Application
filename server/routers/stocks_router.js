@@ -28,8 +28,9 @@ const stocksRouter = function () {
             res.status(500)
             res.json({ status: 500, error: err })
         }
-
     })
+
+
 
     return router
 }

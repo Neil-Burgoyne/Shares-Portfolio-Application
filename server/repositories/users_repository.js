@@ -1,14 +1,15 @@
 const { getStocksDataFromArray } = require('../repositories/stocks_repository');
-const { getUniqueValues } = require('../utilities/array_utilities')
+const { getUniqueValues } = require('../utilities/array_utilities');
 const { parseUserData } = require('../parsers/user_data_parser');
+const { todaysDate } = require('../utilities/date_utilities');
 const ObjectID = require("mongodb").ObjectID
 
-let userData = {}
+let userCollection = {}
 
 const getData = async (user) => {
     const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbol");
     const stockData = await getStocksDataFromArray(uniqueStockSymbols)
-    parsedUser = parseUserData(user, stockData)
+    parseUserData(user, stockData)
     return await user;
 }
 
@@ -30,8 +31,16 @@ const getUsersData = async () => {
     return usersData;
 }
 
+const stockTransaction = async (id, stockPurchase) => {
+    stockPurchase._id = new ObjectID();
+    stockPurchase.date = todaysDate();
+    await userCollection.updateOne({ _id: ObjectID(id) }, { $push: { shareTransactions: stockPurchase } });
+    const updatedUser = await getUserData(id);
+    return updatedUser;
+}
+
 const setUserCollection = (userColl) => {
     userCollection = userColl;
 }
 
-module.exports = { getUserData, getUsersData, setUserCollection };
+module.exports = { getUserData, getUsersData, setUserCollection, stockTransaction };

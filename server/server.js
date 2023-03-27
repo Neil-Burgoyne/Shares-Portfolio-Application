@@ -16,8 +16,8 @@ app.use(express.json())
 MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
   .then((client) => {
 
-    const db = client.db('stockApp') // Add database name
-    const userCollection = db.collection('userData')
+    const db = client.db('stockApp'); // Add database name
+    const userCollection = db.collection('userData');
     setUserCollection(userCollection);
     const stocksCollection = db.collection('stocksCache') // Add name
     setStocksCache(stocksCollection);
