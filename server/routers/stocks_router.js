@@ -1,21 +1,34 @@
 
 const express = require("express")
-const { getStockData, getStocksData, getStockSymbols } = require('../repositories/stocks_repository')
+const { getStockData, getStocksData } = require('../repositories/stocks_repository')
 
 
 const ObjectID = require("mongodb").ObjectID
 
-const stocksRouter = function (stocksCollection) {
+const stocksRouter = function () {
     const router = express.Router();
 
-    router.get('/stocks/', async (req, res) => {
-        const data = await getStocksData(stocksCollection);
-        res.json(data);
+    router.get('/', async (req, res) => {
+        try {
+            const data = await getStocksData();
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
     })
-    router.get('/stocks/:symbol', async (req, res) => {
-        const symbol = req.params.symbol;
-        const data = await getStockData(stocksCollection, symbol);
-        res.json(data);
+    router.get('/:symbol', async (req, res) => {
+        try {
+            const symbol = req.params.symbol;
+            const data = await getStockData(symbol);
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+
     })
 
     return router

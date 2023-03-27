@@ -1,8 +1,9 @@
 const { parseOHLCData } = require('../parsers/stock_data_parsers')
 const fetchData = require("../external_api/fetch_finnhub")
 const { todaysDate, yearToDateInSeconds } = require("../utilities/date_utilities");
+let stocksCache = null;
 
-const getData = async (stocksCache, query, url, parser, parserArgs) => {
+const getData = async (query, url, parser, parserArgs) => {
     const cachedData = await stocksCache.findOne(query)
     if (!cachedData) {
         console.log("noCache")
@@ -23,24 +24,36 @@ const getData = async (stocksCache, query, url, parser, parserArgs) => {
     }
 }
 
-const getStockData = async (stocksCache, stockSymbol) => {
+const getStockData = async (stockSymbol) => {
     const query = { symbol: stockSymbol };
     const { today, lastYear } = yearToDateInSeconds();
     const endpoint = `stock/candle?symbol=${stockSymbol}&resolution=D&from=${lastYear}&to=${today}`;
-    return await getData(stocksCache, query, endpoint, parseOHLCData, stockSymbol);
+    return await getData(query, endpoint, parseOHLCData, stockSymbol);
 }
 
-const getStocksData = async (stocksCache) => {
+const getStocksData = async () => {
     const stocksObjects = await stocksCache.find();
     const stocksArray = await stocksObjects.toArray();
-    const stocksData = [];
+    const stocksData = []
     for (let i = 0; i < stocksArray.length; i++) {
-        const stockData = await getStockData(stocksCache, stocksArray[i].symbol)
+        const stockData = await getStockData(stocksArray[i].symbol)
         stocksData.push(stockData);
     }
     return stocksData;
 }
 
+const getStocksDataFromArray = async (stocksList) => {
+    const stocksData = [];
+    for (let i = 0; i < stocksList.length; i++) {
+        const stockData = await getStockData(stocksList[i])
+        stocksData.push(stockData);
+    }
+    return stocksData;
+}
+
+const setStocksCache = (stocksCollection) => {
+    stocksCache = stocksCollection;
+}
 
 
-module.exports = { getStockData, getStocksData };
+module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray };

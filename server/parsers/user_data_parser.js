@@ -1,61 +1,59 @@
 
-
-const getUniqueStockSymbols = (data) => {
-    return data.shareTransactions.reduce((uniqueSymbols, element) => {
-        if (!uniqueSymbols.includes(element.stockSymbol)) {
-            uniqueSymbols.push(element.stockSymbol)
-        }
-        return uniqueSymbols;
-    }, []
-    )
-}
-const getNumSharesSymbol = (data, stockSymbol) => {
-    return num = data.shareTransactions.reduce((total, trans) => {
-        if (trans.stockSymbol === stockSymbol) {
-            if (trans.type === "purchase") {
-                return total += trans.quantity;
-            } else {
-                return total -= trans.quantity;
-            }
-        } else {
-            return total;
-        }
-    }, 0)
-}
-
-const getAveragePriceSymbol = (data, stockSymbol) => {
-    const numAndCost = data.shareTransactions.reduce((shareTotals, trans) => {
+const getShareData = (shareTransactions, stockSymbol) => {
+    const shareData = shareTransactions.reduce((shareTotals, trans) => {
         if (trans.stockSymbol === stockSymbol) {
             if (trans.type === "purchase") {
                 shareTotals.num += trans.quantity;
                 shareTotals.cost += (trans.quantity * trans.price)
+            } else if (trans.type === "sale") {
+                shareTotals.salesTotal += (trans.quantity * trans.price)
             }
         }
         return shareTotals;
-    }, { num: 0, cost: 0 })
-    console.log(numAndCost);
-    if (numAndCost.num === 0) return 0;
-    else return numAndCost.cost / numAndCost.num
+    }, { num: 0, cost: 0, salesTotal: 0 })
+    if (shareData.num === 0) shareData.averagePricePaid = 0;
+    else shareData.averagePricePaid = shareData.cost / shareData.num;
+    return shareData;
 }
 
-const parseUserData = (rawData) => {
-    const parsedData = {};
-    parsedData.name = rawData.name;
-    const stockSymbols = getUniqueStockSymbols(rawData);
-    console.log(stockSymbols)
-    const parsedShares = stockSymbols.map((symbol) => {
-        const newShareValue = { name: symbol }
-        newShareValue.numShares = getNumSharesSymbol(rawData, symbol)
-        newShareValue.averagePricePaid = getAveragePriceSymbol(rawData, symbol)
-        newShareValue.currentMarketValue = 100
-        return newShareValue;
+const parseUserAssets = (shareTransactions, stockData) => {
+    const parsedAssets = stockData.map((asset) => {
+        const shareData = getShareData(shareTransactions, asset.symbol);
+        const numShares = shareData.num;
+        const averagePricePaid = shareData.averagePricePaid;
+        const currentTotalValue = numShares * asset.closingValue;
+        const totalPaid = numShares * averagePricePaid;
+        const totalFromSales = shareData.salesTotal;
+        const totalValueIncrease = totalFromSales + currentTotalValue - totalPaid;
+
+        const newAssetData = {
+            symbol: asset.symbol,
+            name: asset.name,
+            currentMarketValue: asset.closingValue,
+            numShares,
+            averagePricePaid: averagePricePaid.toFixed(2),
+            currentTotalValue: currentTotalValue.toFixed(2),
+            totalPaid: totalPaid.toFixed(2),
+            totalFromSales: totalFromSales.toFixed(2),
+            totalValueIncrease: totalValueIncrease.toFixed(2)
+        };
+        return newAssetData;
     })
-    parsedData.shareValues = parsedShares;
-    return parsedData;
+    return parsedAssets;
 }
 
-const parseUsersData = (rawUsersData) => {
-    return rawUsersData.map((rawUserData) => parseUserData(rawUserData));
+const parseUserData = (user, stockData) => {
+    user.portfolio = parseUserAssets(user.shareTransactions, stockData);
+    user.portfolioTotals = user.portfolio.reduce((totals, asset) => {
+        totals.totalPortFolioValue += Number(asset.currentTotalValue);
+        totals.totalPaid += Number(asset.totalPaid);
+        totals.totalFromSales += Number(asset.totalFromSales);
+        totals.totalValueIncrease += Number(asset.totalValueIncrease);
+        return totals;
+    }, { totalPortFolioValue: 0, totalPaid: 0, totalFromSales: 0, totalValueIncrease: 0 })
+    Object.keys(user.portfolioTotals).map((key) => (
+        user.portfolioTotals[key] = user.portfolioTotals[key].toFixed(2)
+    ))
 }
 
-module.exports = { parseUserData, parseUsersData };
+module.exports = { parseUserData };
