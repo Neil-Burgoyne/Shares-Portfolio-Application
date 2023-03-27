@@ -5,9 +5,7 @@ const ObjectID = require("mongodb").ObjectID
 
 let userData = {}
 
-const getData = async (query) => {
-    const user = await userCollection.findOne(query);
-    console.log(user)
+const getData = async (user) => {
     const uniqueStockSymbols = getUniqueValues(user.shareTransactions, "stockSymbol");
     const stockData = await getStocksDataFromArray(uniqueStockSymbols)
     user.portfolio = parseUserAssets(user, stockData)
@@ -15,25 +13,25 @@ const getData = async (query) => {
 }
 
 const getUserData = async (id) => {
-    const query = { _id: ObjectID(id) };
-    const userData = await getData(query);
+    const user = await userCollection.findOne({ _id: ObjectID(id) });
+    const userData = await getData(user);
     return userData;
 
 }
 
-const getStocksData = async (stocksCache) => {
-    const stocksObjects = await stocksCache.find();
-    const stocksArray = await stocksObjects.toArray();
-    const stocksData = [];
-    for (let i = 0; i < stocksArray.length; i++) {
-        const stockData = await getStockData(stocksCache, stocksArray[i].symbol)
-        stocksData.push(stockData);
+const getUsersData = async () => {
+    const users = await userCollection.find();
+    const usersArray = await users.toArray();
+    const usersData = [];
+    for (let i = 0; i < usersArray.length; i++) {
+        const userData = await getData(usersArray[i]);
+        usersData.push(userData);
     }
-    return stocksData;
+    return usersData;
 }
 
 const setUserCollection = (userColl) => {
     userCollection = userColl;
 }
 
-module.exports = { getUserData, setUserCollection };
+module.exports = { getUserData, getUsersData, setUserCollection };

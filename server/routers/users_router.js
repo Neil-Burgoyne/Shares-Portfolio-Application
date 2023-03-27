@@ -1,22 +1,24 @@
 const express = require("express")
 const { parseUserData, parseUsersData } = require("../parsers/user_data_parser")
-const { getUserData } = require("../repositories/users_repository")
+const { getUserData, getUsersData } = require("../repositories/users_repository")
 
 
 const usersRouter = function () {
     const router = express.Router()
 
-    // router.get('/', async (req, res) => {
-    //     try {
-    //         const data = await getStocksData();
-    //         res.json(data);
-    //     } catch (err) {
-    //         console.error(err)
-    //         res.status(500)
-    //         res.json({ status: 500, error: err })
-    //     }
-    // })
 
+
+
+    router.get('/', async (req, res) => {
+        try {
+            const data = await getUsersData();
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+    })
     router.get('/:id', async (req, res) => {
         try {
             const id = req.params.id

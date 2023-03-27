@@ -34,6 +34,7 @@ const getStockData = async (stockSymbol) => {
 const getStocksData = async () => {
     const stocksObjects = await stocksCache.find();
     const stocksArray = await stocksObjects.toArray();
+    const stocksData = []
     for (let i = 0; i < stocksArray.length; i++) {
         const stockData = await getStockData(stocksArray[i].symbol)
         stocksData.push(stockData);

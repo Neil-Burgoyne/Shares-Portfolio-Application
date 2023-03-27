@@ -1,52 +1,47 @@
-const { getUniqueValues } = require("../utilities/array_utilities");
 
-
-const getNumSharesSymbol = (data, stockSymbol) => {
-    // console.log("getnumshares", data)
-    return data.shareTransactions.reduce((total, trans) => {
-        if (trans.stockSymbol === stockSymbol) {
-            console.log(trans)
-            if (trans.type === "purchase") {
-                console.log("purchase")
-                return total += trans.quantity;
-            } else {
-                return total -= trans.quantity;
-            }
-        } else {
-            console.log("not purchase")
-            return total;
-        }
-    }, 0)
-}
-
-const getAveragePriceSymbol = (data, stockSymbol) => {
-    const numAndCost = data.shareTransactions.reduce((shareTotals, trans) => {
+const getShareData = (data, stockSymbol) => {
+    const shareData = data.shareTransactions.reduce((shareTotals, trans) => {
         if (trans.stockSymbol === stockSymbol) {
             if (trans.type === "purchase") {
                 shareTotals.num += trans.quantity;
                 shareTotals.cost += (trans.quantity * trans.price)
+            } else if (trans.type === "sale") {
+                shareTotals.salesTotal += (trans.quantity * trans.price)
             }
         }
         return shareTotals;
-    }, { num: 0, cost: 0 })
-    if (numAndCost.num === 0) return 0;
-    else return numAndCost.cost / numAndCost.num
+    }, { num: 0, cost: 0, salesTotal: 0 })
+    if (shareData.num === 0) shareData.averagePricePaid = 0;
+    else shareData.averagePricePaid = shareData.cost / shareData.num;
+    return shareData;
 }
 
 const parseUserAssets = (rawData, stockData) => {
     const parsedAssets = stockData.map((asset) => {
-        console.log(asset)
-        newAssetData = { symbol: asset.symbol, name: asset.name, currentMarketValue: asset.closingValue };
-        newAssetData.numShares = getNumSharesSymbol(rawData, asset.symbol)
-        newAssetData.averagePricePaid = getAveragePriceSymbol(rawData, asset.symbol)
+        const shareData = getShareData(rawData, asset.symbol);
+        const numShares = shareData.num;
+        const averagePricePaid = shareData.averagePricePaid;
+        const currentTotalValue = numShares * asset.closingValue;
+        const totalPaid = numShares * averagePricePaid;
+        const totalFromSales = shareData.salesTotal;
+        const totalValueIncrease = totalFromSales + currentTotalValue - totalPaid;
 
+        const newAssetData = {
+            symbol: asset.symbol,
+            name: asset.name,
+            currentMarketValue: asset.closingValue,
+            numShares,
+            averagePricePaid: averagePricePaid.toFixed(2),
+            currentTotalValue: currentTotalValue.toFixed(2),
+            totalPaid: totalPaid.toFixed(2),
+            totalFromSales: totalFromSales.toFixed(2),
+            totalValueIncrease: totalValueIncrease.toFixed(2)
+        };
         return newAssetData;
     })
     return parsedAssets;
 }
 
-// const parseUsersData = (rawUsersData) => {
-//     return rawUsersData.map((rawUserData) => parseUserData(rawUserData));
-// }
+
 
 module.exports = { parseUserAssets };
