@@ -5,7 +5,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Switch, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { css } from '@emotion/react';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+
+const sxHeaderText = {
+  flexGrow: 0.2,
+  fontSize: '1rem',
+};
+
+const sxHeaderIcon = {
+  padding: 1,
+};
 
 export default function ButtonAppBar({ check, change, user }) {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
@@ -22,11 +32,13 @@ export default function ButtonAppBar({ check, change, user }) {
         <Toolbar>
           <Box>
             <Button color="inherit">
+              <HomeRoundedIcon sx={sxHeaderIcon} />
               <Link to="/">Home</Link>
             </Button>
           </Box>
           <Box>
             <Button color="inherit">
+              <TrendingUpIcon sx={sxHeaderIcon} />
               <Link to="/view">View</Link>
             </Button>
           </Box>
@@ -38,8 +50,12 @@ export default function ButtonAppBar({ check, change, user }) {
               checked={check}
             />
           </Box> */}
-          <Typography variant="h6">User: {user.name}</Typography>
-          <Typography variant="h6">Portfolio Total: £{totalCalc}</Typography>
+          <Typography sx={sxHeaderText} variant="h6">
+            User: {user.name}
+          </Typography>
+          <Typography sx={sxHeaderText} variant="h6">
+            Portfolio Total: £{totalCalc}
+          </Typography>
         </Toolbar>
       </AppBar>
     </Box>
