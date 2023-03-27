@@ -44,10 +44,6 @@ const usersRouter = function () {
 
 
 
-
-
-
-
     // // Index Route
     // router.get('/', (req, res) => {
     //     collection
