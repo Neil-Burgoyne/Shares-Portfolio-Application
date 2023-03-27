@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 
 const AddShares = ({addShares}) => {
     const [formData, setFormData] = useState({});
+
+    const addSharesStyle = {
+        padding: '1rem',
+        margin: '1rem'  
+    }
 
     const onSubmit = (e)=>{
         e.preventDefault();
@@ -14,22 +23,28 @@ const AddShares = ({addShares}) => {
     }
 
     const onChange = (e)=>{
-        formData[e.target.id] = e.target.value.toUpperCase()
+        formData.numshares = e.target.value
+        console.log(formData)
+        setFormData(formData)
+    }
+    
+    const onSelect = (e)=>{
+        formData.stockSymbol = e.target.innerText
         setFormData(formData)
     }
 
     return (
         <>
-            <h3>Add Shares</h3>
-            <form onSubmit={onSubmit}>
-                <label htmlFor='stockSymbol'>Company:</label>
-                <input type='text' id='stockSymbol' placeholder='Company' onChange={onChange}></input>
-                <label htmlFor='numshares'>Number:</label>
-                <input type='number' id='numshares' placeholder='Num' onChange={onChange}></input>
-                <label htmlFor='date'>Date:</label>
-                <input type='date' id='date'></input>
-                <button type='submit'>Add</button>
-            </form>
+            <Card>
+                <CardContent style={{display:'flex', flexDirection: 'column'}}>
+                        <Typography sx={addSharesStyle} variant="h5" component="div">Add Shares</Typography>
+                    <form onSubmit={onSubmit}>
+                        <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={["Chris", "Tim", "Ross", "Neil"]} renderInput={(params) => <TextField {...params} label="Company" />}/>
+                        <TextField sx={addSharesStyle} style={{marginBottom: '1rem'}}id="standard-basic" type="number" label="Number of Shares" onChange={onChange} variant="standard" /><br/>
+                        <Button variant="contained" type="submit">Add</Button>                    
+                    </form>
+                </CardContent>
+            </Card>
         </>
     )
 };
