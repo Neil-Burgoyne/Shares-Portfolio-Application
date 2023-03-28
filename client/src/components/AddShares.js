@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 
 const AddShares = ({ addShares, allStocks }) => {
-    const [formData, setFormData] = useState({});
+    const [stockSymbol, setStockSymbol] = useState();
+    const [number, setNumber] = useState();
 
     const stocks = allStocks.map((stock) => {
         return `${stock.symbol}: ${stock.name}`
@@ -20,24 +21,19 @@ const AddShares = ({ addShares, allStocks }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        formData.numshares = Number(formData.numshares)
-        addShares(formData)
-        console.log(formData)
+        const data = {stockSymbol: stockSymbol, numshares: number}
+        addShares(data)
         e.target.reset()
-        setFormData({})
+        setNumber()
     }
 
     const onChange = (e) => {
-        const newFormData = { ...formData }
-        newFormData.numshares = e.target.value
-        setFormData(newFormData)
+        setNumber(e.target.value)
     }
 
     const onSelect = (e) => {
         const symbol = e.target.innerText.split(':')
-        const newFormData = { ...formData }
-        newFormData.stockSymbol = symbol[0]
-        setFormData(newFormData)
+        setStockSymbol(symbol[0])
     }
 
     return (
