@@ -4,7 +4,7 @@ import PortfolioTable from './PortfolioTable';
 import UserChart from './UserChart';
 import Grid2 from '@mui/material/Unstable_Grid2';
 
-const Home = ({ user, addShares, sellShares, deleteShare, editShare, newUser, allStocks }) => {
+const Home = ({ addShares, sellShares, deleteShare, editShare, user, allStocks }) => {
   return (
     <>
       <Grid2 container spacing={3}>
@@ -14,7 +14,7 @@ const Home = ({ user, addShares, sellShares, deleteShare, editShare, newUser, al
         <Grid2 xs={9}>
         <UserChart />
         <div className='table-test'>
-        <PortfolioTable editShare={editShare} values={user.shareValues} sellShares={sellShares} deleteShare={deleteShare} newUser={newUser} />
+        <PortfolioTable editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} />
         </div>
         </Grid2>
       </Grid2>
