@@ -3,6 +3,7 @@ import AddShares from './AddShares';
 import PortfolioTable from './PortfolioTable';
 import UserChart from './UserChart';
 import Grid2 from '@mui/material/Unstable_Grid2';
+import DonutChart from './DonutChart';
 
 const Home = ({ addShares, sellShares, deleteShare, editShare, user, allStocks }) => {
   return (
@@ -12,10 +13,10 @@ const Home = ({ addShares, sellShares, deleteShare, editShare, user, allStocks }
           <AddShares allStocks={allStocks} addShares={addShares} />
         </Grid2>
         <Grid2 xs={9}>
-        <UserChart />
-        <div className='table-test'>
-        <PortfolioTable editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} />
-        </div>
+          <DonutChart user={user} />
+          <div className='table-test'>
+            <PortfolioTable editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} />
+          </div>
         </Grid2>
       </Grid2>
     </>

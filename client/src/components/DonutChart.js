@@ -57,7 +57,7 @@ const DonutChart = ({ user }) => {
                 console.log("currentMarketValue", asset.currentMarketValue)
                 console.log("portfolioTotals", Number(user.portfolioTotals.totalPortfolioValue))
 
-                const percentage = Number(asset.currentMarketValue) / Number(user.portfolioTotals.totalPortfolioValue) * 100;
+                const percentage = Number(asset.currentTotalValue) / Number(user.portfolioTotals.totalPortfolioValue) * 100;
                 return [asset.symbol, percentage]
             })
             console.log(data)
