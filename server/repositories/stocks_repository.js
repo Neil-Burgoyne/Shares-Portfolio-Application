@@ -6,20 +6,20 @@ let stocksCache = null;
 const getData = async (query, url, parser, parserArgs) => {
     const cachedData = await stocksCache.findOne(query)
     if (!cachedData) {
-        console.log("noCache")
+        console.log(query.symbol, "noCache")
         const stockData = await fetchData(url, parser, parserArgs);
         stockData.cached = todaysDate();
         await stocksCache.insertOne(stockData);
         return await stockData;
     } else if (todaysDate() > cachedData.cached) {
-        console.log("updateCache")
+        console.log(query.symbol, "updateCache")
         const parserArgs = { symbol: cachedData.symbol, name: cachedData.name }
         const stockData = await fetchData(url, parser, parserArgs);
         stockData.cached = todaysDate();
         await stocksCache.updateOne(query, { $set: stockData });
         return await stockData;
     } else {
-        console.log("cache")
+        console.log(query.symbol, "cache")
         return cachedData;
     }
 }
