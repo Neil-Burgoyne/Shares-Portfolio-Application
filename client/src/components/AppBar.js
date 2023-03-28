@@ -64,7 +64,11 @@ export default function ButtonAppBar({ check, change, user, theme }) {
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
         >
-          <IconButton onClick={() => setOpen(false)}>
+          <IconButton
+            onClick={() => setOpen(false)}
+            disableRipple
+            sx={{ display: 'flex', justifyContent: 'end' }}
+          >
             <ChevronLeftIcon />
           </IconButton>
           <Divider />
