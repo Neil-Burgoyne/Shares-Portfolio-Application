@@ -19,6 +19,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { useState } from 'react';
 
 const sxHeaderText = {
   flexGrow: 1,
@@ -31,6 +32,7 @@ const sxHeaderIcon = {
 
 export default function ButtonAppBar({ check, change, user }) {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
+  const [open, setOpen] = useState(false);
 
   const totalCalc = user.shareValues.reduce(
     (runningTotal, shareValues) =>
