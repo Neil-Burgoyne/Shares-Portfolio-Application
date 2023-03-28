@@ -28,15 +28,15 @@ const SharesPortfolio = () => {
   const [allUsers, setUsers] = useState([]);
   const [allStocks, setAllStocks] = useState([]);
   const [stock, setStock] = useState({});
-  const [newUser, setNewUser] = useState();
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const users = await getUsers()
-      setUsers(users);
-      setNewUser(users[0])
-    }
-    fetchUsers();
+            const users = await getUsers()
+            setUsers(users);
+            setUser(users[0])
+          }
+        fetchUsers();
 
     const fetchStocks = async () => {
       const stocks = await getStocks()
@@ -45,50 +45,35 @@ const SharesPortfolio = () => {
     fetchStocks();
   }, [])
 
-  const [user, setUser] = useState({
-    name: 'Millicent Moneybags',
-    shareValues: [
-      {
-        stockSymbol: 'AAPL',
-        numshares: 120,
-        averagePricePaid: 126,
-        currentMarketValue: 125,
-      },
-      {
-        stockSymbol: 'IBM',
-        numshares: 120,
-        averagePricePaid: 35,
-        currentMarketValue: 125,
-      },
-    ],
-    soldShares: [],
-  });
-
-  // Saving to state as expected 25/03/23
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
-    const match = allStocks.find((stock) => stock.symbol == newShareData.stockSymbol)
-    transaction(newUser._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response) => {
-      setNewUser(response)
-    })
-  }
+    const match = allStocks.find((stock)=> stock.symbol == newShareData.stockSymbol)
+    transaction(user._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response)=>{
+      setUser(response)})
+    }
+    
+    const sellShares = (data, singleStock) => {
+      const match = allStocks.find((stock)=> stock.symbol == singleStock.symbol)
+      transaction(user._id, singleStock.symbol, data, match.closingValue, 'sale').then((response)=>{
+        setUser(response)})
+    };
 
-  const sellShares = (data, singleStock) => {
-    // addToPreviousPortfolio(data, singleStock);
-    console.log(singleStock)
-    const match = allStocks.find((stock) => stock.symbol == singleStock.symbol)
-    transaction(newUser._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
-      console.log(response)
-      setNewUser(response)
-    })
-    // if (data.numshares == 0) {
-    //   deleteShare(singleStock);
-    // } else {
-    // const index = temp.portfolio.indexOf(singleStock);
-    // temp.shareValues[index] = data;
-    // setUser(temp);
+    // data.currentMarketValue = 100;
+    // const match = temp.shareValues.find(
+    //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+    // );
+    // if (match) {
+    //   data.averagePricePaid = Math.round(
+    //     (match.averagePricePaid * match.numshares +
+    //       data.currentMarketValue * data.numshares) /
+    //       (data.numshares + match.numshares)
+    //   );
+    //   data.numshares += match.numshares;
+    //   const index = temp.shareValues.indexOf(match);
+    //   temp.shareValues[index] = data;
+    //   setUser(temp);
     // }
-  };
+
 
   // data.currentMarketValue = 100;
   // const match = temp.shareValues.find(
@@ -118,32 +103,32 @@ const SharesPortfolio = () => {
   };
 
 
-  const addToPreviousPortfolio = (data, singleStock) => {
-    const newDate = new Date();
-    const year = newDate.toLocaleString('default', { year: 'numeric' });
-    const month = newDate.toLocaleString('default', { month: '2-digit' });
-    const day = newDate.toLocaleString('default', { day: '2-digit' });
-    const formatted = year + '-' + month + '-' + day;
-    const newEntry = {
-      quantity: singleStock.numshares - data.numshares,
-      soldFor: data.currentMarketValue,
-      date: formatted,
-    };
-    const temp = { ...user };
+  // const addToPreviousPortfolio = (data, singleStock) => {
+  //   const newDate = new Date();
+  //   const year = newDate.toLocaleString('default', { year: 'numeric' });
+  //   const month = newDate.toLocaleString('default', { month: '2-digit' });
+  //   const day = newDate.toLocaleString('default', { day: '2-digit' });
+  //   const formatted = year + '-' + month + '-' + day;
+  //   const newEntry = {
+  //     quantity: singleStock.numshares - data.numshares,
+  //     soldFor: data.currentMarketValue,
+  //     date: formatted,
+  //   };
+  //   const temp = { ...user };
 
-    const match = temp.soldShares.find(
-      ({ stockSymbol }) => stockSymbol == data.stockSymbol
-    );
-    if (match) {
-      match.sales.push(newEntry);
-    } else {
-      temp.soldShares.push({
-        stockSymbol: data.stockSymbol,
-        sales: [{ ...newEntry }],
-      });
-    }
-    setUser(temp);
-  };
+  //   const match = temp.soldShares.find(
+  //     ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  //   );
+  //   if (match) {
+  //     match.sales.push(newEntry);
+  //   } else {
+  //     temp.soldShares.push({
+  //       stockSymbol: data.stockSymbol,
+  //       sales: [{ ...newEntry }],
+  //     });
+  //   }
+  //   setUser(temp);
+  // };
 
   const editShare = (data, singleStock) => {
     const temp = { ...user };
@@ -155,36 +140,35 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
-      {newUser && allStocks ?
-        <ThemeProvider theme={theme}>
-          <Paper style={{ height: '100vh' }}>
-            <ButtonAppBar
-              check={darkMode}
-              change={() => setDarkMode(!darkMode)}
-              user={user}
+      {user && allStocks? 
+      <ThemeProvider theme={theme}>
+        <Paper style={{ height: '100vh' }}>
+          <ButtonAppBar
+            check={darkMode}
+            change={() => setDarkMode(!darkMode)}
+            user={user}
+          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  addShares={addShares}
+                  deleteShare={deleteShare}
+                  sellShares={sellShares}
+                  editShare={editShare}
+                  user={user}
+                  allStocks={allStocks}
+                />
+              }
             />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Home
-                    user={user}
-                    addShares={addShares}
-                    deleteShare={deleteShare}
-                    sellShares={sellShares}
-                    editShare={editShare}
-                    newUser={newUser}
-                    allStocks={allStocks}
-                  />
-                }
-              />
-              <Route path="/view" element={<View user={user} allStocks={allStocks} addShares={addShares} />} />
-              <Route path="/apitest" element={<ApiTest />} />
-            </Routes>
-          </Paper>
-        </ThemeProvider>
-        :
-        <h1>Loading...</h1>}
+            <Route path="/view" element={<View/>} />
+            <Route path="/apitest" element={<ApiTest />} />
+          </Routes>
+        </Paper>
+      </ThemeProvider>
+      : 
+      <h1>Loading...</h1>}
     </Router>
   );
 };

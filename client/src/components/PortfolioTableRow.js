@@ -13,11 +13,11 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
-const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) => {
+const PortfolioTableRow = ({stock, sellShares, deleteShare, editShare}) => {
     const [clicked, setClicked] = useState(false);
     const [editClicked, setEditClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
-    const [editForm, setEditForm] = useState(singleStock);
+    const [editForm, setEditForm] = useState(stock);
 
     const editClick = ()=>{
         setClicked(false)
@@ -34,8 +34,8 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
     }
 
     const sell =()=>{
-        if(shareInput <= singleStock.numShares){
-            sellShares(Number(shareInput), singleStock)
+        if(shareInput <= stock.numShares){
+            sellShares(Number(shareInput), stock)
             sellClick()
         } else{
             return null
@@ -44,10 +44,10 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
 
     const deleteEntry = ()=>{
         setEditClicked(false)
-        deleteShare(singleStock)
+        deleteShare(stock)
     }
 
-    const answer = ((singleStock.currentMarketValue / singleStock.averagePricePaid)*100)
+    const answer = ((stock.currentMarketValue / stock.averagePricePaid)*100)
 
     const editChange = (e)=>{
         editForm[e.target.id] = Number(e.target.value)
@@ -55,8 +55,8 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
     }
 
     const submitEditEntry = ()=>{
-        editShare(editForm, singleStock)
-        setEditForm(singleStock)
+        editShare(editForm, stock)
+        setEditForm(stock)
         setEditClicked(!editClicked);
     }
 
@@ -64,12 +64,12 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
     return( 
     <>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-            <TableCell component="th" scope="row">{singleStock.symbol}</TableCell>
-            <TableCell>{singleStock.numShares}</TableCell>
-            <TableCell>£{singleStock.averagePricePaid}</TableCell>
-            <TableCell>£{singleStock.currentMarketValue}</TableCell>
+            <TableCell component="th" scope="row">{stock.symbol}</TableCell>
+            <TableCell>{stock.numShares}</TableCell>
+            <TableCell>£{stock.averagePricePaid}</TableCell>
+            <TableCell>£{stock.currentMarketValue}</TableCell>
             {answer >= 100 ? <TableCell>&#8593;{(answer-100).toFixed(2)}%</TableCell> : <TableCell>&#8595;{(100-answer).toFixed(2)}%</TableCell>}
-            <TableCell><Link to="/view" singleStock={singleStock}><PageviewIcon/></Link></TableCell>
+            <TableCell><Link to="/view"><PageviewIcon/></Link></TableCell>
             <TableCell onClick={editClick}><SettingsIcon/></TableCell>
             <TableCell onClick={sellClick}><AttachMoneyIcon/></TableCell>
         </TableRow>
@@ -102,10 +102,10 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
                 </TableHead>
                 <TableBody>
                 <TableRow>        
-                    <TableCell><input type='text' readOnly value={singleStock.symbol}></input></TableCell>
-                    <TableCell><input onChange={editChange} id='numShares' type='number' defaultValue={singleStock.numShares}></input></TableCell>
-                    <TableCell><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={singleStock.averagePricePaid}></input></TableCell>
-                    <TableCell><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={singleStock.currentMarketValue}></input></TableCell>
+                    <TableCell><input type='text' readOnly value={stock.symbol}></input></TableCell>
+                    <TableCell><input onChange={editChange} id='numShares' type='number' defaultValue={stock.numShares}></input></TableCell>
+                    <TableCell><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={stock.averagePricePaid}></input></TableCell>
+                    <TableCell><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={stock.currentMarketValue}></input></TableCell>
                     <TableCell><button onClick={deleteEntry}>Delete</button></TableCell>
                     <TableCell><button onClick={submitEditEntry}>Confirm Changes</button></TableCell>
                     <TableCell><button onClick={editClick}>Cancel</button></TableCell>
