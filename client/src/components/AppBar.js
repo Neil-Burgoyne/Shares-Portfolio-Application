@@ -2,7 +2,6 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import {
   Switch,
   Typography,
@@ -24,7 +23,7 @@ const sxHeaderIcon = {
   padding: 1,
 };
 
-export default function ButtonAppBar({ check, change, user }) {
+export default function ButtonAppBar({ check, change, user, theme }) {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const [open, setOpen] = useState(false);
 
@@ -73,7 +72,7 @@ export default function ButtonAppBar({ check, change, user }) {
             <ListItem>
               <HomeRoundedIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none', padding: 0, margin: 10 }}
+                style={{ textDecoration: 'none', margin: 0 }}
                 to="/"
                 onClick={() => setOpen(false)}
               >
@@ -83,11 +82,21 @@ export default function ButtonAppBar({ check, change, user }) {
             <ListItem>
               <TrendingUpIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none', padding: 0, margin: 10 }}
+                style={{ textDecoration: 'none', margin: 0 }}
                 to="/view"
                 onClick={() => setOpen(false)}
               >
                 View
+              </Link>
+            </ListItem>
+            <ListItem>
+              <TrendingUpIcon sx={sxHeaderIcon} />
+              <Link
+                style={{ textDecoration: 'none', margin: 0 }}
+                to="/view"
+                onClick={() => setOpen(false)}
+              >
+                News
               </Link>
             </ListItem>
           </List>
