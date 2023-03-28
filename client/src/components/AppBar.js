@@ -75,7 +75,11 @@ export default function ButtonAppBar({ check, change, user }) {
           </Typography>
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
         </Toolbar>
-        <SwipeableDrawer open={true}>
+        <SwipeableDrawer
+          open={open}
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+        >
           <IconButton>
             <ChevronLeftIcon />
           </IconButton>
