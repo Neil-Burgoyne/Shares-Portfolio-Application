@@ -13,6 +13,7 @@ const Home = ({ addShares, sellShares, deleteShare, editShare, user, allStocks, 
           <AddShares allStocks={allStocks} addShares={addShares} />
         </Grid2>
         <Grid2 xs={9}>
+          <h2>Current Portfolio</h2>
           <DonutChart user={user} />
           <div className='table-test'>
             <PortfolioTable editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} selectedSymbol={selectedSymbol} selectSymbol={selectSymbol} />

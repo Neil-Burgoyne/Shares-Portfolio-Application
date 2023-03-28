@@ -93,7 +93,7 @@ const SharesPortfolio = () => {
     <Router>
       {allUsers[user] && allStocks ?
         <ThemeProvider theme={theme}>
-          <Paper style={{ height: '100vh' }}>
+          <Paper style={{ height: '100%' }}>
             <ButtonAppBar
               check={darkMode}
               change={() => setDarkMode(!darkMode)}
@@ -114,7 +114,19 @@ const SharesPortfolio = () => {
                   />
                 }
               />
-              <Route path="/view" element={<View allStocks={allStocks} addShares={addShares} selectSymbol={selectSymbol} selectedSymbol={selectedSymbol} />} />
+              <Route
+                path="/view"
+                element={<View
+                  user={allUsers[user]}
+                  deleteShare={deleteShare}
+                  sellShares={sellShares}
+                  editShare={editShare}
+                  allStocks={allStocks}
+                  addShares={addShares}
+                  selectSymbol={selectSymbol}
+                  selectedSymbol={selectedSymbol}
+                />}
+              />
               <Route path="/apitest" element={<ApiTest />} />
             </Routes>
           </Paper>

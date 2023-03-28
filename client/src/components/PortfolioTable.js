@@ -33,7 +33,7 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
     <>
 
 
-      <h2>Current Portfolio</h2>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
