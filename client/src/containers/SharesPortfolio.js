@@ -12,21 +12,15 @@ import { teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
 
 const SharesPortfolio = () => {
-  // DARK MODE THEME NEEDS WORK
   const [darkMode, setDarkMode] = useState(false);
-
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     mode: darkMode ? 'dark' : 'light',
-  //   },
-  // });
 
   const theme = createTheme({
     palette: {
       primary: teal,
       secondary: {
-        main: '#00796b',
+        main: '#f50057',
       },
+
       mode: darkMode ? 'dark' : 'light',
     },
   });

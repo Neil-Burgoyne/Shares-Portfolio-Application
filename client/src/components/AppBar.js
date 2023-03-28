@@ -69,6 +69,10 @@ export default function ButtonAppBar({ check, change, user, theme }) {
             disableRipple
             sx={{ display: 'flex', justifyContent: 'end' }}
           >
+            <Typography style={{ padding: 10, fontSize: '1rem' }} variant="h6">
+              {user.name}
+            </Typography>
+            <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
             <ChevronLeftIcon />
           </IconButton>
           <Divider />
