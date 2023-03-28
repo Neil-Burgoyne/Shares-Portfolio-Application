@@ -11,8 +11,8 @@ export const getUser = (id) => {
 }
 
 // type can be "sale" or "purchase"
-export const transaction = (userId, stockSymbol, quantity, value, type) => {
-    const payload = { stockSymbol, quantity, value, type };
+export const transaction = (userId, stockSymbol, quantity, price, type) => {
+    const payload = { stockSymbol, quantity, price, type };
     return fetch(baseURL + userId + '/transaction', {
         method: 'POST',
         body: JSON.stringify(payload),

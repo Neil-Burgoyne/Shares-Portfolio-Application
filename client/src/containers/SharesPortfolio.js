@@ -68,6 +68,7 @@ const SharesPortfolio = () => {
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
     const match = allStocks.find((stock) => stock.symbol == newShareData.stockSymbol)
+    console.log("match", match)
     transaction(newUser._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response) => {
       setNewUser(response)
     })
