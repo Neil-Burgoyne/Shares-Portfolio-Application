@@ -34,11 +34,13 @@ const SharesPortfolio = () => {
   const [allUsers, setUsers] = useState([]);
     const [allStocks, setAllStocks] = useState([]);
     const [stock, setStock] = useState({});
+    const [newUser, setNewUser] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
             const users = await getUsers()
             setUsers(users);
+            setNewUser(users[0])
           }
         fetchUsers();
 
@@ -46,9 +48,8 @@ const SharesPortfolio = () => {
             const stocks = await getStocks()
             setAllStocks(stocks);
           }
-          fetchStocks();        
+          fetchStocks();      
     }, [])
-  const newUser = allUsers[0]
 
   const [user, setUser] = useState({
     name: 'Millicent Moneybags',
@@ -71,18 +72,27 @@ const SharesPortfolio = () => {
 
   // Saving to state as expected 25/03/23
   // DATA - {stockSymbol: value, numshares: value}
-  const addShares = (data) => {
-    const temp = {...newUser}
-    console.log(newUser._id)
-    const match = allStocks.find((stock)=> stock.symbol == data.stockSymbol)
-    transaction(newUser._id, data.stockSymbol, data.numshares, match.closingValue, 'purchase').then((postAttempt)=>{
-    console.log(postAttempt)})
-  }
-
-
-    // userId, stockSymbol, quantity, value, type
-
-
+  const addShares = (newShareData) => {
+    const match = allStocks.find((stock)=> stock.symbol == newShareData.stockSymbol)
+    transaction(newUser._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response)=>{
+      setNewUser(response)})
+    }
+    
+    const sellShares = (data, singleStock) => {
+      // addToPreviousPortfolio(data, singleStock);
+      console.log(singleStock)
+      const match = allStocks.find((stock)=> stock.symbol == singleStock.symbol)
+      transaction(newUser._id, singleStock.symbol, data, match.closingValue, 'sale').then((response)=>{
+        console.log(response)
+        setNewUser(response)})
+      // if (data.numshares == 0) {
+      //   deleteShare(singleStock);
+      // } else {
+        // const index = temp.portfolio.indexOf(singleStock);
+        // temp.shareValues[index] = data;
+        // setUser(temp);
+      // }
+    };
 
     // data.currentMarketValue = 100;
     // const match = temp.shareValues.find(
@@ -111,17 +121,6 @@ const SharesPortfolio = () => {
     setUser(temp);
   };
 
-  const sellShares = (data, singleStock) => {
-    addToPreviousPortfolio(data, singleStock);
-    const temp = { ...user };
-    if (data.numshares == 0) {
-      deleteShare(singleStock);
-    } else {
-      const index = temp.shareValues.indexOf(singleStock);
-      temp.shareValues[index] = data;
-      setUser(temp);
-    }
-  };
 
   const addToPreviousPortfolio = (data, singleStock) => {
     const newDate = new Date();

@@ -35,9 +35,7 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
 
     const sell =()=>{
         if(shareInput <= singleStock.numShares){
-            const temp = {...singleStock}
-            temp.numShares -= shareInput
-            sellShares(temp, singleStock)
+            sellShares(Number(shareInput), singleStock)
             sellClick()
         } else{
             return null
