@@ -29,7 +29,7 @@ const parseUserAssets = (shareTransactions, stockData) => {
         const newAssetData = {
             symbol: asset.symbol,
             name: asset.name,
-            currentMarketValue: asset.closingValue,
+            currentMarketValue: asset.closingValue.toFixed(2),
             numShares,
             averagePricePaid: averagePricePaid.toFixed(2),
             currentTotalValue: currentTotalValue.toFixed(2),
