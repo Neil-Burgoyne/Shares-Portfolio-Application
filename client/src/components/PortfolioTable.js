@@ -16,14 +16,14 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user }) => {
   //   0
   // );
 
-  const row = user.portfolio.map((singleStock, i) => {
+  const row = user.portfolio.map((stock, i) => {
     return (
       <PortfolioTableRow
         editShare={editShare}
         deleteShare={deleteShare}
         sellShares={sellShares}
         key={i}
-        singleStock={singleStock}
+        stock={stock}
       />
     );
   });
