@@ -8,7 +8,6 @@ import {
   Typography,
   Avatar,
   IconButton,
-  Hidden,
   SwipeableDrawer,
   Divider,
   List,
@@ -34,6 +33,8 @@ export default function ButtonAppBar({ check, change, user }) {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const [open, setOpen] = useState(false);
 
+  const drawerWidth = 240;
+
   const totalCalc = user.shareValues.reduce(
     (runningTotal, shareValues) =>
       (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
@@ -44,7 +45,7 @@ export default function ButtonAppBar({ check, change, user }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton>
+          <IconButton onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
           <Box>
@@ -76,27 +77,37 @@ export default function ButtonAppBar({ check, change, user }) {
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
         </Toolbar>
         <SwipeableDrawer
+          width={drawerWidth}
           open={open}
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
         >
-          <IconButton>
+          <IconButton onClick={() => setOpen(false)}>
             <ChevronLeftIcon />
           </IconButton>
           <Divider />
           <List>
             <ListItem>
-              <Link style={{ textDecoration: 'none' }} to="/">
+              <HomeRoundedIcon sx={sxHeaderIcon} />
+              <Link
+                style={{ textDecoration: 'none' }}
+                to="/"
+                onClick={() => setOpen(false)}
+              >
                 Home
               </Link>
             </ListItem>
             <ListItem>
-              <Link style={{ textDecoration: 'none' }} to="/view">
+              <TrendingUpIcon sx={sxHeaderIcon} />
+              <Link
+                style={{ textDecoration: 'none' }}
+                to="/view"
+                onClick={() => setOpen(false)}
+              >
                 View
               </Link>
             </ListItem>
           </List>
-          Drawer
         </SwipeableDrawer>
       </AppBar>
     </Box>
