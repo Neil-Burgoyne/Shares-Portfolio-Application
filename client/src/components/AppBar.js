@@ -64,7 +64,15 @@ export default function ButtonAppBar({ check, change, user, theme }) {
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
         >
-          <IconButton onClick={() => setOpen(false)}>
+          <IconButton
+            onClick={() => setOpen(false)}
+            disableRipple
+            sx={{ display: 'flex', justifyContent: 'end' }}
+          >
+            <Typography style={{ padding: 10, fontSize: '1rem' }} variant="h6">
+              {user.name}
+            </Typography>
+            <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
             <ChevronLeftIcon />
           </IconButton>
           <Divider />
@@ -87,16 +95,6 @@ export default function ButtonAppBar({ check, change, user, theme }) {
                 onClick={() => setOpen(false)}
               >
                 View
-              </Link>
-            </ListItem>
-            <ListItem>
-              <TrendingUpIcon sx={sxHeaderIcon} />
-              <Link
-                style={{ textDecoration: 'none', margin: 0 }}
-                to="/view"
-                onClick={() => setOpen(false)}
-              >
-                News
               </Link>
             </ListItem>
           </List>
