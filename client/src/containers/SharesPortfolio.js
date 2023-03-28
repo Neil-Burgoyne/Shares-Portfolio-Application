@@ -70,15 +70,14 @@ const SharesPortfolio = () => {
   });
 
   // Saving to state as expected 25/03/23
+  // DATA - {stockSymbol: value, numshares: value}
   const addShares = (data) => {
     const temp = {...newUser}
+    console.log(newUser._id)
     const match = allStocks.find((stock)=> stock.symbol == data.stockSymbol)
-    data.currentMarketValue = match.closingValue
-    transaction(newUser._id, data.stockSymbol, data.numshares, data.currentMarketValue, 'purchase').then((ret)=>{
-      temp.shareTransactions.push(ret)
-      setUsers(temp)
-    }
-    )
+    transaction(newUser._id, data.stockSymbol, data.numshares, match.closingValue, 'purchase').then((postAttempt)=>{
+    console.log(postAttempt)})
+  }
 
 
     // userId, stockSymbol, quantity, value, type
@@ -104,7 +103,6 @@ const SharesPortfolio = () => {
     //   temp.shareValues.push(data);
     //   setUser(temp);
     // }
-  };
 
   const deleteShare = (singleStock) => {
     const temp = { ...user };
