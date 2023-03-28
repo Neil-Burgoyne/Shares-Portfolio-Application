@@ -4,12 +4,14 @@ import StockChart from './StockChart';
 import AddShares from './AddShares';
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   CardHeader,
   Container,
   Grid,
 } from '@mui/material';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 const View = ({ stockSymbol }) => {
   return (
@@ -23,9 +25,9 @@ const View = ({ stockSymbol }) => {
           </CardContent>
         </Card>
       </Container>
-      <Grid>
+      <Box align="center">
         <AddShares />
-      </Grid>
+      </Box>
     </>
   );
 };

@@ -42,14 +42,14 @@ export default function ButtonAppBar({ check, change, user }) {
               <Link to="/view">View</Link>
             </Button>
           </Box>
-          {/* <Box>
+          <Box>
             <Switch
               {...label}
               color="default"
               onChange={change}
               checked={check}
             />
-          </Box> */}
+          </Box>
           <Typography sx={sxHeaderText} variant="h6">
             Portfolio Total: £{totalCalc}
           </Typography>

@@ -11,16 +11,15 @@ import { teal } from '@mui/material/colors';
 
 import ApiTest from '../components/ApiTest.js';
 
-
 const SharesPortfolio = () => {
   // DARK MODE THEME NEEDS WORK
   const [darkMode, setDarkMode] = useState(false);
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-    },
-  });
+  // const darkTheme = createTheme({
+  //   palette: {
+  //     mode: darkMode ? 'dark' : 'light',
+  //   },
+  // });
 
   const theme = createTheme({
     palette: {
@@ -28,6 +27,7 @@ const SharesPortfolio = () => {
       secondary: {
         main: '#00796b',
       },
+      mode: darkMode ? 'dark' : 'light',
     },
   });
 
@@ -61,7 +61,7 @@ const SharesPortfolio = () => {
       data.averagePricePaid = Math.round(
         (match.averagePricePaid * match.numshares +
           data.currentMarketValue * data.numshares) /
-        (data.numshares + match.numshares)
+          (data.numshares + match.numshares)
       );
       data.numshares += match.numshares;
       const index = temp.shareValues.indexOf(match);
@@ -94,36 +94,34 @@ const SharesPortfolio = () => {
   };
 
   const addToPreviousPortfolio = (data, singleStock) => {
-
-    const newDate = new Date()
-    const year = newDate.toLocaleString("default", { year: "numeric" })
-    const month = newDate.toLocaleString("default", { month: "2-digit" })
-    const day = newDate.toLocaleString("default", { day: "2-digit" })
-    const formatted = year + "-" + month + "-" + day;
+    const newDate = new Date();
+    const year = newDate.toLocaleString('default', { year: 'numeric' });
+    const month = newDate.toLocaleString('default', { month: '2-digit' });
+    const day = newDate.toLocaleString('default', { day: '2-digit' });
+    const formatted = year + '-' + month + '-' + day;
     const newEntry = {
       quantity: singleStock.numshares - data.numshares,
       soldFor: data.currentMarketValue,
-      date: formatted
-    }
-    const temp = { ...user }
+      date: formatted,
+    };
+    const temp = { ...user };
 
     const match = temp.soldShares.find(
       ({ stockSymbol }) => stockSymbol == data.stockSymbol
     );
     if (match) {
-
-      match.sales.push(newEntry)
+      match.sales.push(newEntry);
     } else {
       temp.soldShares.push({
         stockSymbol: data.stockSymbol,
-        sales: [{ ...newEntry }]
-      })
+        sales: [{ ...newEntry }],
+      });
     }
-    setUser(temp)
+    setUser(temp);
   };
 
   const editShare = (data, singleStock) => {
-    const temp = { ...user }
+    const temp = { ...user };
 
     const index = temp.shareValues.indexOf(singleStock);
     temp[index] = data;
@@ -132,8 +130,8 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
-      <ThemeProvider darkMode={darkMode} theme={theme}>
-        <Paper style={{ height: '250vh' }}>
+      <ThemeProvider theme={theme}>
+        <Paper style={{ height: '100vh' }}>
           <ButtonAppBar
             check={darkMode}
             change={() => setDarkMode(!darkMode)}
