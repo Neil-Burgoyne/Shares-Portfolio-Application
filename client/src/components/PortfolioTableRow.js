@@ -93,7 +93,7 @@ const PortfolioTableRow = ({stock, sellShares, deleteShare, editShare}) => {
         
         <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0, margin:0}} colSpan={8}>
-        <Collapse in={editClicked} timeout="auto" unmountOnExit>
+            <Collapse in={editClicked} timeout="auto" unmountOnExit>
                 <TableHead>
                     <TableCell>Share</TableCell>
                     <TableCell>Shares Held</TableCell>
@@ -111,7 +111,7 @@ const PortfolioTableRow = ({stock, sellShares, deleteShare, editShare}) => {
                     <TableCell><button onClick={editClick}>Cancel</button></TableCell>
                 </TableRow>
                 </TableBody>
-        </Collapse>
+            </Collapse>
         </TableCell>
         </TableRow>
 

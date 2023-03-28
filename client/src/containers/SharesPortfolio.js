@@ -54,12 +54,13 @@ const SharesPortfolio = () => {
     })
   }
 
+  //DATA - number / SINGLESTOCK - stock
   const sellShares = (data, singleStock) => {
     const temp = [...allUsers]
     const match = allStocks.find((stock) => stock.symbol == singleStock.symbol)
-    transaction(user._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
+    transaction(allUsers[user]._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
       temp[user] = response
-      setUser(temp)
+      setUsers(temp)
     })
   };
 
