@@ -6,8 +6,12 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 
-const AddShares = ({addShares}) => {
+const AddShares = ({addShares, allStocks}) => {
     const [formData, setFormData] = useState({});
+
+    const stocks = allStocks.map((stock)=>{
+        return `${stock.symbol}: ${stock.name}`
+    })
 
     const addSharesStyle = {
         padding: '1rem',
@@ -24,12 +28,12 @@ const AddShares = ({addShares}) => {
 
     const onChange = (e)=>{
         formData.numshares = e.target.value
-        console.log(formData)
         setFormData(formData)
     }
     
     const onSelect = (e)=>{
-        formData.stockSymbol = e.target.innerText
+        const symbol = e.target.innerText.split(':')
+        formData.stockSymbol = symbol[0]
         setFormData(formData)
     }
 
@@ -39,7 +43,7 @@ const AddShares = ({addShares}) => {
                 <CardContent style={{display:'flex', flexDirection: 'column'}}>
                         <Typography sx={addSharesStyle} variant="h5" component="div">Add Shares</Typography>
                     <form onSubmit={onSubmit}>
-                        <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={["Chris", "Tim", "Ross", "Neil"]} renderInput={(params) => <TextField {...params} label="Company" />}/>
+                        <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={stocks} renderInput={(params) => <TextField {...params} label="Company" />}/>
                         <TextField sx={addSharesStyle} style={{marginBottom: '1rem'}}id="standard-basic" type="number" label="Number of Shares" onChange={onChange} variant="standard" /><br/>
                         <Button variant="contained" type="submit">Add</Button>                    
                     </form>

@@ -8,14 +8,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const PortfolioTable = ({ values, sellShares, deleteShare, editShare }) => {
-  const totalCalc = values.reduce(
-    (runningTotal, shareValues) =>
-      (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
-    0
-  );
+const PortfolioTable = ({ sellShares, deleteShare, editShare, newUser }) => {
+  //NOT NEEDED
+  // const totalCalc = values.reduce(
+  //   (runningTotal, shareValues) =>
+  //     (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
+  //   0
+  // );
 
-  const row = values.map((singleStock, i) => {
+  const row = newUser.portfolio.map((singleStock, i) => {
     return (
       <PortfolioTableRow
         editShare={editShare}
@@ -26,18 +27,6 @@ const PortfolioTable = ({ values, sellShares, deleteShare, editShare }) => {
       />
     );
   });
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
 
   return (
     <>
@@ -64,7 +53,7 @@ const PortfolioTable = ({ values, sellShares, deleteShare, editShare }) => {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell>Total:</TableCell>
-                    <TableCell>£{totalCalc}</TableCell>
+                    <TableCell>£{newUser.portfolioTotals.totalPortFolioValue}</TableCell>
         </TableRow>
         </TableBody>
       </Table>

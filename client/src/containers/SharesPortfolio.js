@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Paper } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { getUsers, transaction } from '../api_services/UsersService';
+import { getStocks, getStock } from '../api_services/StocksService';
 
 import Home from '../components/Home.js';
 import View from '../components/View.js';
 import ButtonAppBar from '../components/AppBar.js';
-
 import { teal } from '@mui/material/colors';
-
 import ApiTest from '../components/ApiTest.js';
 
 const SharesPortfolio = () => {
@@ -31,6 +31,25 @@ const SharesPortfolio = () => {
     },
   });
 
+  const [allUsers, setUsers] = useState([]);
+    const [allStocks, setAllStocks] = useState([]);
+    const [stock, setStock] = useState({});
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+            const users = await getUsers()
+            setUsers(users);
+          }
+        fetchUsers();
+
+    const fetchStocks = async () => {
+            const stocks = await getStocks()
+            setAllStocks(stocks);
+          }
+          fetchStocks();        
+    }, [])
+  const newUser = allUsers[0]
+
   const [user, setUser] = useState({
     name: 'Millicent Moneybags',
     shareValues: [
@@ -52,26 +71,39 @@ const SharesPortfolio = () => {
 
   // Saving to state as expected 25/03/23
   const addShares = (data) => {
-    const temp = { ...user };
-    data.currentMarketValue = 100;
-    const match = temp.shareValues.find(
-      ({ stockSymbol }) => stockSymbol == data.stockSymbol
-    );
-    if (match) {
-      data.averagePricePaid = Math.round(
-        (match.averagePricePaid * match.numshares +
-          data.currentMarketValue * data.numshares) /
-          (data.numshares + match.numshares)
-      );
-      data.numshares += match.numshares;
-      const index = temp.shareValues.indexOf(match);
-      temp.shareValues[index] = data;
-      setUser(temp);
-    } else {
-      data.averagePricePaid = data.currentMarketValue;
-      temp.shareValues.push(data);
-      setUser(temp);
+    const temp = {...newUser}
+    const match = allStocks.find((stock)=> stock.symbol == data.stockSymbol)
+    data.currentMarketValue = match.closingValue
+    transaction(newUser._id, data.stockSymbol, data.numshares, data.currentMarketValue, 'purchase').then((ret)=>{
+      temp.shareTransactions.push(ret)
+      setUsers(temp)
     }
+    )
+
+
+    // userId, stockSymbol, quantity, value, type
+
+
+
+    // data.currentMarketValue = 100;
+    // const match = temp.shareValues.find(
+    //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+    // );
+    // if (match) {
+    //   data.averagePricePaid = Math.round(
+    //     (match.averagePricePaid * match.numshares +
+    //       data.currentMarketValue * data.numshares) /
+    //       (data.numshares + match.numshares)
+    //   );
+    //   data.numshares += match.numshares;
+    //   const index = temp.shareValues.indexOf(match);
+    //   temp.shareValues[index] = data;
+    //   setUser(temp);
+    // } else {
+    //   data.averagePricePaid = data.currentMarketValue;
+    //   temp.shareValues.push(data);
+    //   setUser(temp);
+    // }
   };
 
   const deleteShare = (singleStock) => {
@@ -130,6 +162,7 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
+      {newUser && allStocks? 
       <ThemeProvider theme={theme}>
         <Paper style={{ height: '100vh' }}>
           <ButtonAppBar
@@ -147,6 +180,8 @@ const SharesPortfolio = () => {
                   deleteShare={deleteShare}
                   sellShares={sellShares}
                   editShare={editShare}
+                  newUser={newUser}
+                  allStocks={allStocks}
                 />
               }
             />
@@ -155,6 +190,8 @@ const SharesPortfolio = () => {
           </Routes>
         </Paper>
       </ThemeProvider>
+      : 
+      <h1>Loading...</h1>}
     </Router>
   );
 };
