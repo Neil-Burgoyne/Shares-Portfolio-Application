@@ -33,7 +33,7 @@ const View = ({ allStocks, addShares }) => {
     setSelected(answer)
   }else{
     setSelected(allStocks[0])
-  }
+  }}
 
   return (
     <>
