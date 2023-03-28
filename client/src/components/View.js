@@ -18,22 +18,31 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const View = ({ allStocks, addShares }) => {
+const View = ({ allStocks, addShares, selectedSymbol, selectSymbol }) => {
 
-  const [selected, setSelected] = useState(allStocks[0]);
 
-  const options = allStocks.map((stock)=>{
+
+  const options = allStocks.map((stock) => {
     return `${stock.symbol} : ${stock.name}`
   })
 
-  const handleChange = (e)=>{
-    if (e.target.innerText){
-    const symbol = e.target.innerText.split(':')
-    const answer = allStocks.find((stock) => stock.symbol == symbol[0])
-    setSelected(answer)
-  }else{
-    setSelected(allStocks[0])
-  }}
+  const findSelectedOption = () => {
+
+    const found = options.find((option) => {
+      console.log(option)
+      return option.split(' :')[0] === selectedSymbol;
+    })
+    return found;
+    console.log("found", found)
+  }
+  const handleChange = (e, value) => {
+    console.log(value)
+    if (value) {
+      const symbol = value.split(' :')[0]
+      console.log(symbol)
+      selectSymbol(symbol)
+    }
+  }
 
   return (
     <>
@@ -42,8 +51,8 @@ const View = ({ allStocks, addShares }) => {
           <CardHeader avatar={<Avatar>A</Avatar>} />
           <Card>
             <CardContent style={{ display: 'flex' }}>
-              <Autocomplete id='combo-box-demo' size="small" onChange={handleChange} disablePortal sx={{ width: 300 }} options={options} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
-              {selected ?
+              <Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
+              {selectedSymbol ?
                 <div>
                   <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
                   <form onSubmit={null}>
@@ -55,7 +64,7 @@ const View = ({ allStocks, addShares }) => {
             </CardContent>
           </Card>
           <CardContent>
-            <StockChart stock={selected} />
+            <StockChart selectedSymbol={selectedSymbol} allStocks={allStocks} />
           </CardContent>
         </Card>
       </Container>
