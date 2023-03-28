@@ -23,17 +23,11 @@ const sxHeaderIcon = {
   padding: 1,
 };
 
-export default function ButtonAppBar({ check, change, user, theme }) {
+export default function ButtonAppBar({ check, change, theme, user }) {
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const [open, setOpen] = useState(false);
 
   const drawerWidth = 240;
-
-  const totalCalc = user.shareValues.reduce(
-    (runningTotal, shareValues) =>
-      (runningTotal += shareValues.currentMarketValue * shareValues.numshares),
-    0
-  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -51,7 +45,7 @@ export default function ButtonAppBar({ check, change, user, theme }) {
             />
           </Box>
           <Typography style={{ flexGrow: 1, fontSize: '1rem' }} variant="h6">
-            Portfolio Total: £{totalCalc}
+            Portfolio Total: £{user.portfolioTotals.totalPortfolioValue}
           </Typography>
           <Typography style={{ padding: 10, fontSize: '1rem' }} variant="h6">
             {user.name}

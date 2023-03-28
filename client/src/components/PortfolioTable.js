@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const PortfolioTable = ({ sellShares, deleteShare, editShare, newUser }) => {
+const PortfolioTable = ({ sellShares, deleteShare, editShare, user }) => {
   //NOT NEEDED
   // const totalCalc = values.reduce(
   //   (runningTotal, shareValues) =>
@@ -16,14 +16,14 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, newUser }) => {
   //   0
   // );
 
-  const row = newUser.portfolio.map((singleStock, i) => {
+  const row = user.portfolio.map((stock, i) => {
     return (
       <PortfolioTableRow
         editShare={editShare}
         deleteShare={deleteShare}
         sellShares={sellShares}
         key={i}
-        singleStock={singleStock}
+        stock={stock}
       />
     );
   });
@@ -53,7 +53,7 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, newUser }) => {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell>Total:</TableCell>
-                    <TableCell>£{newUser.portfolioTotals.totalPortFolioValue}</TableCell>
+                    <TableCell>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
         </TableRow>
         </TableBody>
       </Table>
