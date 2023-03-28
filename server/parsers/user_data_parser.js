@@ -45,12 +45,12 @@ const parseUserAssets = (shareTransactions, stockData) => {
 const parseUserData = (user, stockData) => {
     user.portfolio = parseUserAssets(user.shareTransactions, stockData);
     user.portfolioTotals = user.portfolio.reduce((totals, asset) => {
-        totals.totalPortFolioValue += Number(asset.currentTotalValue);
+        totals.totalPortfolioValue += Number(asset.currentTotalValue);
         totals.totalPaid += Number(asset.totalPaid);
         totals.totalFromSales += Number(asset.totalFromSales);
         totals.totalValueIncrease += Number(asset.totalValueIncrease);
         return totals;
-    }, { totalPortFolioValue: 0, totalPaid: 0, totalFromSales: 0, totalValueIncrease: 0 })
+    }, { totalPortfolioValue: 0, totalPaid: 0, totalFromSales: 0, totalValueIncrease: 0 })
     Object.keys(user.portfolioTotals).map((key) => (
         user.portfolioTotals[key] = user.portfolioTotals[key].toFixed(2)
     ))
