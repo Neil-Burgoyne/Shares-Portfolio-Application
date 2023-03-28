@@ -15,3 +15,34 @@ A user should be able to:
 
 - https://finnhub.io (Requires sign up)
 - https://www.highcharts.com/ HighCharts is an open-source library for rendering responsive charts.
+
+## Project Setup
+
+#### Inside Client Folder:
+
+Install required node modules:
+```
+npm i
+```
+Start the app:
+```
+npm start
+```
+#### Inside Server Folder:
+
+Install required node modules:
+```
+npm i
+```
+Run seed file to populate app with template data:
+```
+npm run seeds
+```
+Create .env file in the server folder, add the following code and insert the API key from finnhub.io:
+
+API_KEY="api key"
+
+Start the server:
+```
+npm run server:dev
+```
