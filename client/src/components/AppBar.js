@@ -20,12 +20,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useState } from 'react';
 
-const sxHeaderText = {
-  display: 'flex',
-  flexGrow: 3,
-  fontSize: '1rem',
-};
-
 const sxHeaderIcon = {
   padding: 1,
 };
@@ -57,10 +51,10 @@ export default function ButtonAppBar({ check, change, user }) {
               checked={check}
             />
           </Box>
-          <Typography sx={sxHeaderText} variant="h6">
+          <Typography style={{ flexGrow: 1, fontSize: '1rem' }} variant="h6">
             Portfolio Total: £{totalCalc}
           </Typography>
-          <Typography sx={sxHeaderText} variant="h6">
+          <Typography style={{ padding: 10, fontSize: '1rem' }} variant="h6">
             {user.name}
           </Typography>
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
@@ -79,7 +73,7 @@ export default function ButtonAppBar({ check, change, user }) {
             <ListItem>
               <HomeRoundedIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', padding: 0, margin: 10 }}
                 to="/"
                 onClick={() => setOpen(false)}
               >
@@ -89,7 +83,7 @@ export default function ButtonAppBar({ check, change, user }) {
             <ListItem>
               <TrendingUpIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', padding: 0, margin: 10 }}
                 to="/view"
                 onClick={() => setOpen(false)}
               >
