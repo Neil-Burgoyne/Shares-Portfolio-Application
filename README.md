@@ -18,16 +18,6 @@ A user should be able to:
 
 ## Project Setup
 
-#### Inside Client Folder:
-
-Install required node modules:
-```
-npm i
-```
-Start the app:
-```
-npm start
-```
 #### Inside Server Folder:
 
 Install required node modules:
@@ -45,4 +35,14 @@ API_KEY="api key"
 Start the server:
 ```
 npm run server:dev
+```
+#### Inside Client Folder:
+
+Install required node modules:
+```
+npm i
+```
+Start the app:
+```
+npm start
 ```
