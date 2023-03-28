@@ -43,13 +43,13 @@ const StockChart = ({ stock }) => {
             },
 
             title: {
-                text: `${stock.symbol} Price`
+                text: `Loading`
             },
 
             series: [{
                 type: 'candlestick',
-                name: stock.symbol,
-                title: stock.symbol,
+                name: 'Loading',
+                title: 'Loading',
                 data: [],
             }]
         }
@@ -57,6 +57,8 @@ const StockChart = ({ stock }) => {
         if (stock) {
 
             options.series[0].data = stock.graphData;
+            options.series[0].name = stock.symbol;
+            options.title.text = `${stock.symbol} Price`
         }
         return options;
     }, [stock])
