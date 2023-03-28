@@ -22,6 +22,7 @@ const AddShares = ({ addShares, allStocks }) => {
         e.preventDefault();
         formData.numshares = Number(formData.numshares)
         addShares(formData)
+        console.log(formData)
         e.target.reset()
         setFormData({})
     }
