@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
-const View = ({ stockSymbol }) => {
+const View = ({ stockSymbol, allStocks, addShares }) => {
   return (
     <>
       <Container>
@@ -26,7 +26,7 @@ const View = ({ stockSymbol }) => {
         </Card>
       </Container>
       <Box align="center">
-        <AddShares />
+        <AddShares allStocks={allStocks} addShares={addShares} />
       </Box>
     </>
   );

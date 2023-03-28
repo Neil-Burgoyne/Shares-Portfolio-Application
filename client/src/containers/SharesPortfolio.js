@@ -26,24 +26,24 @@ const SharesPortfolio = () => {
   });
 
   const [allUsers, setUsers] = useState([]);
-    const [allStocks, setAllStocks] = useState([]);
-    const [stock, setStock] = useState({});
-    const [newUser, setNewUser] = useState();
+  const [allStocks, setAllStocks] = useState([]);
+  const [stock, setStock] = useState({});
+  const [newUser, setNewUser] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
-            const users = await getUsers()
-            setUsers(users);
-            setNewUser(users[0])
-          }
-        fetchUsers();
+      const users = await getUsers()
+      setUsers(users);
+      setNewUser(users[0])
+    }
+    fetchUsers();
 
     const fetchStocks = async () => {
-            const stocks = await getStocks()
-            setAllStocks(stocks);
-          }
-          fetchStocks();      
-    }, [])
+      const stocks = await getStocks()
+      setAllStocks(stocks);
+    }
+    fetchStocks();
+  }, [])
 
   const [user, setUser] = useState({
     name: 'Millicent Moneybags',
@@ -67,46 +67,48 @@ const SharesPortfolio = () => {
   // Saving to state as expected 25/03/23
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
-    const match = allStocks.find((stock)=> stock.symbol == newShareData.stockSymbol)
-    transaction(newUser._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response)=>{
-      setNewUser(response)})
-    }
-    
-    const sellShares = (data, singleStock) => {
-      // addToPreviousPortfolio(data, singleStock);
-      console.log(singleStock)
-      const match = allStocks.find((stock)=> stock.symbol == singleStock.symbol)
-      transaction(newUser._id, singleStock.symbol, data, match.closingValue, 'sale').then((response)=>{
-        console.log(response)
-        setNewUser(response)})
-      // if (data.numshares == 0) {
-      //   deleteShare(singleStock);
-      // } else {
-        // const index = temp.portfolio.indexOf(singleStock);
-        // temp.shareValues[index] = data;
-        // setUser(temp);
-      // }
-    };
+    const match = allStocks.find((stock) => stock.symbol == newShareData.stockSymbol)
+    transaction(newUser._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response) => {
+      setNewUser(response)
+    })
+  }
 
-    // data.currentMarketValue = 100;
-    // const match = temp.shareValues.find(
-    //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
-    // );
-    // if (match) {
-    //   data.averagePricePaid = Math.round(
-    //     (match.averagePricePaid * match.numshares +
-    //       data.currentMarketValue * data.numshares) /
-    //       (data.numshares + match.numshares)
-    //   );
-    //   data.numshares += match.numshares;
-    //   const index = temp.shareValues.indexOf(match);
-    //   temp.shareValues[index] = data;
-    //   setUser(temp);
+  const sellShares = (data, singleStock) => {
+    // addToPreviousPortfolio(data, singleStock);
+    console.log(singleStock)
+    const match = allStocks.find((stock) => stock.symbol == singleStock.symbol)
+    transaction(newUser._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
+      console.log(response)
+      setNewUser(response)
+    })
+    // if (data.numshares == 0) {
+    //   deleteShare(singleStock);
     // } else {
-    //   data.averagePricePaid = data.currentMarketValue;
-    //   temp.shareValues.push(data);
-    //   setUser(temp);
+    // const index = temp.portfolio.indexOf(singleStock);
+    // temp.shareValues[index] = data;
+    // setUser(temp);
     // }
+  };
+
+  // data.currentMarketValue = 100;
+  // const match = temp.shareValues.find(
+  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  // );
+  // if (match) {
+  //   data.averagePricePaid = Math.round(
+  //     (match.averagePricePaid * match.numshares +
+  //       data.currentMarketValue * data.numshares) /
+  //       (data.numshares + match.numshares)
+  //   );
+  //   data.numshares += match.numshares;
+  //   const index = temp.shareValues.indexOf(match);
+  //   temp.shareValues[index] = data;
+  //   setUser(temp);
+  // } else {
+  //   data.averagePricePaid = data.currentMarketValue;
+  //   temp.shareValues.push(data);
+  //   setUser(temp);
+  // }
 
   const deleteShare = (singleStock) => {
     const temp = { ...user };
@@ -153,36 +155,36 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
-      {newUser && allStocks? 
-      <ThemeProvider theme={theme}>
-        <Paper style={{ height: '100vh' }}>
-          <ButtonAppBar
-            check={darkMode}
-            change={() => setDarkMode(!darkMode)}
-            user={user}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  user={user}
-                  addShares={addShares}
-                  deleteShare={deleteShare}
-                  sellShares={sellShares}
-                  editShare={editShare}
-                  newUser={newUser}
-                  allStocks={allStocks}
-                />
-              }
+      {newUser && allStocks ?
+        <ThemeProvider theme={theme}>
+          <Paper style={{ height: '100vh' }}>
+            <ButtonAppBar
+              check={darkMode}
+              change={() => setDarkMode(!darkMode)}
+              user={user}
             />
-            <Route path="/view" element={<View user={user} />} />
-            <Route path="/apitest" element={<ApiTest />} />
-          </Routes>
-        </Paper>
-      </ThemeProvider>
-      : 
-      <h1>Loading...</h1>}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    user={user}
+                    addShares={addShares}
+                    deleteShare={deleteShare}
+                    sellShares={sellShares}
+                    editShare={editShare}
+                    newUser={newUser}
+                    allStocks={allStocks}
+                  />
+                }
+              />
+              <Route path="/view" element={<View user={user} allStocks={allStocks} addShares={addShares} />} />
+              <Route path="/apitest" element={<ApiTest />} />
+            </Routes>
+          </Paper>
+        </ThemeProvider>
+        :
+        <h1>Loading...</h1>}
     </Router>
   );
 };
