@@ -18,7 +18,7 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const View = ({allStocks, addShares }) => {
+const View = ({ allStocks, addShares }) => {
 
   const [selected, setSelected] = useState(allStocks[0]);
 
@@ -34,29 +34,28 @@ const View = ({allStocks, addShares }) => {
   }else{
     setSelected(allStocks[0])
   }
-}
 
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
           <CardHeader avatar={<Avatar>A</Avatar>} />
-            <Card>      
-              <CardContent style={{ display: 'flex'}}>
-                <Autocomplete id='combo-box-demo' size="small" onChange={handleChange} disablePortal sx={{ width: 300 }} options={options} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
-                    {selected ? 
-                    <div>
-                    <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
-                    <form onSubmit={null}>
-                        <TextField style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={null} variant="standard" />
-                        <Button variant="contained" type="submit">Add</Button><br/>
-                    </form>
-                    </div>
-                    :null}
-                </CardContent>
-            </Card>
-           <CardContent>
-            <StockChart stockSymbol={selected} />
+          <Card>
+            <CardContent style={{ display: 'flex' }}>
+              <Autocomplete id='combo-box-demo' size="small" onChange={handleChange} disablePortal sx={{ width: 300 }} options={options} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
+              {selected ?
+                <div>
+                  <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
+                  <form onSubmit={null}>
+                    <TextField style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={null} variant="standard" />
+                    <Button variant="contained" type="submit">Add</Button><br />
+                  </form>
+                </div>
+                : null}
+            </CardContent>
+          </Card>
+          <CardContent>
+            <StockChart stock={selected} />
           </CardContent>
         </Card>
       </Container>
