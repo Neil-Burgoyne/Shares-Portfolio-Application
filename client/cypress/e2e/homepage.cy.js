@@ -2,8 +2,8 @@ describe("Homepage Functions", () => {
     it("loads the homepage correctly", () => {
         cy.visit("http://localhost:3000");
     });
-    
-    it('Can add Shares', function() {
+
+    it('Can add shares to the users portfolio', function() {
         cy.visit('http://localhost:3000');
         cy.get('.MuiAutocomplete-root > .MuiFormControl-root').click();
         cy.get('#combo-box-demo-option-0').click();
@@ -18,12 +18,6 @@ describe("Homepage Functions", () => {
     });
 
     
-
-
-
-
-
-
 
 
 
