@@ -1,0 +1,7 @@
+.highcharts-point-up {
+    fill: rgb(0, 252, 0);
+}
+
+.highcharts-point-down {
+    fill: red;
+}

@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
+import './StockChart.css'
 
 require('highcharts/indicators/indicators')(Highcharts)
 require('highcharts/indicators/pivot-points')(Highcharts)
@@ -13,65 +14,126 @@ require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/hollowcandlestick')(Highcharts);
 
 const StockChart = ({ stockSymbol }) => {
-    const [chartOptions, setChartOptions] = useState({
-        yAxis: [{
-            height: '75%',
-            labels: {
-                align: 'right',
-                x: -3
+    Highcharts.theme = {
+        colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
+            '#FF9655', '#FFF263', '#6AF9C4'],
+        chart: {
+            backgroundColor: {
+                linearGradient: [0, 0, 500, 500],
+                stops: [
+                    [0, ''],
+                    [1, 'rgb(240, 240, 255)']
+                ]
             },
-            title: {
-                text: stockSymbol
+        },
+        title: {
+            style: {
+                color: '#000',
+                font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
             }
-        }, {
-            top: '75%',
-            height: '25%',
-            labels: {
-                align: 'right',
-                x: -3
+        },
+        subtitle: {
+            style: {
+                color: '#666666',
+                font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+            }
+        },
+        legend: {
+            itemStyle: {
+                font: '9pt Trebuchet MS, Verdana, sans-serif',
+                color: 'black'
             },
-            offset: 0,
-            title: {
-                text: 'MACD'
+            itemHoverStyle: {
+                color: 'gray'
             }
-        }],
-        series: [{
-            data: [],
-            type: 'candlestick',
-            name: `'${stockSymbol} Stock Price'`,
-            id: 'stock'
         }
-            // ,
-            // {
-            //     type: 'pivotpoints',
-            //     linkedTo: 'aapl',
-            //     zIndex: 0,
-            //     lineWidth: 1,
-            //     dataLabels: {
-            //         overflow: 'none',
-            //         crop: false,
-            //         y: 4,
-            //         style: {
-            //             fontSize: 9
-            //         }
-            //     }
-            // }
-            // , {
-            //     type: 'macd',
-            //     yAxis: 1,
-            //     linkedTo: 'stock'
-            // }
-        ]
-    })
+    };
+
+
+    Highcharts.setOptions(Highcharts.theme);
+    const [chartOptions, setChartOptions] = useState({
+        rangeSelector: {
+            selected: 1,
+            allButtonsEnabled: true,
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m',
+                title: 'View 1 month'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m',
+                title: 'View 3 months'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m',
+                title: 'View 6 months'
+            }, {
+                type: 'ytd',
+                text: 'YTD',
+                title: 'View year to date'
+            }]
+        },
+
+        title: {
+            text: `${stockSymbol} Price`
+        },
+
+        series: [{
+            type: 'candlestick',
+            name: stockSymbol,
+            title: stockSymbol,
+            data: [],
+        }]
+    });
+    //     rangeSelector: {
+    //         selected: 4,
+    //         allButtonsEnabled: true,
+    //         buttons: [{
+    //             type: 'month',
+    //             count: 1,
+    //             text: '1m',
+    //             title: 'View 1 month'
+    //         }, {
+    //             type: 'month',
+    //             count: 3,
+    //             text: '3m',
+    //             title: 'View 3 months'
+    //         }, {
+    //             type: 'month',
+    //             count: 6,
+    //             text: '6m',
+    //             title: 'View 6 months'
+    //         }, {
+    //             type: 'ytd',
+    //             text: 'YTD',
+    //             title: 'View year to date'
+    //         }]
+    //     },
+    //     plotOptions: {
+    //         candleStick: { animation: true }
+    //     },
+    //     series: [{
+    //         data: [],
+    //         type: 'candlestick',
+    //         name: `'${stockSymbol} Stock Price'`,
+    //         id: 'stock'
+    //     }
+
+    //     ]
+    // })
 
 
     useEffect(() => {
         const updateSeries = (data) => {
             console.log(data)
             const newChartOptions = { ...chartOptions }
+            console.log(newChartOptions.series);
             newChartOptions.series[0].data = data.graphData;
-            newChartOptions.series[0].title = stockSymbol;
-            newChartOptions.yAxis[0].title.text = stockSymbol;
+            // newChartOptions.series[0].title = stockSymbol;
+            // newChartOptions.yAxis[0].title.text = stockSymbol;
             setChartOptions(newChartOptions);
         }
 
