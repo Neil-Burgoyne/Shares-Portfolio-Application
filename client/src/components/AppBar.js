@@ -89,16 +89,6 @@ export default function ButtonAppBar({ check, change, user, theme }) {
                 View
               </Link>
             </ListItem>
-            <ListItem>
-              <TrendingUpIcon sx={sxHeaderIcon} />
-              <Link
-                style={{ textDecoration: 'none', margin: 0 }}
-                to="/view"
-                onClick={() => setOpen(false)}
-              >
-                News
-              </Link>
-            </ListItem>
           </List>
         </SwipeableDrawer>
       </AppBar>
