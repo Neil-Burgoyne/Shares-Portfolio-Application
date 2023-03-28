@@ -27,14 +27,16 @@ const AddShares = ({ addShares, allStocks }) => {
     }
 
     const onChange = (e) => {
-        formData.numshares = e.target.value
-        setFormData(formData)
+        newFormData = { ...formData }
+        newFormData.numshares = e.target.value
+        setFormData(newFormData)
     }
 
     const onSelect = (e) => {
         const symbol = e.target.innerText.split(':')
-        formData.stockSymbol = symbol[0]
-        setFormData(formData)
+        newFormData = { ...formData }
+        newFormData.stockSymbol = symbol[0]
+        setFormData(newFormData)
     }
 
     return (
