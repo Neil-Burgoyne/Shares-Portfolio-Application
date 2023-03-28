@@ -22,7 +22,7 @@ const AddShares = ({ addShares, allStocks, selected }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const data = {stockSymbol: stockSymbol, numshares: number}
+        const data = { stockSymbol: stockSymbol, numshares: number }
         addShares(data)
         e.target.reset()
         setNumber()
@@ -34,12 +34,13 @@ const AddShares = ({ addShares, allStocks, selected }) => {
         setNumber(e.target.value)
     }
 
-    const onSelect = (e) => {
+    const onSelect = (e, value) => {
         setAdded(false)
-        if (e.target.innerText){
-        const symbol = e.target.innerText.split(':')
-        setStockSymbol(symbol[0])
-    }}
+        if (e.value) {
+            const symbol = e.value.split(':')[0]
+            setStockSymbol(symbol)
+        }
+    }
 
     return (
         <>
@@ -49,7 +50,7 @@ const AddShares = ({ addShares, allStocks, selected }) => {
                     <form onSubmit={onSubmit}>
                         <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={stocks} renderInput={(params) => <TextField {...params} label="Company" />} />
                         <TextField sx={addSharesStyle} style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={onChange} variant="standard" /><br />
-                        <Button variant="contained" type="submit">Add</Button><br/>
+                        <Button variant="contained" type="submit">Add</Button><br />
                     </form>
                 </CardContent>
             </Card>
