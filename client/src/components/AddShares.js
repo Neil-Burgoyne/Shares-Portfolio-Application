@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 
-const AddShares = ({ addShares, allStocks }) => {
+const AddShares = ({ addShares, allStocks, selected }) => {
     const [stockSymbol, setStockSymbol] = useState();
     const [number, setNumber] = useState();
     const [added, setAdded] = useState(false);
