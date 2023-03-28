@@ -168,7 +168,7 @@ const SharesPortfolio = () => {
                   />
                 }
               />
-              <Route path="/view" element={<View />} />
+              <Route path="/view" element={<View allStocks={allStocks} addShares={addShares} />} />
               <Route path="/apitest" element={<ApiTest />} />
             </Routes>
           </Paper>

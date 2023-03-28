@@ -1,9 +1,10 @@
 import React from "react";
+import DonutChart from "./DonutChart";
 
-const UserChart = ()=>{
-    return(
+const UserChart = (user) => {
+    return (
         <>
-            <h1>User Graph</h1>
+            <DonutChart user={user} />
         </>
     )
 };
