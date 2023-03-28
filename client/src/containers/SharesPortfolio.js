@@ -28,7 +28,7 @@ const SharesPortfolio = () => {
   const [allUsers, setUsers] = useState([]);
   const [allStocks, setAllStocks] = useState([]);
   const [stock, setStock] = useState({});
-  const [userIndex, setUserIndex] = useState(0);
+  const [user, setUser] = useState(0);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -46,16 +46,20 @@ const SharesPortfolio = () => {
 
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
+    const temp = [...allUsers]
     const match = allStocks.find((stock) => stock.symbol == newShareData.stockSymbol)
-    transaction(user._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response) => {
-      setUser(response)
+    transaction(allUsers[user]._id, newShareData.stockSymbol, Number(newShareData.numshares), Number(match.closingValue), 'purchase').then((response) => {
+      temp[user] = response
+      setUsers(temp)
     })
   }
 
   const sellShares = (data, singleStock) => {
+    const temp = [...allUsers]
     const match = allStocks.find((stock) => stock.symbol == singleStock.symbol)
     transaction(user._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
-      setUser(response)
+      temp[user] = response
+      setUser(temp)
     })
   };
 
@@ -141,13 +145,13 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
-      {user && allStocks ?
+      {allUsers[user] && allStocks ?
         <ThemeProvider theme={theme}>
           <Paper style={{ height: '100vh' }}>
             <ButtonAppBar
               check={darkMode}
               change={() => setDarkMode(!darkMode)}
-              user={user}
+              user={allUsers[user]}
             />
             <Routes>
               <Route
@@ -158,7 +162,7 @@ const SharesPortfolio = () => {
                     deleteShare={deleteShare}
                     sellShares={sellShares}
                     editShare={editShare}
-                    user={user}
+                    user={allUsers[user]}
                     allStocks={allStocks}
                   />
                 }
