@@ -10,6 +10,7 @@ require('highcharts/indicators/pivot-points')(Highcharts)
 require('highcharts/indicators/macd')(Highcharts)
 require('highcharts/modules/accessibility')(Highcharts);
 require('highcharts/modules/exporting')(Highcharts);
+require('highcharts/modules/hollowcandlestick')(Highcharts);
 
 const StockChart = ({ stockSymbol }) => {
     const [chartOptions, setChartOptions] = useState({
@@ -36,8 +37,8 @@ const StockChart = ({ stockSymbol }) => {
         }],
         series: [{
             data: [],
-            type: '',
-            name: `'${stockSymbol}Stock Price'`,
+            type: 'candlestick',
+            name: `'${stockSymbol} Stock Price'`,
             id: 'stock'
         }
             // ,
@@ -55,11 +56,11 @@ const StockChart = ({ stockSymbol }) => {
             //         }
             //     }
             // }
-            , {
-            type: 'macd',
-            yAxis: 1,
-            linkedTo: 'stock'
-        }
+            // , {
+            //     type: 'macd',
+            //     yAxis: 1,
+            //     linkedTo: 'stock'
+            // }
         ]
     })
 
