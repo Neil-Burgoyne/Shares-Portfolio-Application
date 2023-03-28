@@ -12,29 +12,23 @@ import { teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
 
 const SharesPortfolio = () => {
-  // DARK MODE THEME NEEDS WORK
   const [darkMode, setDarkMode] = useState(false);
-
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     mode: darkMode ? 'dark' : 'light',
-  //   },
-  // });
 
   const theme = createTheme({
     palette: {
       primary: teal,
       secondary: {
-        main: '#00796b',
+        main: '#f50057',
       },
+
       mode: darkMode ? 'dark' : 'light',
     },
   });
 
   const [allUsers, setUsers] = useState([]);
-    const [allStocks, setAllStocks] = useState([]);
-    const [stock, setStock] = useState({});
-    const [user, setUser] = useState();
+  const [allStocks, setAllStocks] = useState([]);
+  const [stock, setStock] = useState({});
+  const [user, setUser] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -45,14 +39,15 @@ const SharesPortfolio = () => {
         fetchUsers();
 
     const fetchStocks = async () => {
-            const stocks = await getStocks()
-            setAllStocks(stocks);
-          }
-          fetchStocks();      
-    }, [])
+      const stocks = await getStocks()
+      setAllStocks(stocks);
+    }
+    fetchStocks();
+  }, [])
 
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
+
     const match = allStocks.find((stock)=> stock.symbol == newShareData.stockSymbol)
     transaction(user._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response)=>{
       setUser(response)})
@@ -78,11 +73,28 @@ const SharesPortfolio = () => {
     //   const index = temp.shareValues.indexOf(match);
     //   temp.shareValues[index] = data;
     //   setUser(temp);
-    // } else {
-    //   data.averagePricePaid = data.currentMarketValue;
-    //   temp.shareValues.push(data);
-    //   setUser(temp);
     // }
+  };
+
+  // data.currentMarketValue = 100;
+  // const match = temp.shareValues.find(
+  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  // );
+  // if (match) {
+  //   data.averagePricePaid = Math.round(
+  //     (match.averagePricePaid * match.numshares +
+  //       data.currentMarketValue * data.numshares) /
+  //       (data.numshares + match.numshares)
+  //   );
+  //   data.numshares += match.numshares;
+  //   const index = temp.shareValues.indexOf(match);
+  //   temp.shareValues[index] = data;
+  //   setUser(temp);
+  // } else {
+  //   data.averagePricePaid = data.currentMarketValue;
+  //   temp.shareValues.push(data);
+  //   setUser(temp);
+  // }
 
   const deleteShare = (singleStock) => {
     const temp = { ...user };

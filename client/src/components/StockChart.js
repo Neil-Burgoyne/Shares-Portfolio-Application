@@ -128,9 +128,7 @@ const StockChart = ({ stockSymbol }) => {
 
     useEffect(() => {
         const updateSeries = (data) => {
-            console.log(data)
             const newChartOptions = { ...chartOptions }
-            console.log(newChartOptions.series);
             newChartOptions.series[0].data = data.graphData;
             // newChartOptions.series[0].title = stockSymbol;
             // newChartOptions.yAxis[0].title.text = stockSymbol;
@@ -140,10 +138,8 @@ const StockChart = ({ stockSymbol }) => {
         const getData = async () => {
             const res = await fetch(`http://localhost:9000/api/stocks/${stockSymbol}`);
             const data = await res.json();
-            console.log("getData", data);
             updateSeries(data);
         }
-        console.log("stockSymbol")
         getData();
     }, [stockSymbol]);
 
