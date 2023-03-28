@@ -74,7 +74,7 @@ const SharesPortfolio = () => {
     //   temp.shareValues[index] = data;
     //   setUser(temp);
     // }
-  };
+
 
   // data.currentMarketValue = 100;
   // const match = temp.shareValues.find(
