@@ -34,9 +34,9 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
     }
 
     const sell =()=>{
-        if(shareInput <= singleStock.numshares){
+        if(shareInput <= singleStock.numShares){
             const temp = {...singleStock}
-            temp.numshares -= shareInput
+            temp.numShares -= shareInput
             sellShares(temp, singleStock)
             sellClick()
         } else{
@@ -66,8 +66,8 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
     return( 
     <>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-            <TableCell component="th" scope="row">{singleStock.stockSymbol}</TableCell>
-            <TableCell>{singleStock.numshares}</TableCell>
+            <TableCell component="th" scope="row">{singleStock.symbol}</TableCell>
+            <TableCell>{singleStock.numShares}</TableCell>
             <TableCell>£{singleStock.averagePricePaid}</TableCell>
             <TableCell>£{singleStock.currentMarketValue}</TableCell>
             {answer >= 100 ? <TableCell>&#8593;{(answer-100).toFixed(2)}%</TableCell> : <TableCell>&#8595;{(100-answer).toFixed(2)}%</TableCell>}
@@ -75,15 +75,6 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
             <TableCell onClick={editClick}><SettingsIcon/></TableCell>
             <TableCell onClick={sellClick}><AttachMoneyIcon/></TableCell>
         </TableRow>
-        {/* {clicked? 
-        <>
-            <TableCell><input id="input" type='number' onChange={onChange} placeholder='Number to sell'></input></TableCell>
-            <TableCell><button onClick={sell}>Sell Shares</button></TableCell>
-            <TableCell><button onClick={sellClick}>Cancel</button></TableCell>
-        </>
-        : <TableCell onClick={sellClick}>Sell</TableCell>}
-        </TableRow> */}
-
         <TableRow>
         <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0}} colSpan={8}>
         <Collapse in={clicked} timeout="auto" unmountOnExit>
@@ -91,6 +82,7 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
                 <TableRow>
                     <TableCell>Sell Shares</TableCell>
                 </TableRow>
+
                 </TableHead>
                 <TableRow>        
                     <TableCell><input id="input" type='number' onChange={onChange} placeholder='Number to sell'></input></TableCell>
@@ -112,8 +104,8 @@ const PortfolioTableRow = ({singleStock, sellShares, deleteShare, editShare}) =>
                 </TableHead>
                 <TableBody>
                 <TableRow>        
-                    <TableCell><input type='text' readOnly value={singleStock.stockSymbol}></input></TableCell>
-                    <TableCell><input onChange={editChange} id='numshares' type='number' defaultValue={singleStock.numshares}></input></TableCell>
+                    <TableCell><input type='text' readOnly value={singleStock.symbol}></input></TableCell>
+                    <TableCell><input onChange={editChange} id='numShares' type='number' defaultValue={singleStock.numShares}></input></TableCell>
                     <TableCell><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={singleStock.averagePricePaid}></input></TableCell>
                     <TableCell><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={singleStock.currentMarketValue}></input></TableCell>
                     <TableCell><button onClick={deleteEntry}>Delete</button></TableCell>
