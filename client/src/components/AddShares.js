@@ -9,6 +9,7 @@ import Card from '@mui/material/Card';
 const AddShares = ({ addShares, allStocks }) => {
     const [stockSymbol, setStockSymbol] = useState();
     const [number, setNumber] = useState();
+    const [added, setAdded] = useState(false);
 
     const stocks = allStocks.map((stock) => {
         return `${stock.symbol}: ${stock.name}`
@@ -25,16 +26,20 @@ const AddShares = ({ addShares, allStocks }) => {
         addShares(data)
         e.target.reset()
         setNumber()
+        setAdded(!added)
     }
 
     const onChange = (e) => {
+        setAdded(false)
         setNumber(e.target.value)
     }
 
     const onSelect = (e) => {
+        setAdded(false)
+        if (e.target.innerText){
         const symbol = e.target.innerText.split(':')
         setStockSymbol(symbol[0])
-    }
+    }}
 
     return (
         <>
@@ -44,7 +49,7 @@ const AddShares = ({ addShares, allStocks }) => {
                     <form onSubmit={onSubmit}>
                         <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={stocks} renderInput={(params) => <TextField {...params} label="Company" />} />
                         <TextField sx={addSharesStyle} style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={onChange} variant="standard" /><br />
-                        <Button variant="contained" type="submit">Add</Button>
+                        <Button variant="contained" type="submit">Add</Button><br/>
                     </form>
                 </CardContent>
             </Card>
