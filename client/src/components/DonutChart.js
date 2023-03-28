@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
+import { Card } from '@mui/material'
 
 
 
@@ -51,12 +52,8 @@ const DonutChart = ({ user }) => {
                 ]
             }]
         };
-        console.log(user)
         if (user) {
             const data = user.portfolio.map((asset) => {
-                console.log("currentMarketValue", asset.currentMarketValue)
-                console.log("portfolioTotals", Number(user.portfolioTotals.totalPortfolioValue))
-
                 const percentage = Number(asset.currentTotalValue) / Number(user.portfolioTotals.totalPortfolioValue) * 100;
                 return [asset.symbol, percentage]
             })
@@ -65,10 +62,12 @@ const DonutChart = ({ user }) => {
         }
         return options;
     }, [user])
-    return (<HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-    />
+    return (<Card>
+        <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+        />
+    </Card>
     )
 }
 

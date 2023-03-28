@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Paper } from '@mui/material';
+import { Paper, Snackbar } from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getUsers, transaction } from '../api_services/UsersService';
 import { getStocks, getStock } from '../api_services/StocksService';
@@ -10,8 +10,11 @@ import View from '../components/View.js';
 import ButtonAppBar from '../components/AppBar.js';
 import { teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
+import Message from '../components/Message';
 
 const SharesPortfolio = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState({ text: "", severity: "info" }) //severity can be error warning info success
   const [darkMode, setDarkMode] = useState(false);
 
   const theme = createTheme({
@@ -20,7 +23,6 @@ const SharesPortfolio = () => {
       secondary: {
         main: '#f50057',
       },
-
       mode: darkMode ? 'dark' : 'light',
     },
   });
@@ -52,6 +54,8 @@ const SharesPortfolio = () => {
       temp[user] = response
       setUsers(temp)
     })
+    setMessage({ text: `Added ${newShareData.numshares} shares in ${newShareData.stockSymbol}`, severity: "success" });
+    setShowMessage(true);
   }
 
   //DATA - number / SINGLESTOCK - stock
@@ -62,44 +66,9 @@ const SharesPortfolio = () => {
       temp[user] = response
       setUsers(temp)
     })
+    setMessage({ text: `Sold ${data} shares in ${singleStock.stockSymbol}`, severity: "success" });
+    setShowMessage(true);
   };
-
-  // data.currentMarketValue = 100;
-  // const match = temp.shareValues.find(
-  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
-  // );
-  // if (match) {
-  //   data.averagePricePaid = Math.round(
-  //     (match.averagePricePaid * match.numshares +
-  //       data.currentMarketValue * data.numshares) /
-  //       (data.numshares + match.numshares)
-  //   );
-  //   data.numshares += match.numshares;
-  //   const index = temp.shareValues.indexOf(match);
-  //   temp.shareValues[index] = data;
-  //   setUser(temp);
-  // }
-
-
-  // data.currentMarketValue = 100;
-  // const match = temp.shareValues.find(
-  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
-  // );
-  // if (match) {
-  //   data.averagePricePaid = Math.round(
-  //     (match.averagePricePaid * match.numshares +
-  //       data.currentMarketValue * data.numshares) /
-  //       (data.numshares + match.numshares)
-  //   );
-  //   data.numshares += match.numshares;
-  //   const index = temp.shareValues.indexOf(match);
-  //   temp.shareValues[index] = data;
-  //   setUser(temp);
-  // } else {
-  //   data.averagePricePaid = data.currentMarketValue;
-  //   temp.shareValues.push(data);
-  //   setUser(temp);
-  // }
 
   const deleteShare = (singleStock) => {
     const temp = { ...user };
@@ -107,34 +76,6 @@ const SharesPortfolio = () => {
     temp.shareValues.splice(index, 1);
     setUser(temp);
   };
-
-
-  // const addToPreviousPortfolio = (data, singleStock) => {
-  //   const newDate = new Date();
-  //   const year = newDate.toLocaleString('default', { year: 'numeric' });
-  //   const month = newDate.toLocaleString('default', { month: '2-digit' });
-  //   const day = newDate.toLocaleString('default', { day: '2-digit' });
-  //   const formatted = year + '-' + month + '-' + day;
-  //   const newEntry = {
-  //     quantity: singleStock.numshares - data.numshares,
-  //     soldFor: data.currentMarketValue,
-  //     date: formatted,
-  //   };
-  //   const temp = { ...user };
-
-  //   const match = temp.soldShares.find(
-  //     ({ stockSymbol }) => stockSymbol == data.stockSymbol
-  //   );
-  //   if (match) {
-  //     match.sales.push(newEntry);
-  //   } else {
-  //     temp.soldShares.push({
-  //       stockSymbol: data.stockSymbol,
-  //       sales: [{ ...newEntry }],
-  //     });
-  //   }
-  //   setUser(temp);
-  // };
 
   const editShare = (data, singleStock) => {
     const temp = { ...user };
@@ -175,7 +116,75 @@ const SharesPortfolio = () => {
         </ThemeProvider>
         :
         <h1>Loading...</h1>}
+      <Message show={showMessage} hide={() => setShowMessage(false)} message={message} />
     </Router>
+
   );
 };
 export default SharesPortfolio;
+
+
+// const addToPreviousPortfolio = (data, singleStock) => {
+  //   const newDate = new Date();
+  //   const year = newDate.toLocaleString('default', { year: 'numeric' });
+  //   const month = newDate.toLocaleString('default', { month: '2-digit' });
+  //   const day = newDate.toLocaleString('default', { day: '2-digit' });
+  //   const formatted = year + '-' + month + '-' + day;
+  //   const newEntry = {
+  //     quantity: singleStock.numshares - data.numshares,
+  //     soldFor: data.currentMarketValue,
+  //     date: formatted,
+  //   };
+  //   const temp = { ...user };
+
+  //   const match = temp.soldShares.find(
+  //     ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  //   );
+  //   if (match) {
+  //     match.sales.push(newEntry);
+  //   } else {
+  //     temp.soldShares.push({
+  //       stockSymbol: data.stockSymbol,
+  //       sales: [{ ...newEntry }],
+  //     });
+  //   }
+  //   setUser(temp);
+  // };
+
+
+  // data.currentMarketValue = 100;
+  // const match = temp.shareValues.find(
+  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  // );
+  // if (match) {
+  //   data.averagePricePaid = Math.round(
+  //     (match.averagePricePaid * match.numshares +
+  //       data.currentMarketValue * data.numshares) /
+  //       (data.numshares + match.numshares)
+  //   );
+  //   data.numshares += match.numshares;
+  //   const index = temp.shareValues.indexOf(match);
+  //   temp.shareValues[index] = data;
+  //   setUser(temp);
+  // }
+
+
+  // data.currentMarketValue = 100;
+  // const match = temp.shareValues.find(
+  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  // );
+  // if (match) {
+  //   data.averagePricePaid = Math.round(
+  //     (match.averagePricePaid * match.numshares +
+  //       data.currentMarketValue * data.numshares) /
+  //       (data.numshares + match.numshares)
+  //   );
+  //   data.numshares += match.numshares;
+  //   const index = temp.shareValues.indexOf(match);
+  //   temp.shareValues[index] = data;
+  //   setUser(temp);
+  // } else {
+  //   data.averagePricePaid = data.currentMarketValue;
+  //   temp.shareValues.push(data);
+  //   setUser(temp);
+  // }
