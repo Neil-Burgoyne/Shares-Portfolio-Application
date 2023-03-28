@@ -20,20 +20,19 @@ import Typography from '@mui/material/Typography';
 
 const View = ({ allStocks, addShares }) => {
 
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(allStocks[0]);
 
-  const options = allStocks.map((stock) => {
-    return `${stock.symbol}: ${stock.name}`
+  const options = allStocks.map((stock)=>{
+    return `${stock.symbol} : ${stock.name}`
   })
 
-  const handleChange = (e) => {
-    if (e.target.innerText) {
-      const symbol = e.target.innerText.split(':')
-      const answer = allStocks.find((stock) => stock.symbol == symbol[0])
-      setSelected(answer)
-    } else {
-      setSelected()
-    }
+  const handleChange = (e)=>{
+    if (e.target.innerText){
+    const symbol = e.target.innerText.split(':')
+    const answer = allStocks.find((stock) => stock.symbol == symbol[0])
+    setSelected(answer)
+  }else{
+    setSelected(allStocks[0])
   }
 
   return (
