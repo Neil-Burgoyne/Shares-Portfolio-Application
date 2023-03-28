@@ -21,7 +21,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useState } from 'react';
 
 const sxHeaderText = {
-  flexGrow: 1,
+  display: 'flex',
+  flexGrow: 3,
   fontSize: '1rem',
 };
 
@@ -48,18 +49,6 @@ export default function ButtonAppBar({ check, change, user }) {
           <IconButton onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Box>
-            <Button color="inherit">
-              <HomeRoundedIcon sx={sxHeaderIcon} />
-              <Link to="/">Home</Link>
-            </Button>
-          </Box>
-          <Box>
-            <Button color="inherit">
-              <TrendingUpIcon sx={sxHeaderIcon} />
-              <Link to="/view">View</Link>
-            </Button>
-          </Box>
           <Box>
             <Switch
               {...label}
