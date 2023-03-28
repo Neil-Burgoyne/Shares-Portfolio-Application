@@ -31,6 +31,7 @@ const usersRouter = function () {
         try {
             const id = req.params.id;
             const payload = req.body;
+            console.log("payload", payload)
             const data = await stockTransaction(id, payload);
             res.json(data);
         } catch (err) {

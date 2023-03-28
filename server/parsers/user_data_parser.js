@@ -3,23 +3,24 @@ const getShareData = (shareTransactions, stockSymbol) => {
     const shareData = shareTransactions.reduce((shareTotals, trans) => {
         if (trans.stockSymbol === stockSymbol) {
             if (trans.type === "purchase") {
-                shareTotals.num += trans.quantity;
+                shareTotals.numPurchased += trans.quantity;
                 shareTotals.cost += (trans.quantity * trans.price)
             } else if (trans.type === "sale") {
                 shareTotals.salesTotal += (trans.quantity * trans.price)
+                shareTotals.numSold += trans.quantity;
             }
         }
         return shareTotals;
-    }, { num: 0, cost: 0, salesTotal: 0 })
+    }, { numPurchased: 0, cost: 0, salesTotal: 0, numSold: 0 })
     if (shareData.num === 0) shareData.averagePricePaid = 0;
-    else shareData.averagePricePaid = shareData.cost / shareData.num;
+    else shareData.averagePricePaid = shareData.cost / shareData.numPurchased;
     return shareData;
 }
 
 const parseUserAssets = (shareTransactions, stockData) => {
     const parsedAssets = stockData.map((asset) => {
         const shareData = getShareData(shareTransactions, asset.symbol);
-        const numShares = shareData.num;
+        const numShares = shareData.numPurchased - shareData.numSold;
         const averagePricePaid = shareData.averagePricePaid;
         const currentTotalValue = numShares * asset.closingValue;
         const totalPaid = numShares * averagePricePaid;
