@@ -28,15 +28,14 @@ const SharesPortfolio = () => {
   const [allUsers, setUsers] = useState([]);
   const [allStocks, setAllStocks] = useState([]);
   const [stock, setStock] = useState({});
-  const [user, setUser] = useState();
+  const [userIndex, setUserIndex] = useState(0);
 
   useEffect(() => {
     const fetchUsers = async () => {
-            const users = await getUsers()
-            setUsers(users);
-            setUser(users[0])
-          }
-        fetchUsers();
+      const users = await getUsers()
+      setUsers(users);
+    }
+    fetchUsers();
 
     const fetchStocks = async () => {
       const stocks = await getStocks()
@@ -47,32 +46,34 @@ const SharesPortfolio = () => {
 
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
-    const match = allStocks.find((stock)=> stock.symbol == newShareData.stockSymbol)
-    transaction(user._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response)=>{
-      setUser(response)})
-    }
-    
-    const sellShares = (data, singleStock) => {
-      const match = allStocks.find((stock)=> stock.symbol == singleStock.symbol)
-      transaction(user._id, singleStock.symbol, data, match.closingValue, 'sale').then((response)=>{
-        setUser(response)})
-    };
+    const match = allStocks.find((stock) => stock.symbol == newShareData.stockSymbol)
+    transaction(user._id, newShareData.stockSymbol, newShareData.numshares, match.closingValue, 'purchase').then((response) => {
+      setUser(response)
+    })
+  }
 
-    // data.currentMarketValue = 100;
-    // const match = temp.shareValues.find(
-    //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
-    // );
-    // if (match) {
-    //   data.averagePricePaid = Math.round(
-    //     (match.averagePricePaid * match.numshares +
-    //       data.currentMarketValue * data.numshares) /
-    //       (data.numshares + match.numshares)
-    //   );
-    //   data.numshares += match.numshares;
-    //   const index = temp.shareValues.indexOf(match);
-    //   temp.shareValues[index] = data;
-    //   setUser(temp);
-    // }
+  const sellShares = (data, singleStock) => {
+    const match = allStocks.find((stock) => stock.symbol == singleStock.symbol)
+    transaction(user._id, singleStock.symbol, data, match.closingValue, 'sale').then((response) => {
+      setUser(response)
+    })
+  };
+
+  // data.currentMarketValue = 100;
+  // const match = temp.shareValues.find(
+  //   ({ stockSymbol }) => stockSymbol == data.stockSymbol
+  // );
+  // if (match) {
+  //   data.averagePricePaid = Math.round(
+  //     (match.averagePricePaid * match.numshares +
+  //       data.currentMarketValue * data.numshares) /
+  //       (data.numshares + match.numshares)
+  //   );
+  //   data.numshares += match.numshares;
+  //   const index = temp.shareValues.indexOf(match);
+  //   temp.shareValues[index] = data;
+  //   setUser(temp);
+  // }
 
 
   // data.currentMarketValue = 100;
@@ -140,35 +141,35 @@ const SharesPortfolio = () => {
 
   return (
     <Router>
-      {user && allStocks? 
-      <ThemeProvider theme={theme}>
-        <Paper style={{ height: '100vh' }}>
-          <ButtonAppBar
-            check={darkMode}
-            change={() => setDarkMode(!darkMode)}
-            user={user}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  addShares={addShares}
-                  deleteShare={deleteShare}
-                  sellShares={sellShares}
-                  editShare={editShare}
-                  user={user}
-                  allStocks={allStocks}
-                />
-              }
+      {user && allStocks ?
+        <ThemeProvider theme={theme}>
+          <Paper style={{ height: '100vh' }}>
+            <ButtonAppBar
+              check={darkMode}
+              change={() => setDarkMode(!darkMode)}
+              user={user}
             />
-            <Route path="/view" element={<View/>} />
-            <Route path="/apitest" element={<ApiTest />} />
-          </Routes>
-        </Paper>
-      </ThemeProvider>
-      : 
-      <h1>Loading...</h1>}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    addShares={addShares}
+                    deleteShare={deleteShare}
+                    sellShares={sellShares}
+                    editShare={editShare}
+                    user={user}
+                    allStocks={allStocks}
+                  />
+                }
+              />
+              <Route path="/view" element={<View />} />
+              <Route path="/apitest" element={<ApiTest />} />
+            </Routes>
+          </Paper>
+        </ThemeProvider>
+        :
+        <h1>Loading...</h1>}
     </Router>
   );
 };
