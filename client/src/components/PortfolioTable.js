@@ -7,8 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import PercentIcon from '@mui/icons-material/Percent';
 
-const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol }) => {
+const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
+  const cellStyle = {
+    width: '3rem',
+    height: '3rem',
+    textAlign: 'center',
+  }
+ 
   //NOT NEEDED
   // const totalCalc = values.reduce(
   //   (runningTotal, shareValues) =>
@@ -19,8 +26,7 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
   const row = user.portfolio.map((stock, i) => {
     return (
       <PortfolioTableRow
-        editShare={editShare}
-        deleteShare={deleteShare}
+        addShares={addShares}
         sellShares={sellShares}
         key={i}
         stock={stock}
@@ -28,6 +34,16 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
       />
     );
   });
+
+  const answer = ((user.portfolioTotals.totalPortfolioValue / user.portfolioTotals.totalPaid) * 100)
+
+  console.log(user.portfolioTotals.totalPortfolioValue)
+  console.log(user.portfolioTotals.totalPortfolioValue.length)
+
+  const comma = (number)=>{
+    const string = number.toString()
+    return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
 
   return (
     <>
@@ -38,23 +54,30 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Share</TableCell>
-              <TableCell align="right">Shares Held</TableCell>
-              <TableCell align="right">Average Price Paid (per share)</TableCell>
-              <TableCell align="right">Current Value (per share)</TableCell>
-              <TableCell align="right">%</TableCell>
-              <TableCell align="right">View</TableCell>
-              <TableCell align="right">Edit</TableCell>
-              <TableCell align="right">Sell</TableCell>
+              <TableCell sx={cellStyle}>Symbol</TableCell>
+              <TableCell sx={cellStyle}>Name</TableCell>
+              <TableCell sx={cellStyle}>Shares Held</TableCell>
+              <TableCell sx={cellStyle}>Average Price Paid (per share)</TableCell>
+              <TableCell sx={cellStyle}>Total Paid</TableCell>
+              <TableCell sx={cellStyle}>Current Value (per share)</TableCell>
+              <TableCell sx={cellStyle}>Total Value</TableCell>
+              <TableCell sx={cellStyle}><PercentIcon fontSize='small'/></TableCell>
+              <TableCell sx={cellStyle}>View</TableCell>
+              <TableCell sx={cellStyle}>Add Shares</TableCell>
+              <TableCell sx={cellStyle}>Sell Shares</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {row}
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>Total:</TableCell>
-              <TableCell>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
+              <TableCell/>
+              <TableCell/>
+              <TableCell/>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>Grand Total Paid:</TableCell>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>£{comma(user.portfolioTotals.totalPaid)}</TableCell>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>Current Portfolio Value:</TableCell>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>£{comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
+              {answer >= 100 ? <TableCell style={{color: 'green', fontWeight: 'bold'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red', fontWeight: 'bold'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}  
             </TableRow>
           </TableBody>
         </Table>
@@ -65,3 +88,5 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
 };
 
 export default PortfolioTable;
+
+{/* <TableCell sx={cellStyle}>Edit</TableCell> */}
