@@ -11,24 +11,6 @@ const fetchData = async (endpoint, parser = null, parserArgs) => {
     else return data;
 }
 
-// const waitForSlot = async () => {
-//     const timeSincePrevFetch = Date.now() - lastAssignedFetchSlot;
-//     let sleepTime = 0;
-//     if (timeSincePrevFetch < fetchFrequency) {
-//         if (timeSincePrevFetch < 0) {
-//             sleepTime = -timeSincePrevFetch + fetchFrequency;
-//             lastAssignedFetchSlot += fetchFrequency;
-//         } else {
-//             sleepTime = fetchFrequency - timeSincePrevFetch;
-//             lastAssignedFetchSlot += fetchFrequency;
-//         }
-//     } else {
-//         lastAssignedFetchSlot = Date.now();
-//     }
-//     await sleep(sleepTime);
-// }
-
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = fetchData;
-

@@ -19,4 +19,3 @@ fs.createReadStream("tech.csv", { encoding: "utf-8" })
     .on("error", (error) => {
         console.log(error);
     });
-
