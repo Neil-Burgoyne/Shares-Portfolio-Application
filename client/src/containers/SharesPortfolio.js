@@ -9,7 +9,7 @@ import Home from '../components/Home.js';
 import View from '../components/View.js';
 
 import ButtonAppBar from '../components/AppBar.js';
-import { amber, teal } from '@mui/material/colors';
+import { amber, blue, teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
 import ChartTheme from '../components/ChartTheme';
@@ -20,15 +20,38 @@ const SharesPortfolio = () => {
   const [message, setMessage] = useState({ text: '', severity: 'info' }); //severity can be error warning info success
   const [darkMode, setDarkMode] = useState(false);
 
-  const theme = createTheme({
-    palette: {
-      primary: teal,
-      secondary: {
-        main: '#f50057',
+  // const theme = createTheme({
+  //   palette: {
+  //     mode: 'dark',
+  //     primary: amber,
+
+  //     secondary: {
+  //       main: '#f50057',
+  //     },
+  //     mode: darkMode ? 'dark' : 'light',
+  //   },
+  // });
+
+  const darkTheme = createTheme({
+    palette:{
+      primary:{
+        main: '#7e57c2',
       },
-      mode: darkMode ? 'dark' : 'light',
+      secondary:{
+        main: '#f50057'
+      },
+      text:{
+        primary: '#ffffff',
+        secondary: '#ffffff',
+      },
+      background:{
+        paper: '#282828'
+      }
     },
-  });
+    typography:{
+      fontSize:17,
+    },
+  })
 
   const [allUsers, setUsers] = useState([]);
   const [allStocks, setAllStocks] = useState(null);
@@ -115,9 +138,9 @@ const SharesPortfolio = () => {
   return (
     <Router>
       {allUsers[user] && allStocks ? (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkTheme}>
           <ChartTheme />
-          <Paper style={{ height: '100%' }}>
+          <Paper style={{ height: '100%'}}>
             <ButtonAppBar
               check={darkMode}
               change={() => setDarkMode(!darkMode)}

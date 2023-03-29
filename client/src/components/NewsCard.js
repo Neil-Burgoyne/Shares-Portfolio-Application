@@ -13,6 +13,7 @@ const NewsCard = ({ article }) => {
         />
       </ListItem>
       <ListItem>{article.headline}</ListItem>
+      <hr/>
     </List>
   );
 };
