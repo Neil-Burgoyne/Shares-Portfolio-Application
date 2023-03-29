@@ -6,4 +6,4 @@ export const cellStyle = {
 
 export const cardElevation = {
     elevation: 20
-}
+};
