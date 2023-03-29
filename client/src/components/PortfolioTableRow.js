@@ -12,26 +12,46 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import AddIcon from '@mui/icons-material/Add';
 
 
-const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSymbol }) => {
+const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
     const [clicked, setClicked] = useState(false);
-    const [editClicked, setEditClicked] = useState(false);
+    const [addClicked, setAddClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
-    const [editForm, setEditForm] = useState(stock);
+    const [addInput, setAddInput] = useState();
 
-    const editClick = () => {
+
+    const cellStyle = {
+        width: '3rem',
+        height: '3rem',
+        textAlign: 'center',
+    }
+
+    const addClick = () => {
         setClicked(false)
-        setEditClicked(!editClicked);
+        setAddClicked(!addClicked)
     }
 
     const sellClick = () => {
-        setEditClicked(false)
+        setAddClicked(false)
         setClicked(!clicked)
     }
 
     const onChange = (e) => {
         setShareInput(e.target.value)
+    }
+    const onAddChange = (e) => {
+        setAddInput(e.target.value)
+    }
+
+    const add = ()=>{
+        const data = {stockSymbol: stock.symbol, numshares: addInput}
+        addShares(data)
+        addClick()
+        setAddInput()
     }
 
     const sell = () => {
@@ -48,78 +68,55 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSy
         navigate('/view')
     }
 
-    const deleteEntry = () => {
-        setEditClicked(false)
-        deleteShare(stock)
-    }
-
+    
     const answer = ((stock.currentMarketValue / stock.averagePricePaid) * 100)
-
-    const editChange = (e) => {
-        editForm[e.target.id] = Number(e.target.value)
-        setEditForm(editForm)
-    }
-
-    const submitEditEntry = () => {
-        editShare(editForm, stock)
-        setEditForm(stock)
-        setEditClicked(!editClicked);
-    }
-
-
+    
+    const comma = (number)=>{
+        const string = number.toString()
+        return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      }
+    
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row">{stock.symbol}</TableCell>
-                <TableCell>{stock.numShares}</TableCell>
-                <TableCell>£{stock.averagePricePaid}</TableCell>
-                <TableCell>£{stock.currentMarketValue}</TableCell>
-                {answer >= 100 ? <TableCell>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
-                <TableCell><PageviewIcon onClick={handleViewClicked} /></TableCell>
-                <TableCell onClick={editClick}><SettingsIcon /></TableCell>
-                <TableCell onClick={sellClick}><AttachMoneyIcon /></TableCell>
+                <TableCell sx={cellStyle} component="th" scope="row">{stock.symbol}</TableCell>
+                <TableCell sx={cellStyle}>{stock.name}</TableCell>
+                <TableCell sx={cellStyle}>{comma(stock.numShares)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.averagePricePaid)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.totalPaid)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.currentMarketValue)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.currentTotalValue)}</TableCell>
+                {answer >= 100 ? <TableCell style={{color: 'green'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+                <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
+                <TableCell sx={cellStyle} onClick={addClick}><AddIcon /></TableCell>
+                <TableCell sx={cellStyle} onClick={sellClick}><AttachMoneyIcon /></TableCell>
             </TableRow>
             <TableRow>
-                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
-                    <Collapse in={clicked} timeout="auto" unmountOnExit>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Sell Shares</TableCell>
-                            </TableRow>
-
-                        </TableHead>
+                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
+                    <Collapse in={addClicked} timeout="auto" unmountOnExit>
                         <TableRow>
-                            <TableCell><input id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to sell'></input></TableCell>
-                            <TableCell><button onClick={sell}>Sell Shares</button></TableCell>
-                            <TableCell><button onClick={sellClick}>Cancel</button></TableCell>
+                            <TableCell sx={{width: '90%'}}/>
+                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
+                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={add}>Add Shares</Button>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={addClick}>Cancel</Button>
+                            </TableCell>
+                            <TableCell sx={{width: '10%'}}/>
+                        </TableRow>
+                    </Collapse>
+                    <Collapse in={clicked} timeout="auto" unmountOnExit>
+                        <TableRow>
+                            <TableCell sx={{width: '100%'}}/>
+                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
+                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to Sell'></TextField>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sell}>Sell Shares</Button>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sellClick}>Cancel</Button>
+                            </TableCell>
                         </TableRow>
                     </Collapse>
                 </TableCell>
             </TableRow>
 
-            <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0, margin: 0 }} colSpan={8}>
-                    <Collapse in={editClicked} timeout="auto" unmountOnExit>
-                        <TableHead>
-                            <TableCell>Share</TableCell>
-                            <TableCell>Shares Held</TableCell>
-                            <TableCell>Average Value</TableCell>
-                            <TableCell>Current Value</TableCell>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell><input type='text' readOnly value={stock.symbol}></input></TableCell>
-                                <TableCell><input onChange={editChange} id='numShares' type='number' defaultValue={stock.numShares}></input></TableCell>
-                                <TableCell><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={stock.averagePricePaid}></input></TableCell>
-                                <TableCell><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={stock.currentMarketValue}></input></TableCell>
-                                <TableCell><button onClick={deleteEntry}>Delete</button></TableCell>
-                                <TableCell><button onClick={submitEditEntry}>Confirm Changes</button></TableCell>
-                                <TableCell><button onClick={editClick}>Cancel</button></TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
 
 
         </>
@@ -127,3 +124,52 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSy
 };
 
 export default PortfolioTableRow;
+
+// EDIT BUTTON
+{/* <TableCell sx={cellStyle} onClick={editClick}><SettingsIcon /></TableCell> */}
+//EDIT ROW
+{/* <TableRow>
+<TableCell style={{ paddingBottom: 0, paddingTop: 0, margin: 0 }} colSpan={8}>
+<Collapse in={editClicked} timeout="auto" unmountOnExit>
+<TableHead>
+<TableCell sx={cellStyle}>Share</TableCell>
+<TableCell sx={cellStyle}>Shares Held</TableCell>
+<TableCell sx={cellStyle}>Average Value</TableCell>
+<TableCell sx={cellStyle}>Current Value</TableCell>
+</TableHead>
+<TableBody>
+<TableRow>
+<TableCell sx={cellStyle}><input type='text' readOnly value={stock.symbol}></input></TableCell>
+<TableCell sx={cellStyle}><input onChange={editChange} id='numShares' type='number' defaultValue={stock.numShares}></input></TableCell>
+<TableCell sx={cellStyle}><input onChange={editChange} id='averagePricePaid' type='number' defaultValue={stock.averagePricePaid}></input></TableCell>
+<TableCell sx={cellStyle}><input onChange={editChange} id='currentMarketValue' type='number' defaultValue={stock.currentMarketValue}></input></TableCell>
+<TableCell sx={cellStyle}><button onClick={deleteEntry}>Delete</button></TableCell>
+<TableCell sx={cellStyle}><button onClick={submitEditEntry}>Confirm Changes</button></TableCell>
+<TableCell sx={cellStyle}><button onClick={editClick}>Cancel</button></TableCell>
+</TableRow>
+</TableBody>
+</Collapse>
+</TableCell>
+</TableRow> */}
+
+//EDIT FUNCTIONS
+// const deleteEntry = () => {
+//     setEditClicked(false)
+//     deleteShare(stock)
+// }
+// const editChange = (e) => {
+//     editForm[e.target.id] = Number(e.target.value)
+//     setEditForm(editForm)
+// }
+
+// const submitEditEntry = () => {
+//     editShare(editForm, stock)
+//     setEditForm(stock)
+//     setEditClicked(!editClicked);
+// }
+
+// const editClick = () => {
+//     setClicked(false)
+//     setEditClicked(!editClicked);
+// }
+// const [editForm, setEditForm] = useState(stock);
