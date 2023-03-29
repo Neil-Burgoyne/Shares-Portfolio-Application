@@ -7,10 +7,9 @@ import HighchartsReact from 'highcharts-react-official'
 import './StockChart.css'
 
 require('highcharts/indicators/indicators')(Highcharts)
-require('highcharts/indicators/pivot-points')(Highcharts)
-require('highcharts/indicators/macd')(Highcharts)
+// require('highcharts/indicators/pivot-points')(Highcharts)
+// require('highcharts/indicators/macd')(Highcharts)
 require('highcharts/modules/accessibility')(Highcharts);
-require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/hollowcandlestick')(Highcharts);
 
 
