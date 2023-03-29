@@ -11,11 +11,6 @@ A user should be able to:
 - retrieve a list of share prices from an external API and allow the user to add shares to her portfolio.
 - View a chart of the current values in her portfolio.
 
-## API, Libraries, Resources
-
-- https://finnhub.io (Requires sign up)
-- https://www.highcharts.com/ HighCharts is an open-source library for rendering responsive charts.
-
 ## Project Setup
 
 #### Inside Server Folder:
