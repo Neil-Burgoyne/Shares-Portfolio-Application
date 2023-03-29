@@ -36,8 +36,9 @@ const AddShares = ({ addShares, allStocks, selected }) => {
 
     const onSelect = (e, value) => {
         setAdded(false)
-        if (e.value) {
-            const symbol = e.value.split(':')[0]
+        if (value) {
+
+            const symbol = value.split(':')[0]
             setStockSymbol(symbol)
         }
     }
