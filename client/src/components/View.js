@@ -17,57 +17,45 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PortfolioTableRow from './PortfolioTableRow';
-
-import CompanyNews from './CompanyNews';
-
 import SingleAsset from './SingleAsset';
 
+const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, selectedSymbol, selectSymbol }) => {
 
-const View = ({
-  user,
-  allStocks,
-  editShare,
-  deleteShare,
-  sellShares,
-  addShares,
-  selectedSymbol,
-  selectSymbol,
-  symbol,
-}) => {
   const [numShares, setNumShares] = useState(0);
 
   const options = allStocks.map((stock) => {
-    return `${stock.symbol} : ${stock.name}`;
-  });
+    return `${stock.symbol} : ${stock.name}`
+  })
 
 
 
   const findSelectedOption = () => {
+
     const found = options.find((option) => {
-      console.log(option);
+      console.log(option)
       return option.split(' :')[0] === selectedSymbol;
-    });
+    })
     return found;
-    console.log('found', found);
-  };
+    console.log("found", found)
+  }
   const handleChange = (e, value) => {
-    console.log(value);
+    console.log(value)
     if (value) {
-      const symbol = value.split(' :')[0];
-      console.log(symbol);
-      selectSymbol(symbol);
+      const symbol = value.split(' :')[0]
+      console.log(symbol)
+      selectSymbol(symbol)
     }
-  };
+  }
   const handleAddShares = (e) => {
     e.preventDefault();
-    const data = { stockSymbol: selectedSymbol, numshares: numShares };
-    addShares(data);
-    e.target.reset();
-  };
+    const data = { stockSymbol: selectedSymbol, numshares: numShares }
+    addShares(data)
+    e.target.reset()
+  }
 
   const handleNumChange = (e) => {
-    setNumShares(e.target.value);
-  };
+    setNumShares(e.target.value)
+  }
 
   const findPortfolioAsset = () => {
     const asset = user.portfolio.find((asset) => asset.symbol === selectedSymbol)
@@ -79,12 +67,10 @@ const View = ({
 
   const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
 
-
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
-
           <CardHeader
             sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
             avatar={<Avatar>A</Avatar>}
@@ -94,11 +80,7 @@ const View = ({
           </CardHeader>
           <CardContent>
             <StockChart selectedStock={selectedStock} />
-
-
             {asset && <SingleAsset asset={asset} />}
-
-
             {selectedSymbol ?
               <div>
                 <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
@@ -108,17 +90,11 @@ const View = ({
                 </form>
               </div>
               : null}
-            {/* <PortfolioTableRow editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} stock={user.portfolio.find(((stock) => stock.symbol === selectedSymbol))} selectSymbol={selectSymbol} /> */}
-
           </CardContent>
 
         </Card>
-        <Card></Card>
-        <CompanyNews symbol={selectedSymbol} />
       </Container>
-      {/* <Box align="center">
-        <AddShares allStocks={allStocks} addShares={addShares} />
-      </Box> */}
+
     </>
   );
 };

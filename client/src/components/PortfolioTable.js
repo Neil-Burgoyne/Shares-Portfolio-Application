@@ -8,14 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PercentIcon from '@mui/icons-material/Percent';
+import { comma } from '../utilities/comma';
+import { cellStyle } from '../styles/tableStyles';
 
 const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
-  const cellStyle = {
-    width: '3rem',
-    height: '3rem',
-    textAlign: 'center',
-  }
- 
+
+
   //NOT NEEDED
   // const totalCalc = values.reduce(
   //   (runningTotal, shareValues) =>
@@ -40,10 +38,7 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
   console.log(user.portfolioTotals.totalPortfolioValue)
   console.log(user.portfolioTotals.totalPortfolioValue.length)
 
-  const comma = (number)=>{
-    const string = number.toString()
-    return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  }
+
 
   return (
     <>
@@ -61,7 +56,7 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               <TableCell sx={cellStyle}>Total Paid</TableCell>
               <TableCell sx={cellStyle}>Current Value (per share)</TableCell>
               <TableCell sx={cellStyle}>Total Value</TableCell>
-              <TableCell sx={cellStyle}><PercentIcon fontSize='small'/></TableCell>
+              <TableCell sx={cellStyle}><PercentIcon fontSize='small' /></TableCell>
               <TableCell sx={cellStyle}>View</TableCell>
               <TableCell sx={cellStyle}>Add Shares</TableCell>
               <TableCell sx={cellStyle}>Sell Shares</TableCell>
@@ -70,14 +65,14 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
           <TableBody>
             {row}
             <TableRow>
-              <TableCell/>
-              <TableCell/>
-              <TableCell/>
-              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>Grand Total Paid:</TableCell>
-              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>£{comma(user.portfolioTotals.totalPaid)}</TableCell>
-              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>Current Portfolio Value:</TableCell>
-              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>£{comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
-              {answer >= 100 ? <TableCell style={{color: 'green', fontWeight: 'bold'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red', fontWeight: 'bold'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}  
+              <TableCell />
+              <TableCell />
+              <TableCell />
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Grand Total Paid:</TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>£{comma(user.portfolioTotals.totalPaid)}</TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Current Portfolio Value:</TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>£{comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
+              {answer >= 100 ? <TableCell style={{ color: 'green', fontWeight: 'bold' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red', fontWeight: 'bold' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
             </TableRow>
           </TableBody>
         </Table>
@@ -89,4 +84,4 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
 
 export default PortfolioTable;
 
-{/* <TableCell sx={cellStyle}>Edit</TableCell> */}
+{/* <TableCell sx={cellStyle}>Edit</TableCell> */ }
