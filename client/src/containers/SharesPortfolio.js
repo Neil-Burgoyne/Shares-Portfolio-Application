@@ -9,7 +9,7 @@ import Home from '../components/Home.js';
 import View from '../components/View.js';
 
 import ButtonAppBar from '../components/AppBar.js';
-import { teal } from '@mui/material/colors';
+import { amber, teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
 import ChartTheme from '../components/ChartTheme';

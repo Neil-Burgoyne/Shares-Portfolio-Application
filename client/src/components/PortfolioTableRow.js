@@ -95,7 +95,7 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                 <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
                     <Collapse in={addClicked} timeout="auto" unmountOnExit>
                         <TableRow>
-                            <TableCell sx={{width: '90%'}}/>
+                            <TableCell sx={{width: '91%'}}/>
                             <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
                                 <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
                                 <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={add}>Add Shares</Button>

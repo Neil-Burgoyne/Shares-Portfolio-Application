@@ -17,7 +17,8 @@ const AddShares = ({ addShares, allStocks, selected }) => {
 
     const addSharesStyle = {
         padding: '1rem',
-        margin: '1rem'
+        margin: '1rem',
+        textAlign: 'centre'
     }
 
     const onSubmit = (e) => {
@@ -49,7 +50,7 @@ const AddShares = ({ addShares, allStocks, selected }) => {
                 <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={addSharesStyle} variant="h5" component="div">Add Shares</Typography>
                     <form onSubmit={onSubmit}>
-                        <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal sx={{ width: 300 }} options={stocks} renderInput={(params) => <TextField {...params} label="Company" />} />
+                        <Autocomplete sx={addSharesStyle} id='combo-box-demo' size="small" onChange={onSelect} disablePortal options={stocks} renderInput={(params) => <TextField {...params} label="Company" />} />
                         <TextField sx={addSharesStyle} style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={onChange} variant="standard" /><br />
                         <Button variant="contained" type="submit">Add</Button><br />
                     </form>
