@@ -58,8 +58,8 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
             <TableRow>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell sx={cellStyle}>Total:</TableCell>
-              <TableCell sx={cellStyle}>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>Total:</TableCell>
+              <TableCell sx={cellStyle} style={{fontWeight: 'bold'}}>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

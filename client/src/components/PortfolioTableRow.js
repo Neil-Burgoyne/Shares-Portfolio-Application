@@ -68,16 +68,16 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSy
                 <TableCell sx={cellStyle}>{stock.numShares}</TableCell>
                 <TableCell sx={cellStyle}>£{stock.averagePricePaid}</TableCell>
                 <TableCell sx={cellStyle}>£{stock.currentMarketValue}</TableCell>
-                {answer >= 100 ? <TableCell sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+                {answer >= 100 ? <TableCell style={{color: 'green'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
                 <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
                 <TableCell sx={cellStyle} onClick={sellClick}><AttachMoneyIcon /></TableCell>
             </TableRow>
             <TableRow>
-                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                     <Collapse in={clicked} timeout="auto" unmountOnExit>
                         <TableRow>
                             <TableCell sx={{width: '100%'}}/>
-                            <TableCell sx={{cellStyle, display: 'flex', flexDirection: 'column', padding: '2px', width:'12rem'}}>
+                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'12rem'}}>
                                 <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to sell'></TextField>
                                 <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sell}>Sell Shares</Button>
                                 <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sellClick}>Cancel</Button>
