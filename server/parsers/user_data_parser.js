@@ -1,4 +1,3 @@
-
 const getShareData = (shareTransactions, stockSymbol) => {
     const shareData = shareTransactions.reduce((shareTotals, trans) => {
         if (trans.stockSymbol === stockSymbol) {

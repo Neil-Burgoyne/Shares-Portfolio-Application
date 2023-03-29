@@ -23,15 +23,24 @@ import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
 
-const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, selectedSymbol, selectSymbol }) => {
+
+const View = ({
+  user,
+  allStocks,
+  editShare,
+  deleteShare,
+  sellShares,
+  addShares,
+  selectedSymbol,
+  selectSymbol,
+  symbol,
+}) => {
 
   const [numShares, setNumShares] = useState(0);
 
   const options = allStocks.map((stock) => {
     return `${stock.symbol} : ${stock.name}`
   })
-
-
 
   const findSelectedOption = () => {
 
@@ -62,30 +71,61 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
   }
 
   const findPortfolioAsset = () => {
-    const asset = user.portfolio.find((asset) => asset.symbol === selectedSymbol)
-    console.log(asset)
-    return asset
-  }
+    const asset = user.portfolio.find(
+      (asset) => asset.symbol === selectedSymbol
+    );
+    console.log(asset);
+    return asset;
+  };
 
   const asset = findPortfolioAsset();
+
 
   const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
 
   const stockTransactions = user.shareTransactions.filter((trans) => trans.stockSymbol === selectedSymbol);
+
 
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
           <CardHeader
-            sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
+            sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}
             avatar={<Avatar>A</Avatar>}
-            action={<Container sx={{ textAlign: "right" }}><p>Current Price: ${selectedStock.closingValue}</p> <p>Volume: {selectedStock.graphData[selectedStock.graphData.length - 1][5]}</p></Container>}
-            title={<Container><Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} /></Container>
-            }>
-          </CardHeader>
+            action={
+              <Container sx={{ textAlign: 'right' }}>
+                <p>Current Price: ${selectedStock.closingValue}</p>{' '}
+                <p>
+                  Volume:{' '}
+                  {
+                    selectedStock.graphData[
+                      selectedStock.graphData.length - 1
+                    ][5]
+                  }
+                </p>
+              </Container>
+            }
+            title={
+              <Container>
+                <Autocomplete
+                  id="combo-box-demo"
+                  size="small"
+                  disablePortal
+                  sx={{ width: 300 }}
+                  onChange={handleChange}
+                  options={options}
+                  defaultValue={() => findSelectedOption()}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Select A Stock" />
+                  )}
+                />
+              </Container>
+            }
+          ></CardHeader>
           <CardContent>
             <StockChart selectedStock={selectedStock} />
+
             {asset && <SingleAsset asset={asset} />}
             <br />
             {asset &&
@@ -103,19 +143,33 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
               </Accordion>
             }
 
-
-            {selectedSymbol ?
+            {selectedSymbol ? (
               <div>
-                <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
+                <Typography variant="h6" component="div">
+                  Add Shares to your Portfolio:
+                </Typography>
                 <form onSubmit={handleAddShares}>
-                  <TextField style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={handleNumChange} variant="standard" />
-                  <Button variant="contained" type="submit">Add</Button><br />
+                  <TextField
+                    style={{ marginBottom: '1rem' }}
+                    id="standard-basic"
+                    type="number"
+                    label="Number of Shares"
+                    onChange={handleNumChange}
+                    variant="standard"
+                  />
+                  <Button variant="contained" type="submit">
+                    Add
+                  </Button>
+                  <br />
                 </form>
               </div>
               : null}
           </CardContent>
-
         </Card>
+
+
+        <CompanyNews symbol={selectedSymbol} />
+
       </Container>
 
     </>
