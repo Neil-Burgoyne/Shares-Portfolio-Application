@@ -1,18 +1,22 @@
 import { Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
-import { getNewsSymbol } from '../../api_services/StocksService';
+import { getNewsSymbol, getNews } from '../../api_services/StocksService';
 import NewsCard from './NewsCard';
 
-const CompanyNews = ({ symbol }) => {
+const CompanyNews = ({ symbol = null }) => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    const fetchNews = async (symbol) => {
-      const newsData = await getNewsSymbol(symbol);
+    const fetchNews = async (symbol = null) => {
+      let newsData
+      if (symbol) { newsData = await getNewsSymbol(symbol); }
+      else { newsData = await getNews(); }
       setNews(newsData);
     };
     if (symbol) {
       fetchNews(symbol);
+    } else {
+      fetchNews()
     }
   }, [symbol]);
 
