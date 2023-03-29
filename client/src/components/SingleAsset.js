@@ -10,10 +10,11 @@ const SingleAsset = ({ asset }) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>symbol:</TableCell>
-                        <TableCell align="right">name:</TableCell>
+
+                        <TableCell align="left">name:</TableCell>
                         <TableCell align="right">currentMarketValue</TableCell>
                         <TableCell align="right">numShares</TableCell>
+                        <TableCell align="right">Current Value</TableCell>
                         <TableCell align="right">averagePricePaid</TableCell>
                         <TableCell align="right">totalFromSales:</TableCell>
                         <TableCell align="right">TotalValueIncrease:</TableCell>
@@ -21,8 +22,7 @@ const SingleAsset = ({ asset }) => {
                 </TableHead>
                 <TableBody>
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell component="th" scope="row">{asset.symbol}</TableCell>
-                        <TableCell align="right">{asset.name}</TableCell>
+                        <TableCell component="th" scope="row">{asset.name}</TableCell>
                         <TableCell align="right">${asset.currentMarketValue}</TableCell>
                         <TableCell align="right">{asset.numShares}</TableCell>
                         <TableCell align="right">${asset.currentTotalValue}</TableCell>
