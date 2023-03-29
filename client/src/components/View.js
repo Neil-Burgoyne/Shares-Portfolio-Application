@@ -17,6 +17,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PortfolioTableRow from './PortfolioTableRow';
+import SingleAsset from './SingleAsset';
 
 const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, selectedSymbol, selectSymbol }) => {
 
@@ -25,6 +26,8 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
   const options = allStocks.map((stock) => {
     return `${stock.symbol} : ${stock.name}`
   })
+
+
 
   const findSelectedOption = () => {
 
@@ -54,37 +57,39 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
     setNumShares(e.target.value)
   }
 
+  const findPortfolioAsset = () => {
+    const asset = user.portfolio.find((asset) => asset.symbol === selectedSymbol)
+    console.log(asset)
+    return asset
+  }
+
+  const asset = findPortfolioAsset();
+
 
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
+          <Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
           <CardHeader avatar={<Avatar>A</Avatar>} />
-          <Card>
-            <CardContent style={{ display: 'flex' }}>
-              <Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
-              {selectedSymbol ?
-                <div>
-                  <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
-                  <form onSubmit={handleAddShares}>
-                    <TextField style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={handleNumChange} variant="standard" />
-                    <Button variant="contained" type="submit">Add</Button><br />
-                  </form>
-                </div>
-                : null}
-              <PortfolioTableRow editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} stock={user.portfolio.find(((stock) => stock.symbol === selectedSymbol))} selectSymbol={selectSymbol} />
-
-            </CardContent>
-          </Card>
           <CardContent>
             <StockChart selectedSymbol={selectedSymbol} allStocks={allStocks} />
           </CardContent>
         </Card>
+        <SingleAsset asset={asset} />
         <Card>
-          <CardContent>
-            <Typography component="div">
+          <CardContent style={{ display: 'flex' }}>
+            {selectedSymbol ?
+              <div>
+                <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
+                <form onSubmit={handleAddShares}>
+                  <TextField style={{ marginBottom: '1rem' }} id="standard-basic" type="number" label="Number of Shares" onChange={handleNumChange} variant="standard" />
+                  <Button variant="contained" type="submit">Add</Button><br />
+                </form>
+              </div>
+              : null}
+            {/* <PortfolioTableRow editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} stock={user.portfolio.find(((stock) => stock.symbol === selectedSymbol))} selectSymbol={selectSymbol} /> */}
 
-            </Typography>
           </CardContent>
         </Card>
       </Container>

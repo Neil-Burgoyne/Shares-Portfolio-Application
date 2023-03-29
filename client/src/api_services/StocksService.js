@@ -37,5 +37,4 @@ export const getNewsSymbol = (symbol) => {
 // }
 
 
-console.log(getNews())
-console.log(getNews('AAPL'))
+
