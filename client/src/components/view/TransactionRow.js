@@ -1,8 +1,8 @@
 import React from "react";
 import { TableCell, TableRow } from "@mui/material";
-import { comma } from "../utilities/comma";
-import { cellStyle } from "../styles/tableStyles";
-import { capitalize, formatDate } from "../utilities/stringUtilities";
+import { comma } from "../../utilities/comma";
+import { cellStyle } from "../../styles/tableStyles";
+import { capitalize, formatDate } from "../../utilities/stringUtilities";
 
 const TransactionRow = ({ transaction }) => {
 

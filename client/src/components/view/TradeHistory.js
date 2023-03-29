@@ -8,8 +8,8 @@ import {
     TableBody
 } from "@mui/material";
 import PercentIcon from '@mui/icons-material/Percent'
-import { comma } from "../utilities/comma";
-import { cellStyle } from "../styles/tableStyles";
+import { comma } from "../../utilities/comma";
+import { cellStyle } from "../../styles/tableStyles";
 import TransactionRow from "./TransactionRow";
 
 

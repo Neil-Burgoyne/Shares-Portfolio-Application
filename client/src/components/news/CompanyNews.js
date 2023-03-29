@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getNewsSymbol } from '../api_services/StocksService';
+import { getNewsSymbol } from '../../api_services/StocksService';
 import NewsCard from './NewsCard';
 
 const CompanyNews = ({ symbol }) => {

@@ -8,8 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PercentIcon from '@mui/icons-material/Percent';
-import { comma } from '../utilities/comma';
-import { cellStyle } from '../styles/tableStyles';
+import { comma } from '../../utilities/comma';
+import { cellStyle } from '../../styles/tableStyles';
 
 const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
 

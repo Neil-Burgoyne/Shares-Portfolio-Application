@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { getStocks, getStock, getNews, getNewsSymbol } from '../api_services/StocksService';
 import { getUsers, getUser } from '../api_services/UsersService';
-import DonutChart from './DonutChart';
-import News from './News';
-import CompanyNews from './CompanyNews';
+import DonutChart from './home/DonutChart';
+import News from './news/News';
+import CompanyNews from './news/CompanyNews';
 
 const ApiTest = () => {
     // const [allStocks, setAllStocks] = useState([]);
