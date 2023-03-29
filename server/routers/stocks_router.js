@@ -1,6 +1,6 @@
 
 const express = require("express")
-const { getStockData, getStocksData } = require('../repositories/stocks_repository')
+const { getStockData, getStocksData, getNews } = require('../repositories/stocks_repository')
 
 
 const ObjectID = require("mongodb").ObjectID
@@ -8,6 +8,29 @@ const ObjectID = require("mongodb").ObjectID
 const stocksRouter = function () {
     const router = express.Router();
 
+    router.get('/news/', async (req, res) => {
+        try {
+            const symbol = req.params.symbol;
+            const data = await getNews();
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+    })
+
+    router.get('/news/:symbol', async (req, res) => {
+        try {
+            const symbol = req.params.symbol;
+            const data = await getNews(symbol);
+            res.json(data);
+        } catch (err) {
+            console.error(err)
+            res.status(500)
+            res.json({ status: 500, error: err })
+        }
+    })
     router.get('/', async (req, res) => {
         try {
             const data = await getStocksData();
@@ -29,6 +52,7 @@ const stocksRouter = function () {
             res.json({ status: 500, error: err })
         }
     })
+
 
 
 

@@ -80,6 +80,13 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
             <StockChart selectedSymbol={selectedSymbol} allStocks={allStocks} />
           </CardContent>
         </Card>
+        <Card>
+          <CardContent>
+            <Typography component="div">
+
+            </Typography>
+          </CardContent>
+        </Card>
       </Container>
       {/* <Box align="center">
         <AddShares allStocks={allStocks} addShares={addShares} />

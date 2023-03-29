@@ -9,6 +9,17 @@ export const getStock = (symbol) => {
     return fetch(baseURL + symbol)
         .then(res => res.json())
 }
+export const getNews = () => {
+    return fetch(baseURL + "news")
+        .then(res => res.json())
+}
+
+export const getNewsSymbol = (symbol) => {
+    return fetch(baseURL + "news/" + symbol)
+        .then(res => res.json())
+}
+
+
 
 // export const postStock = (symbol) => {
 //     return fetch(baseURL, {
@@ -26,4 +37,5 @@ export const getStock = (symbol) => {
 // }
 
 
-
+console.log(getNews())
+console.log(getNews('AAPL'))
