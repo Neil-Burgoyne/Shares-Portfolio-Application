@@ -29,7 +29,7 @@ export default function ButtonAppBar({ user }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton onClick={() => setOpen(true)}>
             <MenuIcon />
