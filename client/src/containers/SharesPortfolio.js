@@ -34,6 +34,7 @@ const SharesPortfolio = () => {
         secondary: '#ffffff',
       },
       background:{
+        default: '#282828',
         paper: '#282828'
       }
     },
@@ -129,7 +130,7 @@ const SharesPortfolio = () => {
       {allUsers[user] && allStocks ? (
         <ThemeProvider theme={darkTheme}>
           <ChartTheme />
-          <Paper style={{ height: '100%' }}>
+          <Paper elevation={20} style={{ height: '100%' }}>
             <ButtonAppBar user={allUsers[user]} />
             <Routes>
               <Route
