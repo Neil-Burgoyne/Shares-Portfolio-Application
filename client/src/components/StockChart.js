@@ -13,7 +13,7 @@ require('highcharts/modules/accessibility')(Highcharts);
 require('highcharts/modules/hollowcandlestick')(Highcharts);
 
 
-const StockChart = ({ selectedSymbol, allStocks }) => {
+const StockChart = ({ selectedStock }) => {
 
     const [chartOptions, setChartOptions] = useState({
         rangeSelector: {
@@ -41,9 +41,9 @@ const StockChart = ({ selectedSymbol, allStocks }) => {
             }]
         },
 
-        title: {
-            text: `Loading`
-        },
+        // title: {
+        //     text: `Loading`
+        // },
 
         series: [{
             type: 'candlestick',
@@ -68,7 +68,8 @@ const StockChart = ({ selectedSymbol, allStocks }) => {
             const newChartOptions = { ...chartOptions }
             newChartOptions.series[0].data = stock.graphData;
             newChartOptions.series[0].title = stock.symbol;
-            newChartOptions.title.text = stock.symbol;
+            newChartOptions.series[0].name = stock.symbol;
+            // newChartOptions.title.text = stock.symbol;
             setChartOptions(newChartOptions);
         }
 
@@ -77,10 +78,10 @@ const StockChart = ({ selectedSymbol, allStocks }) => {
         //     const data = await res.json();
         //     updateSeries(data);
         // }
-        if (allStocks) {
-            updateSeries(allStocks.find((stock) => stock.symbol === selectedSymbol));
+        if (selectedStock) {
+            updateSeries(selectedStock);
         }
-    }, [selectedSymbol, allStocks]);
+    }, [selectedStock]);
 
     return (
         <div>

@@ -65,20 +65,26 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
 
   const asset = findPortfolioAsset();
 
+  const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
 
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
-          <Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} />
-          <CardHeader avatar={<Avatar>A</Avatar>} />
+          <CardHeader
+            sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
+            avatar={<Avatar>A</Avatar>}
+            action={<Container sx={{ textAlign: "right" }}><p>Current Price: ${selectedStock.closingValue}</p> <p>Volume: {selectedStock.graphData[selectedStock.graphData.length - 1][5]}</p></Container>}
+            title={<Container><Autocomplete id='combo-box-demo' size="small" disablePortal sx={{ width: 300 }} onChange={handleChange} options={options} defaultValue={() => findSelectedOption()} renderInput={(params) => <TextField {...params} label="Select A Stock" />} /></Container>
+            }>
+          </CardHeader>
           <CardContent>
-            <StockChart selectedSymbol={selectedSymbol} allStocks={allStocks} />
-          </CardContent>
-        </Card>
-        <SingleAsset asset={asset} />
-        <Card>
-          <CardContent style={{ display: 'flex' }}>
+            <StockChart selectedStock={selectedStock} />
+
+
+            {asset && <SingleAsset asset={asset} />}
+
+
             {selectedSymbol ?
               <div>
                 <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>
@@ -89,8 +95,8 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
               </div>
               : null}
             {/* <PortfolioTableRow editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} stock={user.portfolio.find(((stock) => stock.symbol === selectedSymbol))} selectSymbol={selectSymbol} /> */}
-
           </CardContent>
+
         </Card>
       </Container>
       {/* <Box align="center">
