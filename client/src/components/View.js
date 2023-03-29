@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Search from './Search';
 import StockChart from './StockChart';
 import AddShares from './AddShares';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Avatar,
   Box,
   Card,
@@ -16,8 +20,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import PortfolioTableRow from './PortfolioTableRow';
 import SingleAsset from './SingleAsset';
+import TradeHistory from './TradeHistory';
 
 const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, selectedSymbol, selectSymbol }) => {
 
@@ -67,6 +71,8 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
 
   const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
 
+  const stockTransactions = user.shareTransactions.filter((trans) => trans.stockSymbol === selectedSymbol);
+
   return (
     <>
       <Container>
@@ -81,6 +87,23 @@ const View = ({ user, allStocks, editShare, deleteShare, sellShares, addShares, 
           <CardContent>
             <StockChart selectedStock={selectedStock} />
             {asset && <SingleAsset asset={asset} />}
+            <br />
+            {asset &&
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Transaction History</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TradeHistory transactions={stockTransactions} />
+                </AccordionDetails>
+              </Accordion>
+            }
+
+
             {selectedSymbol ?
               <div>
                 <Typography variant="h6" component="div">Add Shares to your Portfolio:</Typography>

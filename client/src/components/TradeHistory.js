@@ -10,11 +10,12 @@ import {
 import PercentIcon from '@mui/icons-material/Percent'
 import { comma } from "../utilities/comma";
 import { cellStyle } from "../styles/tableStyles";
+import TransactionRow from "./TransactionRow";
 
 
 const TradeHistory = ({ transactions }) => {
 
-
+    const transNodes = transactions.map((trans) => <TransactionRow transaction={trans} />)
 
     return (
         <TableContainer component={Paper}>
@@ -27,25 +28,10 @@ const TradeHistory = ({ transactions }) => {
                         <TableCell sx={cellStyle}>Price per share</TableCell>
                         <TableCell sx={cellStyle}>Total Price</TableCell>
                         <TableCell sx={cellStyle}>Type</TableCell>
-
-
-
-                        <TableCell sx={cellStyle}><PercentIcon fontSize='small' /></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell sx={cellStyle} component="th" scope="row">{asset}</TableCell>
-                        <TableCell sx={cellStyle} >{asset.name}</TableCell>
-                        <TableCell sx={cellStyle} >{comma(asset.numShares)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.averagePricePaid)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.totalPaid)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.currentMarketValue)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.currentTotalValue)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.totalFromSales)}</TableCell>
-                        <TableCell sx={cellStyle} >${comma(asset.totalValueIncrease)}</TableCell>
-                    </TableRow>
-
+                    {transNodes}
                 </TableBody>
             </Table>
         </TableContainer>
