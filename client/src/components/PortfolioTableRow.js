@@ -14,13 +14,15 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import AddIcon from '@mui/icons-material/Add';
 
 
-const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSymbol }) => {
+const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
     const [clicked, setClicked] = useState(false);
-    const [editClicked, setEditClicked] = useState(false);
+    const [addClicked, setAddClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
-    const [editForm, setEditForm] = useState(stock);
+    const [addInput, setAddInput] = useState();
+
 
     const cellStyle = {
         width: '3rem',
@@ -28,18 +30,28 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSy
         textAlign: 'center',
     }
 
-    const editClick = () => {
+    const addClick = () => {
         setClicked(false)
-        setEditClicked(!editClicked);
+        setAddClicked(!addClicked)
     }
 
     const sellClick = () => {
-        setEditClicked(false)
+        setAddClicked(false)
         setClicked(!clicked)
     }
 
     const onChange = (e) => {
         setShareInput(e.target.value)
+    }
+    const onAddChange = (e) => {
+        setAddInput(e.target.value)
+    }
+
+    const add = ()=>{
+        const data = {stockSymbol: stock.symbol, numshares: addInput}
+        addShares(data)
+        addClick()
+        setAddInput()
     }
 
     const sell = () => {
@@ -59,26 +71,44 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSy
     
     const answer = ((stock.currentMarketValue / stock.averagePricePaid) * 100)
     
-    
+    const comma = (number)=>{
+        const string = number.toString()
+        return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      }
     
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell sx={cellStyle} component="th" scope="row">{stock.symbol}</TableCell>
-                <TableCell sx={cellStyle}>{stock.numShares}</TableCell>
-                <TableCell sx={cellStyle}>£{stock.averagePricePaid}</TableCell>
-                <TableCell sx={cellStyle}>£{stock.currentMarketValue}</TableCell>
+                <TableCell sx={cellStyle}>{stock.name}</TableCell>
+                <TableCell sx={cellStyle}>{comma(stock.numShares)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.averagePricePaid)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.totalPaid)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.currentMarketValue)}</TableCell>
+                <TableCell sx={cellStyle}>£{comma(stock.currentTotalValue)}</TableCell>
                 {answer >= 100 ? <TableCell style={{color: 'green'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
                 <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
+                <TableCell sx={cellStyle} onClick={addClick}><AddIcon /></TableCell>
                 <TableCell sx={cellStyle} onClick={sellClick}><AttachMoneyIcon /></TableCell>
             </TableRow>
             <TableRow>
-                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+                <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
+                    <Collapse in={addClicked} timeout="auto" unmountOnExit>
+                        <TableRow>
+                            <TableCell sx={{width: '90%'}}/>
+                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
+                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={add}>Add Shares</Button>
+                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={addClick}>Cancel</Button>
+                            </TableCell>
+                            <TableCell sx={{width: '10%'}}/>
+                        </TableRow>
+                    </Collapse>
                     <Collapse in={clicked} timeout="auto" unmountOnExit>
                         <TableRow>
                             <TableCell sx={{width: '100%'}}/>
-                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'12rem'}}>
-                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to sell'></TextField>
+                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
+                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to Sell'></TextField>
                                 <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sell}>Sell Shares</Button>
                                 <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sellClick}>Cancel</Button>
                             </TableCell>
@@ -138,3 +168,8 @@ export default PortfolioTableRow;
 //     setEditClicked(!editClicked);
 // }
 
+// const editClick = () => {
+//     setClicked(false)
+//     setEditClicked(!editClicked);
+// }
+// const [editForm, setEditForm] = useState(stock);
