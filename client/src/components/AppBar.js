@@ -34,14 +34,6 @@ export default function ButtonAppBar({ user }) {
           <IconButton onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
-          <Box>
-            <Switch
-              {...label}
-              color="default"
-              onChange={change}
-              checked={check}
-            />
-          </Box>
           
           <Typography style={{ flexGrow: 1}} variant="h2">
           <img src="/atlas.png" style={{height: '7rem'}}></img>

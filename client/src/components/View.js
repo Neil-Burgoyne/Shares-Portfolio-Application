@@ -22,6 +22,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
+import CompanyNews from './CompanyNews';
 
 
 const View = ({
@@ -143,7 +144,7 @@ const View = ({
               </Accordion>
             }
 
-            {selectedSymbol ? (
+            {selectedSymbol ?
               <div>
                 <Typography variant="h6" component="div">
                   Add Shares to your Portfolio:
