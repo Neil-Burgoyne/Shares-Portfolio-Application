@@ -1,6 +1,6 @@
 const { parseOHLCData } = require('../parsers/stock_data_parsers')
 const fetchData = require("../external_api/fetch_finnhub")
-const { todaysDate, yearToDateInSeconds } = require("../utilities/date_utilities");
+const { todaysDate, yearToDateInSeconds, monthToDate } = require("../utilities/date_utilities");
 let stocksCache = null;
 
 const getData = async (query, url, parser, parserArgs) => {
@@ -55,5 +55,14 @@ const setStocksCache = (stocksCollection) => {
     stocksCache = stocksCollection;
 }
 
+const getNews = async (symbol = null) => {
+    let endpoint;
+    const { today, lastMonth } = monthToDate()
+    if (!symbol) endpoint = "/news?category=general"
+    else endpoint = `/company-news?symbol=${symbol}&from=${lastMonth}&to=${today}`
+    const newsData = await fetchData(endpoint)
+    return newsData;
+}
 
-module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray };
+
+module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray, getNews };
