@@ -30,15 +30,15 @@ export default function ButtonAppBar({ user }) {
   return (
 
     <Box sx={{ flexGrow: 1, position: 'sticky', top: 0, left: 0, zIndex: 5 }}>
-      <AppBar sx={{height:'10rem', paddingTop:'1rem'}} position="static" color="primary">
+      <AppBar sx={{ height: '100%', paddingTop: '1rem', paddingBottom: '1rem' }} position="static" color="primary">
 
         <Toolbar>
-          <IconButton sx={{color:'white'}} onClick={() => setOpen(true)}>
+          <IconButton sx={{ color: 'white' }} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
 
-          <Typography style={{ display: 'flex', justifyContent:'center', flexGrow: 1 }} variant="h2">
-            <img src="/atlas.png" style={{ height: '7rem' }}></img>
+          <Typography style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} variant="h2">
+            <img src="/atlas.png" style={{ height: '4rem' }}></img>
             ATLAS WEALTH
           </Typography>
           <Typography style={{ fontSize: '1rem' }} variant="h6">
@@ -67,7 +67,7 @@ export default function ButtonAppBar({ user }) {
               {user.name}
             </Typography>
             <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
-            <ChevronLeftIcon sx={{color:'white'}}/>
+            <ChevronLeftIcon sx={{ color: 'white' }} />
           </IconButton>
           <Divider />
           <List>

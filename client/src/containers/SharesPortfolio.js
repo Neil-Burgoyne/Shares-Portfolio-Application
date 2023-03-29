@@ -15,6 +15,7 @@ import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
 import ChartTheme from '../components/ChartTheme';
 import LinearIndeterminate from '../components/Loading';
+import SplashPage from '../components/SplashPage';
 
 const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -22,29 +23,29 @@ const SharesPortfolio = () => {
 
 
   const darkTheme = createTheme({
-    palette:{
+    palette: {
       // mode: 'dark',
-      primary:{
+      primary: {
         main: '#242d7d',
       },
-      secondary:{
+      secondary: {
         main: '#f50057'
       },
-      text:{
+      text: {
         primary: '#ffffff',
         secondary: '#ffffff',
       },
-      background:{
+      background: {
         paper: '#3e4478',
         default: '#353535',
       }
     },
-    typography:{
-      fontSize:19,
-      fontWeightMedium:600
+    typography: {
+      fontSize: 12,
+      fontWeightMedium: 600
     },
-    shape:{
-      borderRadius:5,
+    shape: {
+      borderRadius: 5,
     },
   })
 
@@ -131,11 +132,12 @@ const SharesPortfolio = () => {
   };
 
   return (
-    <Router>
+
+    <ThemeProvider theme={darkTheme}>
       {allUsers[user] && allStocks ? (
-        <ThemeProvider theme={darkTheme}>
-          <ChartTheme />
-          <Paper elevation={20} sx={{bgcolor: 'background.default'}} style={{ minHeight:'100vh', height: '100%' }}>
+
+        <Router>   <ChartTheme />
+          <Paper elevation={20} sx={{ bgcolor: 'background.default' }} style={{ minHeight: '100vh', height: '100%' }}>
             <ButtonAppBar user={allUsers[user]} />
             <Routes>
               <Route
@@ -170,18 +172,17 @@ const SharesPortfolio = () => {
               <Route path="/apitest" element={<ApiTest />} />
             </Routes>
           </Paper>
-        </ThemeProvider>
+        </Router>
       ) : (
-        <h1>
-          <LinearIndeterminate />
-        </h1>
+        <SplashPage />
       )}
       <Message
         show={showMessage}
         hide={() => setShowMessage(false)}
         message={message}
       />
-    </Router>
+    </ThemeProvider>
+
   );
 };
 export default SharesPortfolio;
