@@ -10,6 +10,7 @@ import View from '../components/View.js';
 
 import ButtonAppBar from '../components/AppBar.js';
 import { teal } from '@mui/material/colors';
+
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
 import ChartTheme from '../components/ChartTheme';
@@ -19,17 +20,28 @@ const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState({ text: '', severity: 'info' }); //severity can be error warning info success
 
-  const theme = createTheme({
-    palette: {
-      mode: 'dark',
-      primary: {
-        main: '#3f51b5',
+
+  const darkTheme = createTheme({
+    palette:{
+      primary:{
+        main: '#7e57c2',
       },
-      secondary: {
-        main: '#f50057',
+      secondary:{
+        main: '#f50057'
       },
+      text:{
+        primary: '#ffffff',
+        secondary: '#ffffff',
+      },
+      background:{
+        default: '#282828',
+        paper: '#282828'
+      }
     },
-  });
+    typography:{
+      fontSize:17,
+    },
+  })
 
   const [allUsers, setUsers] = useState([]);
   const [allStocks, setAllStocks] = useState(null);
@@ -116,9 +128,9 @@ const SharesPortfolio = () => {
   return (
     <Router>
       {allUsers[user] && allStocks ? (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkTheme}>
           <ChartTheme />
-          <Paper style={{ height: '100%' }}>
+          <Paper elevation={20} style={{ height: '100%' }}>
             <ButtonAppBar user={allUsers[user]} />
             <Routes>
               <Route
