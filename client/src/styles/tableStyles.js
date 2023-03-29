@@ -3,3 +3,7 @@ export const cellStyle = {
     height: '3rem',
     textAlign: 'center',
 }
+
+export const cardElevation = {
+    elevation: 20
+}
