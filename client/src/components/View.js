@@ -22,6 +22,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
+import CompanyNews from "./CompanyNews"
 
 
 const View = ({
@@ -100,7 +101,7 @@ const View = ({
                   Volume:{' '}
                   {
                     selectedStock.graphData[
-                      selectedStock.graphData.length - 1
+                    selectedStock.graphData.length - 1
                     ][5]
                   }
                 </p>
@@ -129,7 +130,7 @@ const View = ({
             {asset && <SingleAsset asset={asset} />}
             <br />
             {asset &&
-              <Accordion>
+              <><Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
@@ -141,6 +142,19 @@ const View = ({
                   <TradeHistory transactions={stockTransactions} />
                 </AccordionDetails>
               </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Company News</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <CompanyNews symbol={selectedSymbol} />
+                  </AccordionDetails>
+                </Accordion>
+              </>
             }
 
             {selectedSymbol ? (
@@ -163,12 +177,12 @@ const View = ({
                   <br />
                 </form>
               </div>
-              : null}
+            ) : null}
           </CardContent>
         </Card>
 
 
-        <CompanyNews symbol={selectedSymbol} />
+
 
       </Container>
 
