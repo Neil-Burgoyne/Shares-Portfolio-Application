@@ -22,7 +22,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
-import CompanyNews from './CompanyNews';
+
+import CompanyNews from "./CompanyNews"
+
 
 
 const View = ({
@@ -101,7 +103,7 @@ const View = ({
                   Volume:{' '}
                   {
                     selectedStock.graphData[
-                      selectedStock.graphData.length - 1
+                    selectedStock.graphData.length - 1
                     ][5]
                   }
                 </p>
@@ -110,7 +112,6 @@ const View = ({
             title={
               <Container>
                 <Autocomplete
-                  id="combo-box-demo"
                   size="small"
                   disablePortal
                   sx={{ width: 300 }}
@@ -126,50 +127,92 @@ const View = ({
           ></CardHeader>
           <CardContent>
             <StockChart selectedStock={selectedStock} />
+            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
 
-            {asset && <SingleAsset asset={asset} />}
+              <Typography>Numer of Shares:</Typography>
+              <TextField
+                sx={{ width: "5rem" }}
+                type="number"
+                onChange={handleNumChange}
+                value={numShares}
+                variant="standard"
+              />
+              <Typography>x ${selectedStock.closingValue} = ${(numShares * selectedStock.closingValue).toFixed(2)}</Typography>
+              <Button sx={{ backgroundColor: "green" }} variant="contained" size="medium">
+                Buy
+              </Button>
+              <Button sx={{ backgroundColor: "red" }} variant="contained" size="medium">
+                Sell
+              </Button>
+            </Box>
+
             <br />
             {asset &&
-              <Accordion>
+              <><Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Transaction History</Typography>
+                  <Typography>Your Holdings</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <TradeHistory transactions={stockTransactions} />
+                  <SingleAsset asset={asset} />
                 </AccordionDetails>
               </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Transaction History</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TradeHistory transactions={stockTransactions} />
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>Company News</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <CompanyNews symbol={selectedSymbol} />
+                  </AccordionDetails>
+                </Accordion>
+              </>
             }
 
-            {selectedSymbol ?
-              <div>
-                <Typography variant="h6" component="div">
-                  Add Shares to your Portfolio:
-                </Typography>
-                <form onSubmit={handleAddShares}>
-                  <TextField
-                    style={{ marginBottom: '1rem' }}
-                    id="standard-basic"
-                    type="number"
-                    label="Number of Shares"
-                    onChange={handleNumChange}
-                    variant="standard"
-                  />
-                  <Button variant="contained" type="submit">
-                    Add
-                  </Button>
-                  <br />
-                </form>
-              </div>
-              : null}
+            {/* {selectedSymbol ?
+                  <div>
+                    <Typography variant="h6" component="div">
+                      Add Shares to your Portfolio:
+                    </Typography>
+                    <form onSubmit={handleAddShares}>
+                      <TextField
+                        style={{ marginBottom: '1rem' }}
+                        id="standard-basic"
+                        type="number"
+                        label="Number of Shares"
+                        onChange={handleNumChange}
+                        variant="standard"
+                      />
+                      <Button variant="contained" type="submit">
+                        Add
+                      </Button>
+                      <br />
+                    </form>
+                  </div>
+                  : null} */}
           </CardContent>
         </Card>
 
 
-        <CompanyNews symbol={selectedSymbol} />
+
 
       </Container>
 
