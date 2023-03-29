@@ -9,7 +9,8 @@ import Home from '../components/Home.js';
 import View from '../components/View.js';
 
 import ButtonAppBar from '../components/AppBar.js';
-import { amber, blue, teal } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
+
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
 import ChartTheme from '../components/ChartTheme';
@@ -18,19 +19,7 @@ import LinearIndeterminate from '../components/Loading';
 const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState({ text: '', severity: 'info' }); //severity can be error warning info success
-  const [darkMode, setDarkMode] = useState(false);
 
-  // const theme = createTheme({
-  //   palette: {
-  //     mode: 'dark',
-  //     primary: amber,
-
-  //     secondary: {
-  //       main: '#f50057',
-  //     },
-  //     mode: darkMode ? 'dark' : 'light',
-  //   },
-  // });
 
   const darkTheme = createTheme({
     palette:{
@@ -140,12 +129,8 @@ const SharesPortfolio = () => {
       {allUsers[user] && allStocks ? (
         <ThemeProvider theme={darkTheme}>
           <ChartTheme />
-          <Paper style={{ height: '100%'}}>
-            <ButtonAppBar
-              check={darkMode}
-              change={() => setDarkMode(!darkMode)}
-              user={allUsers[user]}
-            />
+          <Paper style={{ height: '100%' }}>
+            <ButtonAppBar user={allUsers[user]} />
             <Routes>
               <Route
                 path="/"

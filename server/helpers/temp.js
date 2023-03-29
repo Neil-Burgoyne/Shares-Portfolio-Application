@@ -1,5 +1,3 @@
-
-
 const dataforUi = {
     "name": "Millicent Moneybags",
     "shareValues": [
@@ -18,4 +16,3 @@ const dataforUi = {
     ]
 
 }
-

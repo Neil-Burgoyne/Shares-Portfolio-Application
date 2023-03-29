@@ -64,5 +64,4 @@ const getNews = async (symbol = null) => {
     return newsData;
 }
 
-
 module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray, getNews };

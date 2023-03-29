@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import {
-  Switch,
   Typography,
   Avatar,
   IconButton,
@@ -23,15 +22,14 @@ const sxHeaderIcon = {
   padding: 1,
 };
 
-export default function ButtonAppBar({ check, change, theme, user }) {
-  const label = { inputProps: { 'aria-label': 'Switch demo' } };
+export default function ButtonAppBar({ user }) {
   const [open, setOpen] = useState(false);
 
   const drawerWidth = 240;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton onClick={() => setOpen(true)}>
             <MenuIcon />
@@ -57,6 +55,9 @@ export default function ButtonAppBar({ check, change, theme, user }) {
           </Typography>
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
         </Toolbar>
+
+        {/* SWIPEABLE DRAWER COMPONENT  */}
+
         <SwipeableDrawer
           width={drawerWidth}
           open={open}
@@ -79,7 +80,7 @@ export default function ButtonAppBar({ check, change, theme, user }) {
             <ListItem>
               <HomeRoundedIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none', margin: 0 }}
+                style={{ textDecoration: 'none', margin: 0, color: 'white' }}
                 to="/"
                 onClick={() => setOpen(false)}
               >
@@ -89,7 +90,7 @@ export default function ButtonAppBar({ check, change, theme, user }) {
             <ListItem>
               <TrendingUpIcon sx={sxHeaderIcon} />
               <Link
-                style={{ textDecoration: 'none', margin: 0 }}
+                style={{ textDecoration: 'none', margin: 0, color: 'white' }}
                 to="/view"
                 onClick={() => setOpen(false)}
               >

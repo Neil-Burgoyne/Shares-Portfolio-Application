@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
+import { cellStyle } from '../styles/tableStyles';
+import { comma } from '../utilities/comma';
 
 
 const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
@@ -24,11 +26,6 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
     const [addInput, setAddInput] = useState();
 
 
-    const cellStyle = {
-        width: '3rem',
-        height: '3rem',
-        textAlign: 'center',
-    }
 
     const addClick = () => {
         setClicked(false)
@@ -47,8 +44,8 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
         setAddInput(e.target.value)
     }
 
-    const add = ()=>{
-        const data = {stockSymbol: stock.symbol, numshares: addInput}
+    const add = () => {
+        const data = { stockSymbol: stock.symbol, numshares: addInput }
         addShares(data)
         addClick()
         setAddInput()
@@ -68,25 +65,20 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
         navigate('/view')
     }
 
-    
+
     const answer = ((stock.currentMarketValue / stock.averagePricePaid) * 100)
-    
-    const comma = (number)=>{
-        const string = number.toString()
-        return string.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      }
-    
+
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell sx={cellStyle} component="th" scope="row">{stock.symbol}</TableCell>
                 <TableCell sx={cellStyle}>{stock.name}</TableCell>
                 <TableCell sx={cellStyle}>{comma(stock.numShares)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.averagePricePaid)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.totalPaid)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.currentMarketValue)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.currentTotalValue)}</TableCell>
-                {answer >= 100 ? <TableCell style={{color: 'green'}} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{color: 'red'}} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+                <TableCell sx={cellStyle}>${comma(stock.averagePricePaid)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.totalPaid)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.currentMarketValue)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.currentTotalValue)}</TableCell>
+                {answer >= 100 ? <TableCell style={{ color: 'green' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
                 <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
                 <TableCell sx={cellStyle} onClick={addClick}><AddIcon /></TableCell>
                 <TableCell sx={cellStyle} onClick={sellClick}><AttachMoneyIcon /></TableCell>
@@ -95,22 +87,22 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                 <TableCell className="cell" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={11}>
                     <Collapse in={addClicked} timeout="auto" unmountOnExit>
                         <TableRow>
-                            <TableCell sx={{width: '91%'}}/>
-                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
-                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
-                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={add}>Add Shares</Button>
-                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={addClick}>Cancel</Button>
+                            <TableCell sx={{ width: '91%' }} />
+                            <TableCell style={{ display: 'flex', flexDirection: 'column', padding: '2px', width: '10rem' }}>
+                                <TextField style={{ marginTop: '0.5rem', marginBottom: '.5rem' }} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
+                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={add}>Add Shares</Button>
+                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={addClick}>Cancel</Button>
                             </TableCell>
-                            <TableCell sx={{width: '10%'}}/>
+                            <TableCell sx={{ width: '10%' }} />
                         </TableRow>
                     </Collapse>
                     <Collapse in={clicked} timeout="auto" unmountOnExit>
                         <TableRow>
-                            <TableCell sx={{width: '100%'}}/>
-                            <TableCell style={{display: 'flex', flexDirection: 'column', padding: '2px', width:'10rem'}}>
-                                <TextField style={{marginTop: '0.5rem', marginBottom: '.5rem'}} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to Sell'></TextField>
-                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sell}>Sell Shares</Button>
-                                <Button style={{marginBottom: '.5rem'}} variant="contained" onClick={sellClick}>Cancel</Button>
+                            <TableCell sx={{ width: '100%' }} />
+                            <TableCell style={{ display: 'flex', flexDirection: 'column', padding: '2px', width: '10rem' }}>
+                                <TextField style={{ marginTop: '0.5rem', marginBottom: '.5rem' }} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to Sell'></TextField>
+                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={sell}>Sell Shares</Button>
+                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={sellClick}>Cancel</Button>
                             </TableCell>
                         </TableRow>
                     </Collapse>
@@ -126,7 +118,7 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
 export default PortfolioTableRow;
 
 // EDIT BUTTON
-{/* <TableCell sx={cellStyle} onClick={editClick}><SettingsIcon /></TableCell> */}
+{/* <TableCell sx={cellStyle} onClick={editClick}><SettingsIcon /></TableCell> */ }
 //EDIT ROW
 {/* <TableRow>
 <TableCell style={{ paddingBottom: 0, paddingTop: 0, margin: 0 }} colSpan={8}>
