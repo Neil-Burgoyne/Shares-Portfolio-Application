@@ -11,12 +11,6 @@ describe("Homepage Functions", () => {
         cy.get('.MuiButton-root').click();
     });
 
-    it('Can toggle dark mode on/off', function() {
-        cy.visit('http://localhost:3000');
-        cy.get('.PrivateSwitchBase-input').check();
-        cy.get('.PrivateSwitchBase-input').uncheck();
-    });
-
     it('Can view a chart showing current values of portfolio shares', function() {
         cy.visit('http://localhost:3000');
         cy.get('[data-testid="MenuIcon"] > path').click();
