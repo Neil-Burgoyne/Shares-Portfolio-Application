@@ -1,3 +1,4 @@
+import { Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { getNewsSymbol } from '../../api_services/StocksService';
 import NewsCard from './NewsCard';
@@ -20,8 +21,9 @@ const CompanyNews = ({ symbol }) => {
   });
   return (
     <>
-      <h1>Company News</h1>
-      {news !== [] ? newsNodes : 'loading...'}
+      <Stack sx={{ margin: "0.5rem", gap: "1rem" }}>
+        {news !== [] ? newsNodes : 'loading...'}
+      </Stack>
     </>
   );
 };
