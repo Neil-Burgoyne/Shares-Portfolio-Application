@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getNews } from '../api_services/StocksService';
+import { getNews } from '../../api_services/StocksService';
 
 const News = () => {
     const [news, setNews] = useState(null)

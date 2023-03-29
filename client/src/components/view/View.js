@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Search from './Search';
+import Search from '../home/Search';
 import StockChart from './StockChart';
-import AddShares from './AddShares';
+import AddShares from '../home/AddShares';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
@@ -23,20 +23,15 @@ import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
 
-import CompanyNews from "./CompanyNews"
-
-
+import CompanyNews from "../news/CompanyNews"
 
 const View = ({
   user,
   allStocks,
-  editShare,
-  deleteShare,
-  sellShares,
   addShares,
+  sellShares,
   selectedSymbol,
   selectSymbol,
-  symbol,
 }) => {
 
   const [numShares, setNumShares] = useState(0);
@@ -62,11 +57,17 @@ const View = ({
       selectSymbol(symbol)
     }
   }
-  const handleAddShares = (e) => {
-    e.preventDefault();
-    const data = { stockSymbol: selectedSymbol, numshares: numShares }
-    addShares(data)
-    e.target.reset()
+  const handleBuyShares = () => {
+    const data = { stockSymbol: selectedSymbol, numshares: numShares };
+    addShares(data);
+    setNumShares(0);
+  }
+  const handleSellShares = () => {
+    if (numShares <= asset.numShares) {
+      sellShares(Number(numShares), selectedStock)
+    } else {
+      return null
+    }
   }
 
   const handleNumChange = (e) => {
@@ -82,12 +83,8 @@ const View = ({
   };
 
   const asset = findPortfolioAsset();
-
-
   const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
-
   const stockTransactions = user.shareTransactions.filter((trans) => trans.stockSymbol === selectedSymbol);
-
 
   return (
     <>
@@ -127,7 +124,7 @@ const View = ({
           ></CardHeader>
           <CardContent>
             <StockChart selectedStock={selectedStock} />
-            <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
+            <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
 
               <Typography>Numer of Shares:</Typography>
               <TextField
@@ -138,10 +135,10 @@ const View = ({
                 variant="standard"
               />
               <Typography>x ${selectedStock.closingValue} = ${(numShares * selectedStock.closingValue).toFixed(2)}</Typography>
-              <Button sx={{ backgroundColor: "green" }} variant="contained" size="medium">
+              <Button sx={{ backgroundColor: "green", "&:hover": { backgroundColor: "#009900" } }} onClick={handleBuyShares} variant="contained" size="medium">
                 Buy
               </Button>
-              <Button sx={{ backgroundColor: "red" }} variant="contained" size="medium">
+              <Button sx={{ backgroundColor: "#DD0000", "&:hover": { backgroundColor: "#FF0000" } }} onClick={handleSellShares} variant="contained" size="medium">
                 Sell
               </Button>
             </Box>
@@ -186,34 +183,8 @@ const View = ({
                 </Accordion>
               </>
             }
-
-            {/* {selectedSymbol ?
-                  <div>
-                    <Typography variant="h6" component="div">
-                      Add Shares to your Portfolio:
-                    </Typography>
-                    <form onSubmit={handleAddShares}>
-                      <TextField
-                        style={{ marginBottom: '1rem' }}
-                        id="standard-basic"
-                        type="number"
-                        label="Number of Shares"
-                        onChange={handleNumChange}
-                        variant="standard"
-                      />
-                      <Button variant="contained" type="submit">
-                        Add
-                      </Button>
-                      <br />
-                    </form>
-                  </div>
-                  : null} */}
           </CardContent>
         </Card>
-
-
-
-
       </Container>
 
     </>

@@ -15,8 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
-import { cellStyle } from '../styles/tableStyles';
-import { comma } from '../utilities/comma';
+import { cellStyle } from '../../styles/tableStyles';
+import { comma } from '../../utilities/comma';
 
 
 

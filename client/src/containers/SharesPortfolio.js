@@ -5,17 +5,17 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getUsers, transaction } from '../api_services/UsersService';
 import { getStocks, getStock } from '../api_services/StocksService';
 
-import Home from '../components/Home.js';
-import View from '../components/View.js';
+import Home from '../components/home/Home.js';
+import View from '../components/view/View.js';
 
-import ButtonAppBar from '../components/AppBar.js';
+import ButtonAppBar from '../components/app/AppBar.js';
 import { teal } from '@mui/material/colors';
 
 import ApiTest from '../components/ApiTest.js';
-import Message from '../components/Message';
-import ChartTheme from '../components/ChartTheme';
-import LinearIndeterminate from '../components/Loading';
-import SplashPage from '../components/SplashPage';
+import Message from '../components/app/Message';
+import ChartTheme from '../styles/ChartTheme';
+import LinearIndeterminate from '../components/app/Loading';
+import SplashPage from '../components/app/SplashPage';
 
 const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -110,7 +110,7 @@ const SharesPortfolio = () => {
       setUsers(temp);
     });
     setMessage({
-      text: `Sold ${data} shares in ${singleStock.stockSymbol}`,
+      text: `Sold ${data} shares in ${singleStock.symbol}`,
       severity: 'success',
     });
     setShowMessage(true);
