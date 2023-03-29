@@ -11,6 +11,7 @@ import ButtonAppBar from '../components/AppBar.js';
 import { teal } from '@mui/material/colors';
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/Message';
+import ChartTheme from '../components/ChartTheme';
 
 const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -93,6 +94,7 @@ const SharesPortfolio = () => {
     <Router>
       {allUsers[user] && allStocks ?
         <ThemeProvider theme={theme}>
+          <ChartTheme />
           <Paper style={{ height: '100%' }}>
             <ButtonAppBar
               check={darkMode}
