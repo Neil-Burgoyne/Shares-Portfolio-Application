@@ -1,3 +1,5 @@
+// User test cases 
+
 describe("Homepage Functions", () => {
     it("Loads the homepage correctly", () => {
         cy.visit("http://localhost:3000");
