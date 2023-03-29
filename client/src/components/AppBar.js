@@ -29,13 +29,13 @@ export default function ButtonAppBar({ user }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="primary">
+      <AppBar sx={{height:'10rem', paddingTop:'1rem'}} position="static" color="primary">
         <Toolbar>
-          <IconButton onClick={() => setOpen(true)}>
+          <IconButton sx={{color:'white'}} onClick={() => setOpen(true)}>
             <MenuIcon />
           </IconButton>
           
-          <Typography style={{ flexGrow: 1}} variant="h2">
+          <Typography style={{ display: 'flex', justifyContent:'center', flexGrow: 1}} variant="h2">
           <img src="/atlas.png" style={{height: '7rem'}}></img>
             ATLAS WEALTH
           </Typography>
@@ -61,11 +61,11 @@ export default function ButtonAppBar({ user }) {
             disableRipple
             sx={{ display: 'flex', justifyContent: 'end' }}
           >
-            <Typography style={{ padding: 10, fontSize: '1rem' }} variant="h6">
+            <Typography style={{ color: 'white', padding: 10, fontSize: '1rem' }} variant="h6">
               {user.name}
             </Typography>
             <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
-            <ChevronLeftIcon />
+            <ChevronLeftIcon sx={{color:'white'}}/>
           </IconButton>
           <Divider />
           <List>

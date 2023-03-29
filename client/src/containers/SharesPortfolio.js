@@ -23,8 +23,9 @@ const SharesPortfolio = () => {
 
   const darkTheme = createTheme({
     palette:{
+      // mode: 'dark',
       primary:{
-        main: '#7e57c2',
+        main: '#242d7d',
       },
       secondary:{
         main: '#f50057'
@@ -34,12 +35,16 @@ const SharesPortfolio = () => {
         secondary: '#ffffff',
       },
       background:{
-        default: '#282828',
-        paper: '#282828'
+        paper: '#3e4478',
+        default: '#353535',
       }
     },
     typography:{
-      fontSize:17,
+      fontSize:19,
+      fontWeightMedium:600
+    },
+    shape:{
+      borderRadius:5,
     },
   })
 
@@ -130,7 +135,7 @@ const SharesPortfolio = () => {
       {allUsers[user] && allStocks ? (
         <ThemeProvider theme={darkTheme}>
           <ChartTheme />
-          <Paper elevation={20} style={{ height: '100%' }}>
+          <Paper elevation={20} sx={{bgcolor: 'background.default'}} style={{ minHeight:'100vh', height: '100%' }}>
             <ButtonAppBar user={allUsers[user]} />
             <Routes>
               <Route

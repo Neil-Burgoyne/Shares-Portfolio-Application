@@ -19,6 +19,7 @@ import { cellStyle } from '../styles/tableStyles';
 import { comma } from '../utilities/comma';
 
 
+
 const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
     const [clicked, setClicked] = useState(false);
     const [addClicked, setAddClicked] = useState(false);
