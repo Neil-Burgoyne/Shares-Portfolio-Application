@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Search from './Search';
 import StockChart from './StockChart';
 import AddShares from './AddShares';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Avatar,
   Box,
   Card,
@@ -16,11 +20,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import PortfolioTableRow from './PortfolioTableRow';
-
-import CompanyNews from './CompanyNews';
-
 import SingleAsset from './SingleAsset';
+import TradeHistory from './TradeHistory';
+
 
 const View = ({
   user,
@@ -33,38 +35,40 @@ const View = ({
   selectSymbol,
   symbol,
 }) => {
+
   const [numShares, setNumShares] = useState(0);
 
   const options = allStocks.map((stock) => {
-    return `${stock.symbol} : ${stock.name}`;
-  });
+    return `${stock.symbol} : ${stock.name}`
+  })
 
   const findSelectedOption = () => {
+
     const found = options.find((option) => {
-      console.log(option);
+      console.log(option)
       return option.split(' :')[0] === selectedSymbol;
-    });
+    })
     return found;
-    console.log('found', found);
-  };
+    console.log("found", found)
+  }
   const handleChange = (e, value) => {
-    console.log(value);
+    console.log(value)
     if (value) {
-      const symbol = value.split(' :')[0];
-      console.log(symbol);
-      selectSymbol(symbol);
+      const symbol = value.split(' :')[0]
+      console.log(symbol)
+      selectSymbol(symbol)
     }
-  };
+  }
   const handleAddShares = (e) => {
     e.preventDefault();
-    const data = { stockSymbol: selectedSymbol, numshares: numShares };
-    addShares(data);
-    e.target.reset();
-  };
+    const data = { stockSymbol: selectedSymbol, numshares: numShares }
+    addShares(data)
+    e.target.reset()
+  }
 
   const handleNumChange = (e) => {
-    setNumShares(e.target.value);
-  };
+    setNumShares(e.target.value)
+  }
 
   const findPortfolioAsset = () => {
     const asset = user.portfolio.find(
@@ -76,9 +80,11 @@ const View = ({
 
   const asset = findPortfolioAsset();
 
-  const selectedStock = allStocks.find(
-    (stock) => stock.symbol === selectedSymbol
-  );
+
+  const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
+
+  const stockTransactions = user.shareTransactions.filter((trans) => trans.stockSymbol === selectedSymbol);
+
 
   return (
     <>
@@ -121,6 +127,21 @@ const View = ({
             <StockChart selectedStock={selectedStock} />
 
             {asset && <SingleAsset asset={asset} />}
+            <br />
+            {asset &&
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Transaction History</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TradeHistory transactions={stockTransactions} />
+                </AccordionDetails>
+              </Accordion>
+            }
 
             {selectedSymbol ? (
               <div>
@@ -142,16 +163,15 @@ const View = ({
                   <br />
                 </form>
               </div>
-            ) : null}
-            {/* <PortfolioTableRow editShare={editShare} sellShares={sellShares} deleteShare={deleteShare} user={user} stock={user.portfolio.find(((stock) => stock.symbol === selectedSymbol))} selectSymbol={selectSymbol} /> */}
+              : null}
           </CardContent>
         </Card>
 
+
         <CompanyNews symbol={selectedSymbol} />
+
       </Container>
-      {/* <Box align="center">
-        <AddShares allStocks={allStocks} addShares={addShares} />
-      </Box> */}
+
     </>
   );
 };
