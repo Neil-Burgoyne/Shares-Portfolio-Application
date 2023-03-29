@@ -9,6 +9,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol }) => {
+  const cellStyle = {
+    width: '3rem',
+    height: '3rem',
+    textAlign: 'center',
+  }
+ 
   //NOT NEEDED
   // const totalCalc = values.reduce(
   //   (runningTotal, shareValues) =>
@@ -38,14 +44,13 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Share</TableCell>
-              <TableCell align="right">Shares Held</TableCell>
-              <TableCell align="right">Average Price Paid (per share)</TableCell>
-              <TableCell align="right">Current Value (per share)</TableCell>
-              <TableCell align="right">%</TableCell>
-              <TableCell align="right">View</TableCell>
-              <TableCell align="right">Edit</TableCell>
-              <TableCell align="right">Sell</TableCell>
+              <TableCell sx={cellStyle}>Share</TableCell>
+              <TableCell sx={cellStyle}>Shares Held</TableCell>
+              <TableCell sx={cellStyle}>Average Price Paid (per share)</TableCell>
+              <TableCell sx={cellStyle}>Current Value (per share)</TableCell>
+              <TableCell sx={cellStyle}>%</TableCell>
+              <TableCell sx={cellStyle}>View</TableCell>
+              <TableCell sx={cellStyle}>Sell</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,8 +58,8 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
             <TableRow>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell>Total:</TableCell>
-              <TableCell>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
+              <TableCell sx={cellStyle}>Total:</TableCell>
+              <TableCell sx={cellStyle}>£{user.portfolioTotals.totalPortfolioValue}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -65,3 +70,5 @@ const PortfolioTable = ({ sellShares, deleteShare, editShare, user, selectSymbol
 };
 
 export default PortfolioTable;
+
+{/* <TableCell sx={cellStyle}>Edit</TableCell> */}
