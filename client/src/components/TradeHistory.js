@@ -12,7 +12,7 @@ import { comma } from "../utilities/comma";
 import { cellStyle } from "../styles/tableStyles";
 
 
-const SingleAsset = ({ asset }) => {
+const TradeHistory = ({ transactions }) => {
 
 
 
@@ -21,21 +21,21 @@ const SingleAsset = ({ asset }) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
+                        <TableCell sx={cellStyle}>Date</TableCell>
                         <TableCell sx={cellStyle}>Symbol</TableCell>
-                        <TableCell sx={cellStyle}>Name</TableCell>
-                        <TableCell sx={cellStyle}>Shares Held</TableCell>
-                        <TableCell sx={cellStyle}>Average Price Paid (per share)</TableCell>
-                        <TableCell sx={cellStyle}>Total Paid</TableCell>
-                        <TableCell sx={cellStyle}>Current Value (per share)</TableCell>
-                        <TableCell sx={cellStyle}>Total Value</TableCell>
-                        <TableCell sx={cellStyle}>Total From Sales</TableCell>
-                        <TableCell sx={cellStyle}>Total Value Increase</TableCell>
+                        <TableCell sx={cellStyle}>Quantity</TableCell>
+                        <TableCell sx={cellStyle}>Price per share</TableCell>
+                        <TableCell sx={cellStyle}>Total Price</TableCell>
+                        <TableCell sx={cellStyle}>Type</TableCell>
+
+
+
                         <TableCell sx={cellStyle}><PercentIcon fontSize='small' /></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell sx={cellStyle} component="th" scope="row">{asset.symbol}</TableCell>
+                        <TableCell sx={cellStyle} component="th" scope="row">{asset}</TableCell>
                         <TableCell sx={cellStyle} >{asset.name}</TableCell>
                         <TableCell sx={cellStyle} >{comma(asset.numShares)}</TableCell>
                         <TableCell sx={cellStyle} >${comma(asset.averagePricePaid)}</TableCell>
@@ -54,4 +54,4 @@ const SingleAsset = ({ asset }) => {
     );
 }
 
-export default SingleAsset;
+export default TradeHistory;

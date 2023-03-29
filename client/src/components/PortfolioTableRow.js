@@ -74,10 +74,10 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                 <TableCell sx={cellStyle} component="th" scope="row">{stock.symbol}</TableCell>
                 <TableCell sx={cellStyle}>{stock.name}</TableCell>
                 <TableCell sx={cellStyle}>{comma(stock.numShares)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.averagePricePaid)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.totalPaid)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.currentMarketValue)}</TableCell>
-                <TableCell sx={cellStyle}>£{comma(stock.currentTotalValue)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.averagePricePaid)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.totalPaid)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.currentMarketValue)}</TableCell>
+                <TableCell sx={cellStyle}>${comma(stock.currentTotalValue)}</TableCell>
                 {answer >= 100 ? <TableCell style={{ color: 'green' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
                 <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
                 <TableCell sx={cellStyle} onClick={addClick}><AddIcon /></TableCell>
