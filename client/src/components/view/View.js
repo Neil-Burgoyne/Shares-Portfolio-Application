@@ -24,6 +24,8 @@ import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
 
 import CompanyNews from "../news/CompanyNews"
+import TableAccordion from './TableAccordion';
+import BuyRow from './BuyRow';
 
 const View = ({
   user,
@@ -34,7 +36,7 @@ const View = ({
   selectSymbol,
 }) => {
 
-  const [numShares, setNumShares] = useState(0);
+
 
   const options = allStocks.map((stock) => {
     return `${stock.symbol} : ${stock.name}`
@@ -57,22 +59,7 @@ const View = ({
       selectSymbol(symbol)
     }
   }
-  const handleBuyShares = () => {
-    const data = { stockSymbol: selectedSymbol, numshares: numShares };
-    addShares(data);
-    setNumShares(0);
-  }
-  const handleSellShares = () => {
-    if (numShares <= asset.numShares) {
-      sellShares(Number(numShares), selectedStock)
-    } else {
-      return null
-    }
-  }
 
-  const handleNumChange = (e) => {
-    setNumShares(e.target.value)
-  }
 
   const findPortfolioAsset = () => {
     const asset = user.portfolio.find(
@@ -124,65 +111,15 @@ const View = ({
           ></CardHeader>
           <CardContent>
             <StockChart selectedStock={selectedStock} />
-            <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
-
-              <Typography>Numer of Shares:</Typography>
-              <TextField
-                sx={{ width: "5rem" }}
-                type="number"
-                onChange={handleNumChange}
-                value={numShares}
-                variant="standard"
-              />
-              <Typography>x ${selectedStock.closingValue} = ${(numShares * selectedStock.closingValue).toFixed(2)}</Typography>
-              <Button sx={{ backgroundColor: "green", "&:hover": { backgroundColor: "#009900" } }} onClick={handleBuyShares} variant="contained" size="medium">
-                Buy
-              </Button>
-              <Button sx={{ backgroundColor: "#DD0000", "&:hover": { backgroundColor: "#FF0000" } }} onClick={handleSellShares} variant="contained" size="medium">
-                Sell
-              </Button>
-            </Box>
-
+            <BuyRow addShares={addShares} sellShares={sellShares} selectedStock={selectedStock} asset={asset} />
             <br />
-            {asset &&
-              <><Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>Your Holdings</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <SingleAsset asset={asset} />
-                </AccordionDetails>
-              </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography>Transaction History</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <TradeHistory transactions={stockTransactions} />
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography>Company News</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <CompanyNews symbol={selectedSymbol} />
-                  </AccordionDetails>
-                </Accordion>
-              </>
-            }
+            {asset && <>
+              <TableAccordion summary={"Detailed Breakdown Of Holdings"} element={<SingleAsset asset={asset} />} />
+              <TableAccordion summary={`Your Transaction History For ${selectedStock.name}`} element={<TradeHistory transactions={stockTransactions} />} />
+            </>}
+            <TableAccordion summary={`${selectedStock.name} News`} element={<CompanyNews symbol={selectedSymbol} />} />
+
+
           </CardContent>
         </Card>
       </Container>
