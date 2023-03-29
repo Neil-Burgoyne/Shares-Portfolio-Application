@@ -13,117 +13,82 @@ require('highcharts/modules/accessibility')(Highcharts);
 require('highcharts/modules/exporting')(Highcharts);
 require('highcharts/modules/hollowcandlestick')(Highcharts);
 
-const StockChart = ({ stock }) => {
 
-    const options = useMemo(() => {
-        const options = {
-            rangeSelector: {
-                selected: 1,
-                allButtonsEnabled: true,
-                buttons: [{
-                    type: 'month',
-                    count: 1,
-                    text: '1m',
-                    title: 'View 1 month'
-                }, {
-                    type: 'month',
-                    count: 3,
-                    text: '3m',
-                    title: 'View 3 months'
-                }, {
-                    type: 'month',
-                    count: 6,
-                    text: '6m',
-                    title: 'View 6 months'
-                }, {
-                    type: 'ytd',
-                    text: 'YTD',
-                    title: 'View year to date'
-                }]
-            },
+const StockChart = ({ selectedSymbol, allStocks }) => {
 
-            title: {
-                text: `Loading`
-            },
-
-            series: [{
-                type: 'candlestick',
-                name: 'Loading',
-                title: 'Loading',
-                data: [],
+    const [chartOptions, setChartOptions] = useState({
+        rangeSelector: {
+            selected: 1,
+            allButtonsEnabled: true,
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m',
+                title: 'View 1 month'
+            }, {
+                type: 'month',
+                count: 3,
+                text: '3m',
+                title: 'View 3 months'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m',
+                title: 'View 6 months'
+            }, {
+                type: 'ytd',
+                text: 'YTD',
+                title: 'View year to date'
             }]
+        },
+
+        title: {
+            text: `Loading`
+        },
+
+        series: [{
+            type: 'candlestick',
+            name: 'Loading',
+            title: 'Loading',
+            data: [],
+        }]
+    })
+
+
+    // if (stock) {
+    //     console.log("stock", stock)
+    //     options.series[0].data = stock.graphData;
+    //     options.series[0].name = stock.symbol;
+    //     options.title.text = `${stock.symbol} Price`
+    // }
+
+
+
+    useEffect(() => {
+        const updateSeries = (stock) => {
+            const newChartOptions = { ...chartOptions }
+            newChartOptions.series[0].data = stock.graphData;
+            newChartOptions.series[0].title = stock.symbol;
+            newChartOptions.title.text = stock.symbol;
+            setChartOptions(newChartOptions);
         }
 
-        if (stock) {
-
-            options.series[0].data = stock.graphData;
-            options.series[0].name = stock.symbol;
-            options.title.text = `${stock.symbol} Price`
+        // const getData = async () => {
+        //     const res = await fetch(`http://localhost:9000/api/stocks/${stockSymbol}`);
+        //     const data = await res.json();
+        //     updateSeries(data);
+        // }
+        if (allStocks) {
+            updateSeries(allStocks.find((stock) => stock.symbol === selectedSymbol));
         }
-        return options;
-    }, [stock])
-
-    //     rangeSelector: {
-    //         selected: 4,
-    //         allButtonsEnabled: true,
-    //         buttons: [{
-    //             type: 'month',
-    //             count: 1,
-    //             text: '1m',
-    //             title: 'View 1 month'
-    //         }, {
-    //             type: 'month',
-    //             count: 3,
-    //             text: '3m',
-    //             title: 'View 3 months'
-    //         }, {
-    //             type: 'month',
-    //             count: 6,
-    //             text: '6m',
-    //             title: 'View 6 months'
-    //         }, {
-    //             type: 'ytd',
-    //             text: 'YTD',
-    //             title: 'View year to date'
-    //         }]
-    //     },
-    //     plotOptions: {
-    //         candleStick: { animation: true }
-    //     },
-    //     series: [{
-    //         data: [],
-    //         type: 'candlestick',
-    //         name: `'${stockSymbol} Stock Price'`,
-    //         id: 'stock'
-    //     }
-
-    //     ]
-    // })
-
-
-    // useEffect(() => {
-    //     const updateSeries = (data) => {
-    //         const newChartOptions = { ...chartOptions }
-    //         newChartOptions.series[0].data = data.graphData;
-    //         // newChartOptions.series[0].title = stockSymbol;
-    //         // newChartOptions.yAxis[0].title.text = stockSymbol;
-    //         setChartOptions(newChartOptions);
-    //     }
-
-    //     const getData = async () => {
-    //         const res = await fetch(`http://localhost:9000/api/stocks/${stockSymbol}`);
-    //         const data = await res.json();
-    //         updateSeries(data);
-    //     }
-    //     getData();
-    // }, [stockSymbol]);
+    }, [selectedSymbol, allStocks]);
 
     return (
         <div>
             <HighchartsReact
                 highcharts={Highcharts}
                 constructorType='stockChart'
-                options={options}
+                options={chartOptions}
             />
         </div>
     );

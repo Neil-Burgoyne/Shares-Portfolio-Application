@@ -11,9 +11,10 @@ import { TableHead } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { useNavigate } from 'react-router-dom';
 
 
-const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare }) => {
+const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare, selectSymbol }) => {
     const [clicked, setClicked] = useState(false);
     const [editClicked, setEditClicked] = useState(false);
     const [shareInput, setShareInput] = useState();
@@ -40,6 +41,11 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare }) => {
         } else {
             return null
         }
+    }
+    const navigate = useNavigate();
+    const handleViewClicked = () => {
+        selectSymbol(stock.symbol);
+        navigate('/view')
     }
 
     const deleteEntry = () => {
@@ -69,7 +75,7 @@ const PortfolioTableRow = ({ stock, sellShares, deleteShare, editShare }) => {
                 <TableCell>£{stock.averagePricePaid}</TableCell>
                 <TableCell>£{stock.currentMarketValue}</TableCell>
                 {answer >= 100 ? <TableCell>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
-                <TableCell><Link to="/view"><PageviewIcon /></Link></TableCell>
+                <TableCell><PageviewIcon onClick={handleViewClicked} /></TableCell>
                 <TableCell onClick={editClick}><SettingsIcon /></TableCell>
                 <TableCell onClick={sellClick}><AttachMoneyIcon /></TableCell>
             </TableRow>

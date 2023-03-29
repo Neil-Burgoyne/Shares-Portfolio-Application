@@ -28,8 +28,8 @@ const SharesPortfolio = () => {
   });
 
   const [allUsers, setUsers] = useState([]);
-  const [allStocks, setAllStocks] = useState([]);
-  const [stock, setStock] = useState({});
+  const [allStocks, setAllStocks] = useState(null);
+  const [selectedSymbol, setSelectedSymbol] = useState('AAPL');
   const [user, setUser] = useState(0);
 
   useEffect(() => {
@@ -45,6 +45,10 @@ const SharesPortfolio = () => {
     }
     fetchStocks();
   }, [])
+
+  const selectSymbol = (symbol) => {
+    setSelectedSymbol(symbol);
+  }
 
   // DATA - {stockSymbol: value, numshares: value}
   const addShares = (newShareData) => {
@@ -89,7 +93,7 @@ const SharesPortfolio = () => {
     <Router>
       {allUsers[user] && allStocks ?
         <ThemeProvider theme={theme}>
-          <Paper style={{ height: '100vh' }}>
+          <Paper style={{ height: '100%' }}>
             <ButtonAppBar
               check={darkMode}
               change={() => setDarkMode(!darkMode)}
@@ -106,10 +110,23 @@ const SharesPortfolio = () => {
                     editShare={editShare}
                     user={allUsers[user]}
                     allStocks={allStocks}
+                    selectSymbol={selectSymbol}
                   />
                 }
               />
-              <Route path="/view" element={<View allStocks={allStocks} addShares={addShares} />} />
+              <Route
+                path="/view"
+                element={<View
+                  user={allUsers[user]}
+                  deleteShare={deleteShare}
+                  sellShares={sellShares}
+                  editShare={editShare}
+                  allStocks={allStocks}
+                  addShares={addShares}
+                  selectSymbol={selectSymbol}
+                  selectedSymbol={selectedSymbol}
+                />}
+              />
               <Route path="/apitest" element={<ApiTest />} />
             </Routes>
           </Paper>
