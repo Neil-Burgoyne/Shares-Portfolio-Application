@@ -6,7 +6,7 @@ const ChartTheme = () => {
         colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
             '#FF9655', '#FFF263', '#6AF9C4'],
         chart: {
-            backgroundColor: 'black'
+            backgroundColor: 'none'
             // {
 
             //     // linearGradient: [0, 0, 500, 500],
