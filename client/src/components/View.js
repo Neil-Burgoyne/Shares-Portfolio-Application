@@ -66,12 +66,8 @@ const View = ({
   };
 
   const handleNumChange = (e) => {
-
     setNumShares(e.target.value);
   };
-
-    setNumShares(e.target.value)
-  }
 
   const findPortfolioAsset = () => {
     const asset = user.portfolio.find((asset) => asset.symbol === selectedSymbol)
