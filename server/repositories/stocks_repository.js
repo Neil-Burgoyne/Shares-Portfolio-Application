@@ -64,4 +64,12 @@ const getNews = async (symbol = null) => {
     return newsData;
 }
 
-module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray, getNews };
+const getImage = async (symbol) => {
+    const endpoint = `/stock/profile2?symbol=${symbol}`
+    const profile = await fetchData(endpoint)
+    const logo = profile.logo
+    await stocksCache.updateOne({ symbol: symbol }, { $set: { logo } })
+    return logo
+}
+
+module.exports = { getStockData, getStocksData, setStocksCache, getStocksDataFromArray, getNews, getImage };

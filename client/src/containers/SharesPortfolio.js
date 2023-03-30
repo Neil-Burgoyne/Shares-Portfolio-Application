@@ -131,6 +131,7 @@ const SharesPortfolio = () => {
     setUser(temp);
   };
 
+
   return (
 
     <ThemeProvider theme={darkTheme}>

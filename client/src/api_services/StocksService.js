@@ -9,6 +9,7 @@ export const getStock = (symbol) => {
     return fetch(baseURL + symbol)
         .then(res => res.json())
 }
+
 export const getNews = () => {
     return fetch(baseURL + "news")
         .then(res => res.json())
@@ -19,6 +20,10 @@ export const getNewsSymbol = (symbol) => {
         .then(res => res.json())
 }
 
+export const getImageSymbol = (symbol) => {
+    return fetch(baseURL + "image/" + symbol)
+        .then(res => res.json())
+}
 
 
 // export const postStock = (symbol) => {
