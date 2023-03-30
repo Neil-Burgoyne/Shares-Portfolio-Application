@@ -27,7 +27,7 @@ This project was built using:
 <br>
 <hr>
 
-![name](https://github.com/Neil-Burgoyne/Shares-Portfolio-Application/blob/main/Diagrams/Shares%20App%20Homepage.png)
+![name](https://github.com/Neil-Burgoyne/Shares-Portfolio-Application/blob/main/Diagrams/Atlas%20Wealth%20Homepage.png)
 
 ## Brief
 
