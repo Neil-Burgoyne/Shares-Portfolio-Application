@@ -17,11 +17,11 @@ This project was built using:
 - Finnhub API
 
 <span>
-<img margin-right="10px" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mongodb/mongodb-original.svg">
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/materialui/materialui-plain.svg">
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mocha/mocha-plain.svg">
+<img hspace="10" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
+<img hspace="10" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
+<img hspace="10" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mongodb/mongodb-original.svg">
+<img hspace="10" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/materialui/materialui-plain.svg">
+<img hspace="10" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mocha/mocha-plain.svg">
 </span>
 
 <br>
@@ -84,4 +84,4 @@ npm start
 
 ## Contributors:
 
-[Chris](https://github.com/doublerdiner) | [Neil](https://github.com/Neil-Burgoyne) | [Ross](https://github.com/rosscondie) | [Tim](https://github.com/TimoHenderson)
+[Chris Barclay](https://github.com/doublerdiner) | [Neil Burgoyne](https://github.com/Neil-Burgoyne) | [Ross Condie](https://github.com/rosscondie) | [Tim Henderson](https://github.com/TimoHenderson)
