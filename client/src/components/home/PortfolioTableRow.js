@@ -79,7 +79,7 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                 <TableCell sx={cellStyle}>${comma(stock.totalPaid)}</TableCell>
                 <TableCell sx={cellStyle}>${comma(stock.currentMarketValue)}</TableCell>
                 <TableCell sx={cellStyle}>${comma(stock.currentTotalValue)}</TableCell>
-                {answer >= 100 ? <TableCell style={{ color: 'green' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+                {answer >= 100 ? <TableCell style={{ color: '#00DD00', fontWeight: 'bold' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red', fontWeight: 'bold' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
                 <TableCell sx={cellStyle}><PageviewIcon onClick={handleViewClicked} /></TableCell>
                 <TableCell sx={cellStyle} onClick={addClick}><AddIcon /></TableCell>
                 <TableCell sx={cellStyle} onClick={sellClick}><AttachMoneyIcon /></TableCell>

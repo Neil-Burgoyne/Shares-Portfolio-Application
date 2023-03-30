@@ -69,10 +69,13 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               <TableCell />
               <TableCell />
               <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Grand Total Paid:</TableCell>
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>£{comma(user.portfolioTotals.totalPaid)}</TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>${comma(user.portfolioTotals.totalPaid)}</TableCell>
               <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Current Portfolio Value:</TableCell>
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>£{comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
-              {answer >= 100 ? <TableCell style={{ color: 'green', fontWeight: 'bold' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red', fontWeight: 'bold' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>${comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
+              {answer >= 100 ? <TableCell style={{ color: '#00DD00', fontWeight: 'bold' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red', fontWeight: 'bold' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
+              <TableCell />
+              <TableCell />
+              <TableCell />
             </TableRow>
           </TableBody>
         </Table>

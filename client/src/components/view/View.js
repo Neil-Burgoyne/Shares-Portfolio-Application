@@ -28,6 +28,7 @@ import CompanyNews from "../news/CompanyNews"
 import TableAccordion from './TableAccordion';
 import BuyRow from './BuyRow';
 import { getImageSymbol } from '../../api_services/StocksService';
+import { comma } from '../../utilities/comma';
 
 const View = ({
   user,
@@ -90,13 +91,13 @@ const View = ({
             avatar={logo ? <Avatar sx={{ width: "4rem", height: "4rem" }} src={logo} /> : <Avatar sx={{ width: "4rem", height: "4rem" }}>{selectedStock.name[0].toUpperCase()}</Avatar>}
             action={
               <Container sx={{ textAlign: 'right' }}>
-                <p>Current Price: ${selectedStock.closingValue}</p>{' '}
+                <p>Current Price: ${comma(selectedStock.closingValue)}</p>{' '}
                 <p>
                   Volume:{' '}
-                  {
+                  {comma(
                     selectedStock.graphData[
                     selectedStock.graphData.length - 1
-                    ][5]
+                    ][5])
                   }
                 </p>
               </Container>

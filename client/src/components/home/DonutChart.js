@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
 import { Box, Card, Table, TableBody, TableRow, Typography, TableCell } from '@mui/material'
+import { comma } from '../../utilities/comma'
 
 
 
@@ -82,19 +83,19 @@ const DonutChart = ({ user }) => {
                     <TableBody>
                         <TableRow>
                             <TableCell> <Typography variant="h5">Total Value:</Typography></TableCell>
-                            <TableCell align="right"> <Typography variant="h5">${user.portfolioTotals.totalPortfolioValue}</Typography></TableCell>
+                            <TableCell align="right"> <Typography variant="h5">${comma(user.portfolioTotals.totalPortfolioValue)}</Typography></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell> <Typography variant="h6">Total Paid:</Typography></TableCell>
-                            <TableCell align="right"> <Typography variant="h6">${user.portfolioTotals.totalPaid}</Typography></TableCell>
+                            <TableCell align="right"> <Typography variant="h6">${comma(user.portfolioTotals.totalPaid)}</Typography></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell> <Typography variant="h6">Total Sales:</Typography></TableCell>
-                            <TableCell align="right"> <Typography variant="h6">${user.portfolioTotals.totalFromSales}</Typography></TableCell>
+                            <TableCell align="right"> <Typography variant="h6">${comma(user.portfolioTotals.totalFromSales)}</Typography></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell> <Typography variant="h6">Total Increase:</Typography></TableCell>
-                            <TableCell align="right"> <Typography variant="h6">${user.portfolioTotals.totalValueIncrease}</Typography></TableCell>
+                            <TableCell align="right"> <Typography variant="h6">${comma(user.portfolioTotals.totalValueIncrease)}</Typography></TableCell>
                         </TableRow>
                         {/* <Typography variant="h5">Total Value: ${user.portfolioTotals.totalPortfolioValue}</Typography>
                     <Typography variant="h5">T $</Typography>

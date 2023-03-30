@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, TextField } from '@mui/material'
 import { Stack } from '@mui/system';
+import { comma } from '../../utilities/comma';
 
 const BuyRow = ({ addShares, sellShares, selectedStock, asset }) => {
     const [numShares, setNumShares] = useState(0);
@@ -25,7 +26,7 @@ const BuyRow = ({ addShares, sellShares, selectedStock, asset }) => {
     return (
         <Stack>
             <Box>
-                <Typography>{`You currently own ${asset ? asset.numShares : 0} shares in ${selectedStock.name} valued at a total of $${asset ? asset.currentTotalValue : 0} `}</Typography>
+                <Typography>{`You currently own ${asset ? asset.numShares : 0} shares in ${selectedStock.name} valued at a total of $${asset ? comma(asset.currentTotalValue) : 0} `}</Typography>
             </Box>
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
                 <Typography>{`Number of ${selectedStock.symbol} Shares:`}</Typography>

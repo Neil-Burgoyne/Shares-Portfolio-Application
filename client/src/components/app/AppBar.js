@@ -17,6 +17,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useState } from 'react';
+import { comma } from '../../utilities/comma';
 
 const sxHeaderIcon = {
   padding: 1,
@@ -51,7 +52,7 @@ export default function ButtonAppBar({ user }) {
               {user.name}
             </Typography>
             <Typography style={{ fontSize: '1rem' }} variant="h6">
-              Portfolio Total: £{user.portfolioTotals.totalPortfolioValue}
+              Portfolio Total: ${comma(user.portfolioTotals.totalPortfolioValue)}
             </Typography>
           </div>
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />

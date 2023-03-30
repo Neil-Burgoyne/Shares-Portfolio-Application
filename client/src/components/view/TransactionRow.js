@@ -13,7 +13,7 @@ const TransactionRow = ({ transaction }) => {
             <TableCell sx={cellStyle} >{comma(transaction.quantity)}</TableCell>
             <TableCell sx={cellStyle} >${comma(transaction.price)}</TableCell>
             <TableCell sx={cellStyle} >${comma((Number(transaction.price) * transaction.quantity).toFixed(2))}</TableCell>
-            <TableCell sx={cellStyle} style={transaction.type === "purchase" ? { color: "green" } : { color: "red" }}>{capitalize(transaction.type)}
+            <TableCell sx={cellStyle} style={transaction.type === "purchase" ? { color: '#00DD00', fontWeight: 'bold' } : { color: "red", fontWeight: 'bold' }}>{capitalize(transaction.type)}
             </TableCell>
         </TableRow>
     );
