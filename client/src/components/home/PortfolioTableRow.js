@@ -91,7 +91,7 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                             <TableCell sx={{ width: '91%' }} />
                             <TableCell style={{ display: 'flex', flexDirection: 'column', padding: '2px', width: '10rem' }}>
                                 <TextField style={{ marginTop: '0.5rem', marginBottom: '.5rem' }} id="addInput" type='number' onChange={onAddChange} placeholder='Number to Add'></TextField>
-                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={add}>Add Shares</Button>
+                                <Button sx={{backgroundColor: "green", "&:hover": { backgroundColor: "#009900" }}}style={{ marginBottom: '.5rem' }} variant="contained" onClick={add}>Add Shares</Button>
                                 <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={addClick}>Cancel</Button>
                             </TableCell>
                             <TableCell sx={{ width: '10%' }} />
@@ -102,7 +102,7 @@ const PortfolioTableRow = ({ stock, sellShares, addShares, selectSymbol }) => {
                             <TableCell sx={{ width: '100%' }} />
                             <TableCell style={{ display: 'flex', flexDirection: 'column', padding: '2px', width: '10rem' }}>
                                 <TextField style={{ marginTop: '0.5rem', marginBottom: '.5rem' }} id="input" type='number' onChange={onChange} max={stock.numShares} placeholder='Number to Sell'></TextField>
-                                <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={sell}>Sell Shares</Button>
+                                <Button sx={{backgroundColor: "#DD0000", "&:hover": { backgroundColor: "#FF0000" }}} style={{ marginBottom: '.5rem' }} variant="contained" onClick={sell}>Sell Shares</Button>
                                 <Button style={{ marginBottom: '.5rem' }} variant="contained" onClick={sellClick}>Cancel</Button>
                             </TableCell>
                         </TableRow>
