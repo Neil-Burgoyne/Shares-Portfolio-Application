@@ -39,7 +39,6 @@ export default function ButtonAppBar({ user }) {
           <IconButton
             sx={{
               color: 'white',
-              width: '10rem',
               justifyContent: 'flex-start',
             }}
             onClick={() => setOpen(true)}
@@ -53,7 +52,7 @@ export default function ButtonAppBar({ user }) {
           >
             <img
               src="/atlas.png"
-              style={{ height: '3.5rem', paddingRight: '1rem' }}
+              style={{ height: '3.5rem', paddingLeft: '10rem', paddingRight: '1rem' }}
             ></img>
             ATLAS WEALTH
           </Typography>
