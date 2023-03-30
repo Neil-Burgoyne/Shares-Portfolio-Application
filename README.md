@@ -1,7 +1,7 @@
 # CodeClan - JavaScript Group Project
 
 <kbd>
- <img width="250" alt="Atlas Wealth Logo" src="https://www.dropbox.com/s/jb2ofg4emu1dz6i/Screenshot%202023-03-30%20at%2010.26.28.png?dl=0">
+ <img width="250" alt="Atlas Wealth Logo" src="">
  </kbd>
  <br></br>
 
