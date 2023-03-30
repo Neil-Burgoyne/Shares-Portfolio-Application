@@ -12,8 +12,6 @@ import { comma } from '../../utilities/comma';
 import { cellStyle } from '../../styles/tableStyles';
 
 const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
-
-
   //NOT NEEDED
   // const totalCalc = values.reduce(
   //   (runningTotal, shareValues) =>
@@ -33,18 +31,16 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
     );
   });
 
-  const answer = ((user.portfolioTotals.totalPortfolioValue / user.portfolioTotals.totalPaid) * 100)
+  const answer =
+    (user.portfolioTotals.totalPortfolioValue /
+      user.portfolioTotals.totalPaid) *
+    100;
 
-  console.log(user.portfolioTotals.totalPortfolioValue)
-  console.log(user.portfolioTotals.totalPortfolioValue.length)
-
-
+  console.log(user.portfolioTotals.totalPortfolioValue);
+  console.log(user.portfolioTotals.totalPortfolioValue.length);
 
   return (
     <>
-
-
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -52,11 +48,15 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               <TableCell sx={cellStyle}>Symbol</TableCell>
               <TableCell sx={cellStyle}>Name</TableCell>
               <TableCell sx={cellStyle}>Shares Held</TableCell>
-              <TableCell sx={cellStyle}>Average Price Paid (per share)</TableCell>
+              <TableCell sx={cellStyle}>
+                Average Price Paid (per share)
+              </TableCell>
               <TableCell sx={cellStyle}>Total Paid</TableCell>
               <TableCell sx={cellStyle}>Current Value (per share)</TableCell>
               <TableCell sx={cellStyle}>Total Value</TableCell>
-              <TableCell sx={cellStyle}><PercentIcon fontSize='small' /></TableCell>
+              <TableCell sx={cellStyle}>
+                <PercentIcon fontSize="small" />
+              </TableCell>
               <TableCell sx={cellStyle}>View</TableCell>
               <TableCell sx={cellStyle}>Add Shares</TableCell>
               <TableCell sx={cellStyle}>Sell Shares</TableCell>
@@ -68,23 +68,43 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               <TableCell />
               <TableCell />
               <TableCell />
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Grand Total Paid:</TableCell>
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>${comma(user.portfolioTotals.totalPaid)}</TableCell>
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>Current Portfolio Value:</TableCell>
-              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>${comma(user.portfolioTotals.totalPortfolioValue)}</TableCell>
-              {answer >= 100 ? <TableCell style={{ color: '#00DD00', fontWeight: 'bold' }} sx={cellStyle}>&#8593;{(answer - 100).toFixed(2)}%</TableCell> : <TableCell style={{ color: 'red', fontWeight: 'bold' }} sx={cellStyle}>&#8595;{(100 - answer).toFixed(2)}%</TableCell>}
-              <TableCell />
-              <TableCell />
-              <TableCell />
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>
+                Grand Total Paid:
+              </TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>
+                ${comma(user.portfolioTotals.totalPaid)}
+              </TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>
+                Current Portfolio Value:
+              </TableCell>
+              <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>
+                ${comma(user.portfolioTotals.totalPortfolioValue)}
+              </TableCell>
+              {answer >= 100 ? (
+                <TableCell
+                  style={{ color: 'green', fontWeight: 'bold' }}
+                  sx={cellStyle}
+                >
+                  &#8593;{(answer - 100).toFixed(2)}%
+                </TableCell>
+              ) : (
+                <TableCell
+                  style={{ color: 'red', fontWeight: 'bold' }}
+                  sx={cellStyle}
+                >
+                  &#8595;{(100 - answer).toFixed(2)}%
+                </TableCell>
+              )}
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-
     </>
   );
 };
 
 export default PortfolioTable;
 
-{/* <TableCell sx={cellStyle}>Edit</TableCell> */ }
+{
+  /* <TableCell sx={cellStyle}>Edit</TableCell> */
+}

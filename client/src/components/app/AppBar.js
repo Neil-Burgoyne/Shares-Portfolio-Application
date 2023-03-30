@@ -29,25 +29,36 @@ export default function ButtonAppBar({ user }) {
   const drawerWidth = 240;
 
   return (
-
     <Box sx={{ flexGrow: 1, position: 'sticky', top: 0, left: 0, zIndex: 5 }}>
-      <AppBar sx={{ height: '100%', paddingTop: '1rem', paddingBottom: '1rem' }} position="static" color="primary">
-
-
+      <AppBar
+        sx={{ height: '100%', paddingTop: '1rem', paddingBottom: '1rem' }}
+        position="static"
+        color="primary"
+      >
         <Toolbar>
-          <IconButton sx={{ color: 'white', width: "10rem", justifyContent: 'flex-start' }} onClick={() => setOpen(true)}>
+          <IconButton
+            sx={{
+              color: 'white',
+              width: '10rem',
+              justifyContent: 'flex-start',
+            }}
+            onClick={() => setOpen(true)}
+          >
             <MenuIcon />
           </IconButton>
 
-
-          <Typography style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} variant="h2">
-            <img src="/atlas.png" style={{ height: '3.5rem', paddingRight: '1rem' }}></img>
+          <Typography
+            style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}
+            variant="h2"
+          >
+            <img
+              src="/atlas.png"
+              style={{ height: '3.5rem', paddingRight: '1rem' }}
+            ></img>
             ATLAS WEALTH
           </Typography>
 
-
-          <div style={{ paddingRight: "1rem", textAlign: "right" }}>
-
+          <div style={{ paddingRight: '1rem', textAlign: 'right' }}>
             <Typography style={{ fontSize: '1.1rem' }} variant="h6">
               {user.name}
             </Typography>
@@ -56,8 +67,6 @@ export default function ButtonAppBar({ user }) {
             </Typography>
           </div>
           <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
-
-
         </Toolbar>
 
         {/* SWIPEABLE DRAWER COMPONENT  */}
@@ -73,7 +82,10 @@ export default function ButtonAppBar({ user }) {
             disableRipple
             sx={{ display: 'flex', justifyContent: 'end' }}
           >
-            <Typography style={{ color: 'white', padding: 10, fontSize: '1rem' }} variant="h6">
+            <Typography
+              style={{ color: 'white', padding: 10, fontSize: '1rem' }}
+              variant="h6"
+            >
               {user.name}
             </Typography>
             <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
@@ -104,6 +116,6 @@ export default function ButtonAppBar({ user }) {
           </List>
         </SwipeableDrawer>
       </AppBar>
-    </Box >
+    </Box>
   );
 }
