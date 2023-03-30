@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import { cardElevation } from '../styles/tableStyles';
+import { cardElevation } from '../../styles/tableStyles';
 
 const AddShares = ({ addShares, allStocks, selected }) => {
     const [stockSymbol, setStockSymbol] = useState();

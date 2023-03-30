@@ -7,15 +7,13 @@ import {
     TableCell,
     TableBody
 } from "@mui/material";
-import PercentIcon from '@mui/icons-material/Percent'
-import { comma } from "../utilities/comma";
-import { cellStyle } from "../styles/tableStyles";
+import { cellStyle } from "../../styles/tableStyles";
 import TransactionRow from "./TransactionRow";
 
 
 const TradeHistory = ({ transactions }) => {
 
-    const transNodes = transactions.map((trans) => <TransactionRow transaction={trans} />)
+    const transNodes = transactions.map((trans, index) => <TransactionRow key={trans._id ? trans._id : `${index}${Date.now()}`} transaction={trans} />)
 
     return (
         <TableContainer component={Paper}>

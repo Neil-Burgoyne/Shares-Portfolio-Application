@@ -1,5 +1,5 @@
 import React from "react";
-import DonutChart from "./DonutChart";
+import DonutChart from "./home/DonutChart";
 
 const UserChart = (user) => {
     return (

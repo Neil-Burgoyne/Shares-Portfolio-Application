@@ -5,16 +5,17 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getUsers, transaction } from '../api_services/UsersService';
 import { getStocks, getStock } from '../api_services/StocksService';
 
-import Home from '../components/Home.js';
-import View from '../components/View.js';
+import Home from '../components/home/Home.js';
+import View from '../components/view/View.js';
 
-import ButtonAppBar from '../components/AppBar.js';
+import ButtonAppBar from '../components/app/AppBar.js';
 import { teal } from '@mui/material/colors';
 
 import ApiTest from '../components/ApiTest.js';
-import Message from '../components/Message';
-import ChartTheme from '../components/ChartTheme';
-import LinearIndeterminate from '../components/Loading';
+import Message from '../components/app/Message';
+import ChartTheme from '../styles/ChartTheme';
+import LinearIndeterminate from '../components/app/Loading';
+import SplashPage from '../components/app/SplashPage';
 
 const SharesPortfolio = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -22,16 +23,16 @@ const SharesPortfolio = () => {
 
 
   const darkTheme = createTheme({
-    palette:{
+    palette: {
       // mode: 'dark',
-      primary:{
+      primary: {
         main: '#242d7d',
         // dark:'#242d7d'
       },
-      secondary:{
+      secondary: {
         main: '#f50057'
       },
-      text:{
+      text: {
         primary: '#ffffff',
         secondary: '#ffffff',
       },
@@ -43,11 +44,11 @@ const SharesPortfolio = () => {
       }
     },
     typography:{
-      fontSize:15,
+      fontSize:12,
       fontWeightMedium:600
     },
-    shape:{
-      borderRadius:5,
+    shape: {
+      borderRadius: 5,
     },
   })
 
@@ -112,7 +113,7 @@ const SharesPortfolio = () => {
       setUsers(temp);
     });
     setMessage({
-      text: `Sold ${data} shares in ${singleStock.stockSymbol}`,
+      text: `Sold ${data} shares in ${singleStock.symbol}`,
       severity: 'success',
     });
     setShowMessage(true);
@@ -134,9 +135,10 @@ const SharesPortfolio = () => {
   };
 
   return (
-    <Router>
+
+    <ThemeProvider theme={darkTheme}>
       {allUsers[user] && allStocks ? (
-        <ThemeProvider theme={darkTheme}>
+        <Router> 
           <ChartTheme />
           <Paper elevation={10} sx={{bgcolor: 'background.default'}} style={{ minHeight:'100vh', height: '100%' }}>
             <ButtonAppBar user={allUsers[user]} />
@@ -173,18 +175,17 @@ const SharesPortfolio = () => {
               <Route path="/apitest" element={<ApiTest />} />
             </Routes>
           </Paper>
-        </ThemeProvider>
+        </Router>
       ) : (
-        <h1>
-          <LinearIndeterminate />
-        </h1>
+        <SplashPage />
       )}
       <Message
         show={showMessage}
         hide={() => setShowMessage(false)}
         message={message}
       />
-    </Router>
+    </ThemeProvider>
+
   );
 };
 export default SharesPortfolio;
