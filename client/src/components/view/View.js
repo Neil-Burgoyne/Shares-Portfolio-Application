@@ -126,7 +126,7 @@ const View = ({
               <TableAccordion summary={"Detailed Breakdown Of Holdings"} element={<SingleAsset asset={asset} />} />
               <TableAccordion summary={`Your Transaction History For ${selectedStock.name}`} element={<TradeHistory transactions={stockTransactions} />} />
             </>}
-            <TableAccordion summary={`${selectedStock.name} News`} element={<CompanyNews symbol={selectedSymbol} />} />
+            <TableAccordion summary={`${selectedStock.name} News`} element={<CompanyNews symbol={selectedSymbol} page={'view'}/>} />
           </CardContent>
         </Card>
       </Container>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { getNewsSymbol, getNews } from '../../api_services/StocksService';
 import NewsCard from './NewsCard';
 
-const CompanyNews = ({ symbol = null }) => {
+const CompanyNews = ({ symbol = null, page}) => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const CompanyNews = ({ symbol = null }) => {
   }, [symbol]);
 
   const newsNodes = news.map((item) => {
-    return <NewsCard key={item.id} article={item} />;
+    return <NewsCard key={item.id} article={item} page={page} />;
   });
   return (
     <>
