@@ -37,9 +37,9 @@ A local trader has come to you with a portfolio of shares. She wants to be able 
 
 A user should be able to:
 
-- view total current value.
-- view individual and total performance trends.
-- retrieve a list of share prices from an external API and allow the user to add shares to her portfolio.
+- View total current value.
+- View individual and total performance trends.
+- Retrieve a list of share prices from an external API and allow the user to add shares to her portfolio.
 - View a chart of the current values in her portfolio.
 
 ## Project Setup
