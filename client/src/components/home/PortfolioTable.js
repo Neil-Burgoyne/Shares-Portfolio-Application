@@ -82,7 +82,7 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               </TableCell>
               {answer >= 100 ? (
                 <TableCell
-                  style={{ color: 'green', fontWeight: 'bold' }}
+                  style={{ color: '#00DD00', fontWeight: 'bold' }}
                   sx={cellStyle}
                 >
                   &#8593;{(answer - 100).toFixed(2)}%
@@ -95,6 +95,9 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
                   &#8595;{(100 - answer).toFixed(2)}%
                 </TableCell>
               )}
+              <TableCell />
+              <TableCell />
+              <TableCell />
             </TableRow>
           </TableBody>
         </Table>
