@@ -24,7 +24,7 @@ import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
 
-import CompanyNews from "../news/CompanyNews"
+import CompanyNews from '../news/CompanyNews';
 import TableAccordion from './TableAccordion';
 import BuyRow from './BuyRow';
 import { getImageSymbol } from '../../api_services/StocksService';
@@ -36,39 +36,38 @@ const View = ({
   addShares,
   sellShares,
   selectedSymbol,
-  selectSymbol
+  selectSymbol,
 }) => {
-  const [logo, setLogo] = useState(null)
+  const [logo, setLogo] = useState(null);
 
   useEffect(() => {
     const fetchImage = async (selectedStock) => {
       let logo;
-      if (selectedStock.logo) logo = selectedStock.logo
+      if (selectedStock.logo) logo = selectedStock.logo;
       else logo = await getImageSymbol(selectedStock.symbol);
       setLogo(logo);
-    }
+    };
     if (selectedStock) {
       fetchImage(selectedStock);
     }
   }, [selectedSymbol, allStocks]);
 
   const options = allStocks.map((stock) => {
-    return `${stock.symbol} : ${stock.name}`
-  })
+    return `${stock.symbol} : ${stock.name}`;
+  });
 
   const findSelectedOption = () => {
-
     const found = options.find((option) => {
       return option.split(' :')[0] === selectedSymbol;
-    })
+    });
     return found;
-  }
+  };
   const handleChange = (e, value) => {
     if (value) {
-      const symbol = value.split(' :')[0]
-      selectSymbol(symbol)
+      const symbol = value.split(' :')[0];
+      selectSymbol(symbol);
     }
-  }
+  };
 
   const findPortfolioAsset = () => {
     const asset = user.portfolio.find(
@@ -79,16 +78,33 @@ const View = ({
 
   const asset = findPortfolioAsset();
 
-  const selectedStock = allStocks.find((stock) => stock.symbol === selectedSymbol)
-  const stockTransactions = user.shareTransactions.filter((trans) => trans.stockSymbol === selectedSymbol);
+  const selectedStock = allStocks.find(
+    (stock) => stock.symbol === selectedSymbol
+  );
+  const stockTransactions = user.shareTransactions.filter(
+    (trans) => trans.stockSymbol === selectedSymbol
+  );
 
   return (
     <>
       <Container>
         <Card elevation={3} style={{ marginTop: '20px' }}>
           <CardHeader
-            sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginLeft: "2rem", marginRight: "2rem" }}
-            avatar={logo ? <Avatar sx={{ width: "4rem", height: "4rem" }} src={logo} /> : <Avatar sx={{ width: "4rem", height: "4rem" }}>{selectedStock.name[0].toUpperCase()}</Avatar>}
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr',
+              marginLeft: '2rem',
+              marginRight: '2rem',
+            }}
+            avatar={
+              logo ? (
+                <Avatar sx={{ width: '4rem', height: '4rem' }} src={logo} />
+              ) : (
+                <Avatar sx={{ width: '4rem', height: '4rem' }}>
+                  {selectedStock.name[0].toUpperCase()}
+                </Avatar>
+              )
+            }
             action={
               <Container sx={{ textAlign: 'right' }}>
                 <p>Current Price: ${comma(selectedStock.closingValue)}</p>{' '}
@@ -96,9 +112,9 @@ const View = ({
                   Volume:{' '}
                   {comma(
                     selectedStock.graphData[
-                    selectedStock.graphData.length - 1
-                    ][5])
-                  }
+                      selectedStock.graphData.length - 1
+                    ][5]
+                  )}
                 </p>
               </Container>
             }
@@ -118,19 +134,35 @@ const View = ({
               </Container>
             }
           ></CardHeader>
+
           <CardContent>
             <StockChart selectedStock={selectedStock} />
-            <BuyRow addShares={addShares} sellShares={sellShares} selectedStock={selectedStock} asset={asset} />
+            <BuyRow
+              addShares={addShares}
+              sellShares={sellShares}
+              selectedStock={selectedStock}
+              asset={asset}
+            />
             <br />
-            {asset && <>
-              <TableAccordion summary={"Detailed Breakdown Of Holdings"} element={<SingleAsset asset={asset} />} />
-              <TableAccordion summary={`Your Transaction History For ${selectedStock.name}`} element={<TradeHistory transactions={stockTransactions} />} />
-            </>}
-            <TableAccordion summary={`${selectedStock.name} News`} element={<CompanyNews symbol={selectedSymbol} page={'view'}/>} />
+            {asset && (
+              <>
+                <TableAccordion
+                  summary={'Detailed Breakdown Of Holdings'}
+                  element={<SingleAsset asset={asset} />}
+                />
+                <TableAccordion
+                  summary={`Your Transaction History For ${selectedStock.name}`}
+                  element={<TradeHistory transactions={stockTransactions} />}
+                />
+              </>
+            )}
+            <TableAccordion
+              summary={`${selectedStock.name} News`}
+              element={<CompanyNews symbol={selectedSymbol} page={'view'} />}
+            />
           </CardContent>
         </Card>
       </Container>
-
     </>
   );
 };

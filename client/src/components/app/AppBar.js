@@ -52,7 +52,11 @@ export default function ButtonAppBar({ user }) {
           >
             <img
               src="/atlas.png"
-              style={{ height: '3.5rem', paddingLeft: '10rem', paddingRight: '1rem' }}
+              style={{
+                height: '3.5rem',
+                paddingLeft: '10rem',
+                paddingRight: '1rem',
+              }}
             ></img>
             ATLAS WEALTH
           </Typography>
@@ -62,10 +66,11 @@ export default function ButtonAppBar({ user }) {
               {user.name}
             </Typography>
             <Typography style={{ fontSize: '1rem' }} variant="h6">
-              Portfolio Total: ${comma(user.portfolioTotals.totalPortfolioValue)}
+              Portfolio Total: $
+              {comma(user.portfolioTotals.totalPortfolioValue)}
             </Typography>
           </div>
-          <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
+          <Avatar src="" />
         </Toolbar>
 
         {/* SWIPEABLE DRAWER COMPONENT  */}
@@ -87,7 +92,7 @@ export default function ButtonAppBar({ user }) {
             >
               {user.name}
             </Typography>
-            <Avatar src="https://e7.pngegg.com/pngimages/447/446/png-clipart-elon-musk-tesla-motors-tesla-model-3-spacex-tesla-company-car-thumbnail.png" />
+            <Avatar src="" />
             <ChevronLeftIcon sx={{ color: 'white' }} />
           </IconButton>
           <Divider />

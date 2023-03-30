@@ -41,7 +41,7 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ marginTop: '20px' }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

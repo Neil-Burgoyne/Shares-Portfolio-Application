@@ -3,7 +3,7 @@ db.dropDatabase();
 
 db.userData.insertMany([
     {
-        "name": "Millicent Moneybags",
+        "name": "James Smith",
         "portfolio": [
 
         ],
