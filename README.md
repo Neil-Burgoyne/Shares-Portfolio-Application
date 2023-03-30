@@ -84,4 +84,8 @@ npm start
 
 ## Contributors:
 
-[Chris Barclay](https://github.com/doublerdiner) | [Neil Burgoyne](https://github.com/Neil-Burgoyne) | [Ross Condie](https://github.com/rosscondie) | [Tim Henderson](https://github.com/TimoHenderson)
+<a href="https://github.com/Neil-Burgoyne/Shares-Portfolio-Application/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Neil-Burgoyne/Shares-Portfolio-Application" />
+</a>
+
+[Tim Henderson](https://github.com/TimoHenderson) | [Chris Barclay](https://github.com/doublerdiner) | [Neil Burgoyne](https://github.com/Neil-Burgoyne) | [Ross Condie](https://github.com/rosscondie)
