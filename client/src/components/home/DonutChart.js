@@ -64,7 +64,7 @@ const DonutChart = ({ user }) => {
         return options;
     }, [user])
 
-    const percentage = ((user.portfolioTotals.totalPortfolioValue / user.portfolioTotals.totalPaid) * 100)
+    //const percentage = ((user.portfolioTotals.totalPortfolioValue - user.portfolioTotals.paid) / user.portfolioTotals.totalValueIncrease * 100)
 
 
     return (
@@ -77,7 +77,7 @@ const DonutChart = ({ user }) => {
                 />
             </Box>
             <Box>
-                {percentage >= 100 ? <Box style={{ color: '#00DD00' }} ><h2>&#8593;{(percentage - 100).toFixed(2)}%</h2></Box> : <Box style={{ color: 'red' }} ><h2>&#8595;{(100 - percentage).toFixed(2)}%</h2></Box>}
+                {/* {percentage >= 100 ? <Box style={{ color: '#00DD00' }} ><h2>&#8593;{(percentage - 100).toFixed(2)}%</h2></Box> : <Box style={{ color: 'red' }} ><h2>&#8595;{(100 - percentage).toFixed(2)}%</h2></Box>} */}
 
                 <Table>
                     <TableBody>
