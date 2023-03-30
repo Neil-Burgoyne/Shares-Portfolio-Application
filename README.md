@@ -57,7 +57,7 @@ Run seed file to populate app with template data:
 npm run seeds
 ```
 
-Create .env file in the server folder, add the following code and insert the API key from Finnhub(https://finnhub.io/):
+Create .env file in the server folder, add the following code and insert the API key from [Finnhub](https://finnhub.io/):
 
 API_KEY="api key"
 
