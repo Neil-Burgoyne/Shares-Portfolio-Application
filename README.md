@@ -1,7 +1,7 @@
 # CodeClan - JavaScript Group Project
 
 <kbd>
- <img width="250" alt="Atlas Wealth Logo" src="https://www.dropbox.com/s/jb2ofg4emu1dz6i/Screenshot%202023-03-30%20at%2010.26.28.png?dl=0">
+ <img width="250" alt="Atlas Wealth Logo" src="https://github.com/Neil-Burgoyne/Shares-Portfolio-Application/blob/main/client/public/atlaslogo.png">
  </kbd>
  <br></br>
 
@@ -18,7 +18,7 @@ This project was built using:
 
 <span>
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/express/express-original.svg">
+<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mongodb/mongodb-original.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/materialui/materialui-plain.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mocha/mocha-plain.svg">
@@ -57,7 +57,7 @@ Run seed file to populate app with template data:
 npm run seeds
 ```
 
-Create .env file in the server folder, add the following code and insert the API key from finnhub.io:
+Create .env file in the server folder, add the following code and insert the API key from Finnhub(https://finnhub.io/):
 
 API_KEY="api key"
 
