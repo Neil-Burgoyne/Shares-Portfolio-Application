@@ -25,7 +25,7 @@ const BuyRow = ({ addShares, sellShares, selectedStock, asset }) => {
     return (
         <Stack>
             <Box>
-                <Typography>{`You currently own ${asset.numShares} shares in ${selectedStock.name} valued at a total of $${asset.currentTotalValue} `}</Typography>
+                <Typography>{`You currently own ${asset ? asset.numShares : 0} shares in ${selectedStock.name} valued at a total of $${asset ? asset.currentTotalValue : 0} `}</Typography>
             </Box>
             <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: "2rem", padding: "0.5rem 2rem 0.5rem 2rem", alignItems: "center" }}>
                 <Typography>{`Number of ${selectedStock.symbol} Shares:`}</Typography>
