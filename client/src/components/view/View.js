@@ -1,29 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Search from '../home/Search';
 import StockChart from './StockChart';
-import AddShares from '../home/AddShares';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Avatar,
-  Box,
   Card,
   CardContent,
   CardHeader,
   Container,
-  Grid,
-  SvgIcon,
 } from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import SingleAsset from './SingleAsset';
 import TradeHistory from './TradeHistory';
-
 import CompanyNews from '../news/CompanyNews';
 import TableAccordion from './TableAccordion';
 import BuyRow from './BuyRow';

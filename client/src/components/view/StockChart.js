@@ -1,7 +1,7 @@
 // To show graph of a single stock. Requires stockSymbol prop, 
 // Is only set up in demo mode so the only stocksymbol that will work is "IBM"
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
 import './StockChart.css'

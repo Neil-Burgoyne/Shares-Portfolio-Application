@@ -1,14 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Collapse from '@mui/material/Collapse';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import Box from '@mui/material/Box';
-import { margin } from '@mui/system';
-import { TableHead } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useNavigate } from 'react-router-dom';
