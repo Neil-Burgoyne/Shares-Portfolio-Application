@@ -9,7 +9,7 @@ const SplashPage = () => {
             <LinearIndeterminate />
             <div style={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div>
-                    <img src="/atlas.png" style={{ height: '7rem' }}></img>
+                    <img src="/atlas.png" alt="Atlas Wealth Logo" style={{ height: '7rem' }}></img>
                     <Typography style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }} variant="h2">
                         ATLAS WEALTH
                     </Typography>

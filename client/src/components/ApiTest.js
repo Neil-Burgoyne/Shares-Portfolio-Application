@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { getStocks, getStock, getNews, getNewsSymbol } from '../api_services/StocksService';
-import { getUsers, getUser } from '../api_services/UsersService';
-import DonutChart from './home/DonutChart';
-import News from './news/News';
-import CompanyNews from './news/CompanyNews';
+// import React, { useState, useEffect } from 'react'
+// import { getStocks, getStock, getNews, getNewsSymbol } from '../api_services/StocksService';
+// import { getUsers, getUser } from '../api_services/UsersService';
+// import DonutChart from './home/DonutChart';
+// import News from './news/News';
+// import CompanyNews from './news/CompanyNews';
 
 const ApiTest = () => {
     // const [allStocks, setAllStocks] = useState([]);
     // const [stock, setStock] = useState({});
-    const [allUsers, setUsers] = useState([]);
-    const [user, setUser] = useState({});
-    const [news, setNews] = useState(null)
-    const [newsSymbol, setNewsSymbol] = useState(null)
+    // const [allUsers, setUsers] = useState([]);
+    // const [user, setUser] = useState({});
+    // const [news, setNews] = useState(null)
+    // const [newsSymbol, setNewsSymbol] = useState(null)
 
     // useEffect(() => {
     //     const fetchStocks = async () => {
@@ -68,12 +68,12 @@ const ApiTest = () => {
     // }, [])
 
 
-    return (<div>
-        <h1>ApiTest</h1>
-        <News />
-        <CompanyNews symbol={'AAPL'} />
-        {/* <DonutChart user={allUsers[0]} /> */}
-    </div>);
+    // return (<div>
+    //     <h1>ApiTest</h1>
+    //     <News />
+    //     <CompanyNews symbol={'AAPL'} />
+    //     {/* <DonutChart user={allUsers[0]} /> */}
+    // </div>);
 }
 
 export default ApiTest;

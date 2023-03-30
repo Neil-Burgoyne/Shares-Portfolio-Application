@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Paper, Snackbar } from '@mui/material';
+import { Paper} from '@mui/material';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { getUsers, transaction } from '../api_services/UsersService';
-import { getStocks, getStock } from '../api_services/StocksService';
-
+import { getStocks } from '../api_services/StocksService';
 import Home from '../components/home/Home.js';
 import View from '../components/view/View.js';
-
 import ButtonAppBar from '../components/app/AppBar.js';
-import { teal } from '@mui/material/colors';
-
 import ApiTest from '../components/ApiTest.js';
 import Message from '../components/app/Message';
 import ChartTheme from '../styles/ChartTheme';
-import LinearIndeterminate from '../components/app/Loading';
 import SplashPage from '../components/app/SplashPage';
 
 const SharesPortfolio = () => {
@@ -79,7 +74,7 @@ const SharesPortfolio = () => {
   const addShares = (newShareData) => {
     const temp = [...allUsers];
     const match = allStocks.find(
-      (stock) => stock.symbol == newShareData.stockSymbol
+      (stock) => stock.symbol === newShareData.stockSymbol
     );
     transaction(
       allUsers[user]._id,
@@ -101,7 +96,7 @@ const SharesPortfolio = () => {
   //DATA - number / SINGLESTOCK - stock
   const sellShares = (data, singleStock) => {
     const temp = [...allUsers];
-    const match = allStocks.find((stock) => stock.symbol == singleStock.symbol);
+    const match = allStocks.find((stock) => stock.symbol === singleStock.symbol);
     transaction(
       allUsers[user]._id,
       singleStock.symbol,

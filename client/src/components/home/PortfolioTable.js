@@ -31,13 +31,11 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
     );
   });
 
-  const answer =
-    (user.portfolioTotals.totalPortfolioValue /
-      user.portfolioTotals.totalPaid) *
-    100;
-
-  console.log(user.portfolioTotals.totalPortfolioValue);
-  console.log(user.portfolioTotals.totalPortfolioValue.length);
+  // NOT USED
+  // const answer =
+  //   (user.portfolioTotals.totalPortfolioValue /
+  //     user.portfolioTotals.totalPaid) *
+  //   100;
 
   return (
     <>
@@ -80,21 +78,7 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
               <TableCell sx={cellStyle} style={{ fontWeight: 'bold' }}>
                 ${comma(user.portfolioTotals.totalPortfolioValue)}
               </TableCell>
-              {/* {answer >= 100 ? (
-                <TableCell
-                  style={{ color: '#00DD00', fontWeight: 'bold' }}
-                  sx={cellStyle}
-                >
-                  &#8593;{(answer - 100).toFixed(2)}%
-                </TableCell>
-              ) : (
-                <TableCell
-                  style={{ color: 'red', fontWeight: 'bold' }}
-                  sx={cellStyle}
-                >
-                  &#8595;{(100 - answer).toFixed(2)}%
-                </TableCell>
-              )} */}
+              <TableCell />
               <TableCell />
               <TableCell />
               <TableCell />
@@ -107,7 +91,3 @@ const PortfolioTable = ({ sellShares, addShares, user, selectSymbol }) => {
 };
 
 export default PortfolioTable;
-
-{
-  /* <TableCell sx={cellStyle}>Edit</TableCell> */
-}

@@ -52,6 +52,7 @@ export default function ButtonAppBar({ user }) {
           >
             <img
               src="/atlas.png"
+              alt="Atlas Wealth Logo"
               style={{
                 height: '3.5rem',
                 paddingLeft: '10rem',
