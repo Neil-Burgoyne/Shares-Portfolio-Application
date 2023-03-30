@@ -17,7 +17,7 @@ This project was built using:
 - Finnhub API
 
 <span>
-<img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
+<img margin-right="10px" height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/react/react-original.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/javascript/javascript-original.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/mongodb/mongodb-original.svg">
 <img height="50px" src="https://github.com/devicons/devicon/blob/v2.15.1/icons/materialui/materialui-plain.svg">
