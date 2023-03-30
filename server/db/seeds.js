@@ -5,26 +5,7 @@ db.userData.insertMany([
     {
         "name": "Millicent Moneybags",
         "portfolio": [
-            {
-                "stockSymbol": "AAPL",
-                "numshares": 120,
-                "averagePricePaid": 126,
-                "currentMarketValue": 125,
-                "currentTotalValue": 15120,
-                "totalPaid": 15750,
-                "totalFromSales": 0,
-                "totalValueIncrease": -600
-            },
-            {
-                "stockSymbol": "IBM",
-                "numshares": 120,
-                "averagePricePaid": 35,
-                "currentMarketValue": 125,
-                "currentTotalValue": 15000,
-                "totalPaid": 4200,
-                "totalfromSales": 0,
-                "totalValueIncrease": 10800
-            },
+
         ],
 
         "shareTransactions": [
@@ -62,10 +43,139 @@ db.userData.insertMany([
                 "date": "22-11-12",
                 "price": "127.00",
                 "type": "purchase"
+            },
+            {
+                "stockSymbol": "IBM",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "IBM",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "IBM",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "U",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "U",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "U",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "AMD",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "AMD",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "AMD",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "AMD",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "UBER",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "UBER",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "UBER",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
+            },
+            {
+                "stockSymbol": "UBER",
+                "quantity": 18,
+                "date": "22-11-12",
+                "price": "127.00",
+                "type": "purchase"
             }
 
         ]
     }
 ])
 
-db.stocksCache.insertMany([{ "symbol": "AAPL", "name": "Apple Inc.", "cached": 20221025 }, { "symbol": "MSFT", "name": "Microsoft Corporation", "cached": 20221025 }, { "symbol": "IBM", "name": "International Business Machines Corporation", "cached": 20221025 }, { "symbol": "AMD", "name": "Advanced Micro Devices Inc.", "cached": 20221025 }, { "symbol": "NOW", "name": "ServiceNow Inc.", "cached": 20221025 }, { "symbol": "SQ", "name": "Square Inc.", "cached": 20221025 }, { "symbol": "FIS", "name": "Fidelity National Information Services Inc.", "cached": 20221025 }, { "symbol": "INTU", "name": "Intuit Inc.", "cached": 20221025 }, { "symbol": "UBER", "name": "Uber Technologies Inc.", "cached": 20221025 }, { "symbol": "SNOW", "name": "Snowflake Inc.", "cached": 20221025 }]);
+db.stocksCache.insertMany([
+    { "symbol": "AAPL", "name": "Apple Inc.", "cached": 20221025 },
+    { "symbol": "MSFT", "name": "Microsoft Corporation", "cached": 20221025 },
+    { "symbol": "IBM", "name": "International Business Machines Corporation", "cached": 20221025 },
+    { "symbol": "AMD", "name": "Advanced Micro Devices Inc.", "cached": 20221025 },
+    { "symbol": "NOW", "name": "ServiceNow Inc.", "cached": 20221025 },
+    { "symbol": "SQ", "name": "Square Inc.", "cached": 20221025 },
+    { "symbol": "FIS", "name": "Fidelity National Information Services Inc.", "cached": 20221025 },
+    { "symbol": "INTU", "name": "Intuit Inc.", "cached": 20221025 },
+    { "symbol": "UBER", "name": "Uber Technologies Inc.", "cached": 20221025 },
+    { "symbol": "SNOW", "name": "Snowflake Inc.", "cached": 20221025 },
+    { "symbol": "FISV", "name": "Fiserv Inc.", "cached": 20221025 },
+    { "symbol": "AMAT", "name": "Applied Materials Inc.", "cached": 20221025 },
+    { "symbol": "MU", "name": "Micron Technology Inc.", "cached": 20221025 },
+    { "symbol": "INFY", "name": "Infosys Limited", "cached": 20221025 },
+    { "symbol": "LRCX", "name": "Lam Research Corporation", "cached": 20221025 },
+    { "symbol": "VMW", "name": "VMware Inc.", "cached": 20221025 },
+    { "symbol": "ADSK", "name": "Autodesk Inc.", "cached": 20221025 },
+    { "symbol": "TEAM", "name": "Atlassian Corporation Plc", "cached": 20221025 },
+    { "symbol": "DELL", "name": "Dell Technologies Inc.", "cached": 20221025 },
+    { "symbol": "ADI", "name": "Analog Devices Inc.", "cached": 20221025 },
+    { "symbol": "WDAY", "name": "Workday Inc.", "cached": 20221025 },
+    { "symbol": "NXPI", "name": "NXP Semiconductors N.V.", "cached": 20221025 },
+    { "symbol": "CTSH", "name": "Cognizant Technology Solutions Corporation", "cached": 20221025 },
+    { "symbol": "ERIC", "name": "Telefonaktiebolaget LM Ericsson (publ)", "cached": 20221025 },
+    { "symbol": "DOCU", "name": "DocuSign Inc.", "cached": 20221025 },
+    { "symbol": "PLTR", "name": "Palantir Technologies Inc.", "cached": 20221025 },
+    { "symbol": "KLAC", "name": "KLA Corporation", "cached": 20221025 },
+    { "symbol": "APH", "name": "Amphenol Corporation", "cached": 20221025 },
+    { "symbol": "TEL", "name": "TE Connectivity Ltd.", "cached": 20221025 },
+    { "symbol": "U", "name": "Unity Software Inc.", "cached": 20221025 },
+]);
