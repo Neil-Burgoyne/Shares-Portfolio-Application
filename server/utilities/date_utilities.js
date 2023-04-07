@@ -21,7 +21,6 @@ const monthToDate = () => {
     const todayRaw = new Date().toISOString().split('T')[0];
     const todaySplit = todayRaw.split("-")
     const previousMonth = prevMonth(todaySplit[1])
-    if (todaySplit[2] < 10) todaySplit[2] = `0${todaySplit[2]}`
     const today = todaySplit.join("-")
     const lastMonth = `${todaySplit[0]}-${previousMonth}-${todaySplit[2] > 28 ? 28 : todaySplit[2]}`
     return { today, lastMonth }
